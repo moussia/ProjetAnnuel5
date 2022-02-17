@@ -3,43 +3,25 @@ import {
   BrowserRouter,
   Link,
   Router,
-  Route
+  Route,
+  Routes
 } from "react-router-dom";
-import Login from './components/Login';
-import Signup from './components/Signup';
-import { Switch } from '@mui/material';
+import {Login} from './views/Login';
+import Signup from './views/Signup';
 
-function App() {
+export const App = () => {
   console.log("coco")
   return (
 
     <div>
-      <Router>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
-
-          </ul>
-        </nav>
-      </Router >
+     
       <BrowserRouter>
-        <Switch>
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/' component={Login} />
-          <Route exact path='/signup' component={Signup} />
-        </Switch>
+        <Routes>
+          <Route exact path='/' element={<Login />} />
+          <Route exact path='/login' element={<Login />} />
+          <Route exact path='/signup' element={<Signup />} />
+        </Routes>
       </BrowserRouter>
     </div >
   );
 }
-
-
-export default App;
