@@ -1,0 +1,23 @@
+{
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["prettier", "security", "mongodb"],
+  "extends": ["eslint:recommended", "plugin:node/recommended", "prettier"],
+  "rules": {
+    // "no-console": 1, // Means warning
+    "prettier/prettier": 2, // Means error
+    // "node/no-unsupported-features/es-syntax": [
+    // "error",
+    // { "ignores": ["modules"] }
+    // ]
+    // },
+    "settings": {
+      "node": {
+        "tryExtensions": [".js", ".json", ".node"]
+      }
+    }
+  }
+}
