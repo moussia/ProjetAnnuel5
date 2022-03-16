@@ -1,0 +1,60 @@
+#
+POST http://localhost:3003/user/create
+Content-Type: application/json
+
+{
+    "lastname" : "coco",
+    "firstname" : "coco",
+    "phone" : "0140161716",
+    "birthdate" : "Tue Mar 15 2022 21:43:25 GMT+0100 (heure normale d’Europe centrale)",
+    "address" : "8 rue de romainville",
+    "city" : "paris",
+    "country" : "france",
+    "email" : "moussiamottal@gmail.com",
+    "password" : "coco",
+    "zipcode" : "75019"
+}
+
+### FAUX PASS
+POST http://localhost:3003/session
+Content-Type: application/json
+
+{
+    "email" : "moussiamottal@gmail.com",
+    "password" : "bla"
+}
+
+### FAUX MAIL
+POST http://localhost:3003/session
+Content-Type: application/json
+
+{
+    "email" : "moussiamsottal@gmail.com",
+    "password" : "coco"
+}
+
+
+### FAUX TOUT
+POST http://localhost:3003/session
+Content-Type: application/json
+
+{
+    "email" : "moussiamodgbusjkgdbttal@gmail.com",
+    "password" : "bla"
+}
+
+### 
+POST http://localhost:3003/session
+Content-Type: application/json
+
+{
+    "email" : "moussiamottal@gmail.com",
+    "password" : "coco"
+}
+
+### 
+GET http://localhost:3003/user/current
+
+
+### 
+DELETE http://localhost:3003/session

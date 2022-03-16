@@ -1,15 +1,10 @@
 import { Router } from 'express';
-const router = Router();
+import { createUser, currentUser } from '../controller/user.js';
+import { isAuthenticated } from '../middleware/isAuthenticated.js';
 
-router.post('/game', validator.validateLaunch, visitor.launch);
-router.post(
-    '/game/:gameID/action',
-    tokens.verifyToken,
-    validator.validateAction,
-    visitor.action
-);
-router.get('/leaderboard', visitor.leaderboard);
-router.get('/', visitor.menu);
-// router.use('*', visitor.notFound);
+const userRouter = Router();
 
-module.exports = router;
+userRouter.post('/create', createUser);
+userRouter.get('/current', isAuthenticated, currentUser);
+
+export default userRouter;

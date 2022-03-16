@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
-const userSchema = new mongoose.Schema({
+const schema = new Schema({
     lastname: {
         type: String,
         required: true
@@ -10,21 +11,21 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     email: {
-        type: email,
+        type: String,
         required: true
     },
     password: {
-        type: password,
+        type: String,
         required: true
     },
     phone: {
-        type: Number,
+        type: String,
         required: true
     },
-    role: {
-        enum: ['PARENT', 'PROFESSIONAL'],
-        default: 'PARENT'
-    },
+    // role: {
+    //     enum: ['PARENT', 'PROFESSIONAL'],
+    //     default: 'PARENT'
+    // },
     birthdate: {
         type: Date,
         required: true
@@ -42,11 +43,9 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     zipcode: {
-        type: Number,
+        type: String,
         required: true
     }
-
-
 });
 
-module.exports = mongoose.model('User', userSchema);
+export default model('User', schema);

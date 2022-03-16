@@ -1,0 +1,34 @@
+import User from '../model/User.js';
+import bcrypt from 'bcrypt';
+
+export const createUser = async (req, res) => {
+    // create and save new player in DB
+    const { email, password, firstname, lastname, phone, role, birthdate, address, city, country, zipcode } = req.body;
+    const hash = await bcrypt.hash(password, 10);
+    const user = new User({
+        email,
+        password: hash,
+        firstname,
+        lastname,
+        phone,
+        role,
+        birthdate,
+        address,
+        city,
+        country,
+        zipcode
+    });
+    user.save();
+    res.send();
+}
+
+export const findUser = async (req, res) => {
+    const { email } = req.body;
+    return await User.findOne({ email });
+}
+
+
+export const currentUser = async (req, res) => {
+    console.log(res.user);
+    res.send(req.user);
+}
