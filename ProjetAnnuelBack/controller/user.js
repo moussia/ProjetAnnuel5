@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 
 export const createUser = async (req, res) => {
     // create and save new player in DB
-    const { email, password, firstname, lastname, phone, role, birthdate, address, city, country, zipcode } = req.body;
+    const { email, password, firstname, lastname, phone, role, birthday, address, city, country, zipcode } = req.body;
     const hash = await bcrypt.hash(password, 10);
     const user = new User({
         email,
@@ -12,13 +12,14 @@ export const createUser = async (req, res) => {
         lastname,
         phone,
         role,
-        birthdate,
+        birthday,
         address,
         city,
         country,
         zipcode
     });
     user.save();
+    console.log('✅ Inscription');
     res.send();
 }
 

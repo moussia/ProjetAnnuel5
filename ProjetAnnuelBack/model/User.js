@@ -26,10 +26,10 @@ const schema = new Schema({
     //     enum: ['PARENT', 'PROFESSIONAL'],
     //     default: 'PARENT'
     // },
-    birthdate: {
-        type: Date,
-        required: true
-    },
+    // birthday: {
+    //     type: Date,
+    //     required: true
+    // },
     address: {
         type: String,
         required: true

@@ -6,6 +6,7 @@ import authRouter from './routes/auth.js';
 import './conf/database.js';
 import passport from 'passport';
 import { passportInit } from './conf/passport.js';
+import cors from 'cors';
 
 
 const app = express();
@@ -15,6 +16,13 @@ app.use(
     express.urlencoded({
         extended: true,
         limit: '30mb'
+    })
+);
+
+app.use(
+    cors({
+        credentials: true,
+        origin: [process.env.URL_FRONT]
     })
 );
 

@@ -6,7 +6,6 @@ Content-Type: application/json
     "lastname" : "coco",
     "firstname" : "coco",
     "phone" : "0140161716",
-    "birthdate" : "Tue Mar 15 2022 21:43:25 GMT+0100 (heure normale d’Europe centrale)",
     "address" : "8 rue de romainville",
     "city" : "paris",
     "country" : "france",
