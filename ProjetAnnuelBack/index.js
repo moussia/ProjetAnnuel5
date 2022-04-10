@@ -36,7 +36,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             secure: false, //Quand on sera en https 
-            maxAge: 30 * 24 * 60 * 60 * 1000 //la session va durer 30 jours
+            maxAge: 30 * 24 * 60 * 60 * 1000, //la session va durer 30 jours
+            sameSite: 'none',
         }
     })
 );
