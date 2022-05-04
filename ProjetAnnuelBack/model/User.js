@@ -12,7 +12,8 @@ const schema = new Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -39,11 +40,16 @@ const schema = new Schema({
         required: true
     },
     country: {
-        type: String,
-        required: true
+        type: String
     },
     zipcode: {
         type: String,
+        required: true
+    },
+    sex: {
+        type: String,
+        enum: ['MAN', 'WOMAN'],
+        default: 'MAN',
         required: true
     }
 });

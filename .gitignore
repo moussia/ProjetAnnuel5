@@ -8,6 +8,8 @@
 .history
 # testing
 /coverage
+ProjetAnnuelBack/node_modules
+ProjetAnnuelFront/node_modules
 
 # production
 /build

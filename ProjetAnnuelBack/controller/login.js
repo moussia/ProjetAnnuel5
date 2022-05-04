@@ -2,6 +2,7 @@ import User from '../model/User.js';
 import bcrypt from 'bcrypt';
 
 export const Login = async (email, password, done) => {
+    console.log(email, password)
     const user = await User.findOne({ email });
     if (!user) {
         return done(null, false);

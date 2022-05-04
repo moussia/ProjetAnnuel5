@@ -33,3 +33,9 @@ export const currentUser = async (req, res) => {
     console.log(res.user);
     res.send(req.user);
 }
+
+export const updateUser = async (req, res) => {
+    console.log('body', req.body);
+    const updatedUser = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
+    res.send(updatedUser);
+}
