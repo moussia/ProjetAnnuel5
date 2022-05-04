@@ -1,0 +1,40 @@
+.image-nature {
+  background-image: url('../images/nature.jpg');
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.centrer {
+  text-align: center;
+}
+
+.margin {
+  margin: 5%;
+}
+
+.paddingcinq {
+  padding: 5%;
+}
+
+.white {
+  background-color: white;
+}
+
+.imagedoctor {
+  background-image: url('../images/doctor.jpg');
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.images-contact {
+  width: 20%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

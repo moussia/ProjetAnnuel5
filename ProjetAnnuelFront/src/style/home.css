@@ -1,0 +1,48 @@
+.imageaccueil {
+  width: 100%;
+}
+/* 
+.imagefondaccueil {
+  width: 100%;
+  object-fit: cover;
+  min-height: 100%;
+  height: calc(100vh - 45px);
+  position: relative;
+  filter: brightness(50%);
+}
+.text-on-image {
+  position: absolute;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}*/
+.textaccueil {
+  text-align: center;
+  margin: 5%;
+  line-height: 2em;
+}
+
+.textcenter {
+  text-align: center;
+}
+
+.imageaccueil {
+  background-color: red;
+  /* background-image: '../images/accueil.jpg'; */
+  background-image: url('../images/accueil.jpg');
+}
+
+.colorgray {
+  padding: 5%;
+  background-color: #eef0f2;
+}
+
+.imagebaby {
+  width: 100%;
+}
+
+.toto {
+  margin-left: auto;
+  margin-right: auto;
+}
