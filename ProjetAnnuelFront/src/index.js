@@ -18,7 +18,6 @@ ReactDOM.render(
 
     <ThemeProvider theme={themeLight}>
       <CssBaseline />
-
       <App />
     </ThemeProvider>
 

@@ -30,6 +30,8 @@
 .imageaccueil {
   background-color: white;
   background-image: url('../images/accueil.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .colorgray {

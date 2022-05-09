@@ -5,7 +5,7 @@ export const Quisommesnous = () => {
 
     return (
         <Grid container-fluid spacing={2}>
-            <Grid item xs={12} md={12} className="imageaccueil textalign">
+            <Grid item xs={12} md={12} className={styles.imageaccueil}>
                 <h1>DÉCOUVREZ NOTRE ASSOCIATION SOS PARENTS
                     à Paris (75), Île-de-France</h1>
                 <h2>Notre principe fondateur ? « Urgence, Permanence et Continuité des soins 365 jours par an ! »</h2>

@@ -11,20 +11,31 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import styles from "../style/menu.module.css";
+import axios from 'axios';
+import Loader from './Loader';
 
 const pages = [
     { label: 'Qui sommes-nous ?', route: 'qui-sommes-nous' },
     // { label: 'Nos services', route: 'services' },
     // { label: 'Recrutement', route: 'recrutement' },
     // { label: 'FAQ', route: 'faq' },
-    { label: 'Mon compte', route: 'moncompte' },
+    { label: 'Mon compte', route: 'moncompte', restricted: 'private' },
     { label: 'Contact', route: 'contact' },
-    { label: 'Connexion', route: 'login' }
+    { label: 'Connexion', route: 'login', restricted: 'public' },
+    { label: 'Deconnexion', route: 'logout', restricted: 'private' },
+
 ];
 
-const ResponsiveAppBar = () => {
+const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const navigate = useNavigate();
+    const [isAuthenticated, setIsAuthenticated] = React.useState(null);
+
+    React.useEffect(() => {
+        axios({ url: 'http://localhost:3003/user/current', withCredentials: true })
+            .then(() => setIsAuthenticated(true))
+            .catch(() => setIsAuthenticated(false));
+    });
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -38,6 +49,8 @@ const ResponsiveAppBar = () => {
         navigate(route);
     }
 
+    if (isAuthenticated === null) return <Loader />;
+    console.log(isAuthenticated);
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -83,21 +96,30 @@ const ResponsiveAppBar = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
-                                    <Typography textAlign="center">{page.label}</Typography>
-                                </MenuItem>
+                                <React.Fragment>
+                                    {!((page.restricted === 'public' && isAuthenticated) || (page.restricted === 'private' && !isAuthenticated)) &&
+                                        <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
+                                            <Typography textAlign="center">{page.label}</Typography>
+                                        </MenuItem>
+                                    }
+                                </React.Fragment>
+
                             ))}
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <Button
-                                key={page.label}
-                                onClick={() => handleMenuClick(page.route)}
-                                sx={{ my: 2, color: 'black', display: 'block' }}
-                            >
-                                {page.label}
-                            </Button>
+                            <React.Fragment>
+                                {!((page.restricted === 'public' && isAuthenticated) || (page.restricted === 'private' && !isAuthenticated)) &&
+                                    <Button
+                                        key={page.label}
+                                        onClick={() => handleMenuClick(page.route)}
+                                        sx={{ my: 2, color: 'black', display: 'block' }}
+                                    >
+                                        {page.label}
+                                    </Button>
+                                }
+                            </React.Fragment>
                         ))}
                     </Box>
                 </Toolbar>
@@ -105,4 +127,4 @@ const ResponsiveAppBar = () => {
         </AppBar>
     );
 };
-export default ResponsiveAppBar;
+export default Header;

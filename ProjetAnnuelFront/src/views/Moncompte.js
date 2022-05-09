@@ -55,8 +55,8 @@ export const Moncompte = () => {
     };
 
     return (
-        <Grid container className="centerbutton">
-            <Card className="vertical-center">
+        <Grid container className={styles.centerbutton}>
+            <Card className={styles.verticalcenter}>
                 <CardContent>
                     <div>
                         <h1>Informations personnelles</h1>
@@ -247,7 +247,7 @@ export const Moncompte = () => {
                                     </Grid>
                                 </Grid>
 
-                                <Grid item xs={12} className="centerbutton">
+                                <Grid item xs={12} className={styles.centerbutton}>
                                     <Button
                                         type="submit"
                                         variant="contained"

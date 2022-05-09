@@ -283,7 +283,7 @@ export default function Signup() {
                                                 <FormControlLabel value="MAN" label="Homme" control={<Radio />} labelPlacement="homme" />
                                             </RadioController>
                                         </Grid>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={12} className={styles.textalign}>
                                             <Button
                                                 type="submit"
                                                 variant="contained"
@@ -293,12 +293,12 @@ export default function Signup() {
                                                 ENVOYER
                                             </Button>
                                             <Grid item>
-                                                <Link href="/forgetpassword" variant="body2">
+                                                <Link href="/forgetpassword" >
                                                     Mot de passe oublié
                                                 </Link>
                                             </Grid>
                                             <Grid item>
-                                                <Link href="/login" variant="body2">
+                                                <Link href="/login">
                                                     {"Connexion"}
                                                 </Link>
                                             </Grid>

@@ -73,7 +73,6 @@ export const Login = () => {
                                 <TextController
                                     fullWidth
                                     label='Email'
-                                    // className='loginInput'
                                     variant='outlined'
                                     name='email'
                                     required
@@ -84,7 +83,7 @@ export const Login = () => {
                                         required: {
                                             value: true,
                                             message: 'Saisie incorrecte.'
-                                        }//une lettre , majuscule, mail non valide
+                                        }
                                     }}
                                     control={control}
                                     error={errors.email ? true : false}
@@ -93,7 +92,6 @@ export const Login = () => {
                                 <TextController
                                     fullWidth
                                     label='Mot de passe'
-                                    // className='loginInput'
                                     variant='outlined'
                                     type='password'
                                     name='password'

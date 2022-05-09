@@ -36,15 +36,15 @@ export const Contact = () => {
 
     return (
         <div className="coco" >
-            <Grid item xs={12} className="image-nature">
-                <div className="centrer">
+            <Grid item xs={12} className={styles.imagenature}>
+                <div className={styles.centrer}>
                     <h1>Nous contacter</h1>
                     <h2>Votre bien être est le nôtre</h2>
                 </div>
             </Grid>
-            <Grid container className="">
+            <Grid container>
 
-                <Grid item xs={4} className="centrer paddingcinq">
+                <Grid item xs={4} className={styles.centrer}>
                     <div>
                         <p>
                             {/* <img src={require('../images/appel.png')} alt="prof" /> */}
@@ -56,9 +56,9 @@ export const Contact = () => {
                     <p>    88 avenue Charles de Gaulle,</p>
                     <p> 92200 Neuilly Sur Seine</p>
                 </Grid>
-                <Grid className="white paddingcinq" item xs={8}>
-                    <form className='inputcenter'>
-                        <p className='centrer'>Egalement, vous pouvez utiliser notre formulaire de contact</p>
+                <Grid className={styles.white} item xs={8}>
+                    <form className={styles.inputcenter}>
+                        <p className={styles.centrer}>Egalement, vous pouvez utiliser notre formulaire de contact</p>
 
                         <Grid spacing={2}>
                             <Grid item xs={12}>
@@ -66,7 +66,6 @@ export const Contact = () => {
                                     required
                                     fullWidth
                                     label='Nom'
-                                    className='signupInput'
                                     name='nom'
                                     margin="normal"
                                     rules={{
@@ -86,7 +85,6 @@ export const Contact = () => {
                                     required
                                     fullWidth
                                     label='Email'
-                                    className='signupInput'
                                     name='Email'
                                     margin="normal"
                                     rules={{
@@ -106,7 +104,6 @@ export const Contact = () => {
                                     required
                                     fullWidth
                                     label='Sujet'
-                                    className='signupInput'
                                     name='sujet'
                                     margin="normal"
                                     rules={{
@@ -126,7 +123,6 @@ export const Contact = () => {
                                     required
                                     fullWidth
                                     label='Commentaire'
-                                    className='signupInput'
                                     name='Commentaire'
                                     margin="normal"
                                     rules={{
@@ -141,47 +137,47 @@ export const Contact = () => {
                                     helperText={errors?.commentaire?.message}
                                 />
                             </Grid>
-                            <Grid className='centrer' item xs={12}>
+                            <Grid className={styles.centrer} item xs={12}>
                                 <ColorButton variant="contained" size="large" >ENVOYER</ColorButton>
                             </Grid>
                         </Grid>
                     </form>
                 </Grid>
-            </Grid>
-            <Grid container className="imagedoctor">
+            </Grid >
+            <Grid container className={styles.imagedoctor} >
                 <Grid item xs={12}>
-                    <h2 className='centrer'>vous etes un profesionnel de la petite enfance ?</h2>
-                </Grid>
-            </Grid>
-            <Grid container className="white ">
+                    <h2 className={styles.centrer}>vous etes un profesionnel de la petite enfance ?</h2>
+                </Grid >
+            </Grid >
+            <Grid container className={styles.white} >
                 <Grid item xs={12}>
-                    <h2 className='centrer'>Un service d'excellence</h2>
-                </Grid>
+                    <h2 className={styles.centrer}>Un service d'excellence</h2>
+                </Grid >
                 <Grid item xs={4}>
-                    <img src={require('../images/prof.png')} alt="prof" className='images-contact' />
-                    <div className="centrer">
+                    <img src={require('../images/prof.png')} alt="prof" className={styles.imagescontact} />
+                    <div className={styles.centrer}>
                         <h2>Service d'informations</h2>
                         <p>  Est prévu pour tous renseignements sur notre service infos@feeli.io</p>
                     </div>
-                </Grid>
+                </Grid >
                 <Grid item xs={4}>
-                    <img src={require('../images/certif.png')} alt="certif" className='images-contact' />
-                    <div className="centrer">
+                    <img src={require('../images/certif.png')} alt="certif" className={styles.imagescontact} />
+                    <div className={styles.centrer}>
                         <h2>Données sécurisées et cryptées</h2>
                         <p>     Vous êtes propriétaire de vos données
                             de santé</p>
                     </div>
-                </Grid>
+                </Grid >
                 <Grid item xs={4}>
-                    <img src={require('../images/traitement.png')} alt="traitement" className='images-contact' />
-                    <div className="centrer">
+                    <img src={require('../images/traitement.png')} alt="traitement" className={styles.imagescontact} />
+                    <div className={styles.centrer}>
                         <h2>Votre prescription et traitement en ligne</h2>
                         <p>     Disponible sous format numérique
                             en moins de deux heures</p>
                     </div>
-                </Grid>
+                </Grid >
 
-            </Grid>
+            </Grid >
 
         </div >
     );
