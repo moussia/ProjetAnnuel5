@@ -10,8 +10,9 @@ Content-Type: application/json
     "city" : "paris",
     "country" : "france",
     "email" : "moussiamottal@gmail.com",
-    "password" : "coco",
-    "zipcode" : "75019"
+    "password" : "Hayamottal555/",
+    "zipcode" : "75019",
+    "sex" : "f"
 }
 
 ### FAUX PASS
@@ -20,7 +21,7 @@ Content-Type: application/json
 
 {
     "email" : "moussiamottal@gmail.com",
-    "password" : "bla"
+    "password" : "coco"
 }
 
 ### FAUX MAIL

@@ -28,8 +28,7 @@
 }
 
 .imageaccueil {
-  background-color: red;
-  /* background-image: '../images/accueil.jpg'; */
+  background-color: white;
   background-image: url('../images/accueil.jpg');
 }
 

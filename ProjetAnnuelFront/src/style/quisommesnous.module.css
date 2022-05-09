@@ -1,0 +1,11 @@
+.imageaccueil {
+  background-color: white;
+  background-image: url('../images/aditya-romansa-5zp0jym2w9M-unsplash.jpg');
+  width: 100%;
+  height: 300px;
+  background-position: 50% 50%;
+}
+
+.textalign {
+  text-align: center;
+}

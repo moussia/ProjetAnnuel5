@@ -14,6 +14,7 @@ import Card from '@mui/material/Card';
 import { TextController } from '../components/form/textController';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
+import styles from '../style/login.module.css';
 
 
 export const Login = () => {
@@ -49,91 +50,93 @@ export const Login = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Card className="centerbutton">
-                <CardContent>
-                    <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                        <Box
-                            sx={{
-                                marginTop: 8,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                                <LockOutlinedIcon />
-                            </Avatar>
-                            <Typography component="h1" variant="h5">
-                                Connexion
-                            </Typography>
-                            <TextController
-                                fullWidth
-                                label='Email'
-                                className='loginInput'
-                                variant='outlined'
-                                name='email'
-                                required
-                                margin="normal"
-                                autoComplete="email"
-                                autoFocus
-                                rules={{
-                                    required: {
-                                        value: true,
-                                        message: 'Saisie incorrecte.'
-                                    }//une lettre , majuscule, mail non valide
+        <Grid container className={styles.imagenature}>
+            <Container maxWidth="xs">
+                <CssBaseline />
+                <Card className={styles.centerbutton}>
+                    <CardContent>
+                        <form noValidate onSubmit={handleSubmit(onSubmit)}>
+                            <Box
+                                sx={{
+                                    marginTop: 8,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
                                 }}
-                                control={control}
-                                error={errors.email ? true : false}
-                                helperText={errors?.email?.message}
-                            />
-                            <TextController
-                                fullWidth
-                                label='Mot de passe'
-                                className='loginInput'
-                                variant='outlined'
-                                type='password'
-                                name='password'
-                                required
-                                margin="normal"
-                                autoComplete="email"
-                                autoFocus
-                                rules={{
-                                    required: {
-                                        value: true,
-                                        message: 'Saisie incorrecte.'
-                                    }
-                                }}
-                                control={control}
-                                error={errors.password ? true : false}
-                                helperText={errors?.password?.message}
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                disabled={!isValid || !isDirty || isSubmitting}
                             >
-                                Sign In
-                            </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="/forgetpassword" variant="body2">
-                                        Mot de passe oublié
-                                    </Link>
+                                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                    <LockOutlinedIcon />
+                                </Avatar>
+                                <Typography component="h1" variant="h5">
+                                    Connexion
+                                </Typography>
+                                <TextController
+                                    fullWidth
+                                    label='Email'
+                                    // className='loginInput'
+                                    variant='outlined'
+                                    name='email'
+                                    required
+                                    margin="normal"
+                                    autoComplete="email"
+                                    autoFocus
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: 'Saisie incorrecte.'
+                                        }//une lettre , majuscule, mail non valide
+                                    }}
+                                    control={control}
+                                    error={errors.email ? true : false}
+                                    helperText={errors?.email?.message}
+                                />
+                                <TextController
+                                    fullWidth
+                                    label='Mot de passe'
+                                    // className='loginInput'
+                                    variant='outlined'
+                                    type='password'
+                                    name='password'
+                                    required
+                                    margin="normal"
+                                    autoComplete="email"
+                                    autoFocus
+                                    rules={{
+                                        required: {
+                                            value: true,
+                                            message: 'Saisie incorrecte.'
+                                        }
+                                    }}
+                                    control={control}
+                                    error={errors.password ? true : false}
+                                    helperText={errors?.password?.message}
+                                />
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    disabled={!isValid || !isDirty || isSubmitting}
+                                >
+                                    Sign In
+                                </Button>
+                                <Grid container>
+                                    <Grid item xs>
+                                        <Link href="/forgetpassword" variant="body2">
+                                            Mot de passe oublié
+                                        </Link>
+                                    </Grid>
+                                    <Grid item>
+                                        <Link href="/signup" variant="body2">
+                                            {"Inscription"}
+                                        </Link>
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <Link href="/signup" variant="body2">
-                                        {"Inscription"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </form>
-                </CardContent>
-            </Card>
-        </Container>
+                            </Box>
+                        </form>
+                    </CardContent>
+                </Card>
+            </Container>
+        </Grid>
     );
 }

@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import '../style/moncompte.css';
+import styles from '../style/moncompte.module.css';
 import { useForm } from "react-hook-form";
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -242,7 +242,7 @@ export const Moncompte = () => {
                                 <Grid container>
                                     <Grid item xs>
                                         <Link href="/modifPassword" variant="body2">
-                                            Modifier Mot de passe
+                                            Modifier mot de passe
                                         </Link>
                                     </Grid>
                                 </Grid>

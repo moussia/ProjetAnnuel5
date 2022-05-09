@@ -1,0 +1,19 @@
+.centerbutton {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.imageNature {
+  background-image: url('../images/nature.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.textalign {
+  text-align: center;
+}
+
+.centercadenas {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

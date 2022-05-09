@@ -39,3 +39,7 @@ export const updateUser = async (req, res) => {
     const updatedUser = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
     res.send(updatedUser);
 }
+
+
+
+

@@ -3,21 +3,21 @@ import { Login } from '../controller/login.js';
 import User from '../model/User.js';
 
 export const passportInit = (passport) => {
-    // Define strategy to apply 
+    //_Define_strategy_to_apply 
     passport.use(
         new LocalStrategy(
             { usernameField: 'email', passwordField: 'password' },
             Login
         )
     );
-    console.log('✅ Passport loaded.');
+    console.log('✅ Passport loaded.');
 
-    // Specify which data should be store in session 
+    //_Specify_which_data_should_be_store_in_session 
     passport.serializeUser((user, done) =>
         done(null, user._id)
     );
 
-    // Invoked on every request and enable to reload user data 
+    //_Invoked_on_every_request_and_enable_to_reload_user_data 
     passport.deserializeUser(async (_id, done) => {
         const user = await User.findById(_id, { password: 0 });
         done(null, user);

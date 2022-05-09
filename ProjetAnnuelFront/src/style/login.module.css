@@ -1,0 +1,7 @@
+.imagenature {
+  background-image: url('../images/nature.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: auto;
+}

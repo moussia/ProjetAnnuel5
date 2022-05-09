@@ -12,10 +12,10 @@ import Card from '@mui/material/Card';
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
-import '../style/signup.css'
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { RadioController } from '../components/form/radioController';
+import styles from '../style/signup.module.css';
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -45,7 +45,7 @@ export default function Signup() {
     const onSubmit = async (data, e) => {
         e?.preventDefault();
 
-        axios({ url: 'http://localhost:3003/user/create', method: 'POST', data })
+        axios({ url: 'http://localhost:3003/user/create', method: 'POST', data, withCredentials: true })
             .then((data) => {
                 navigate("/");
             })
@@ -57,15 +57,14 @@ export default function Signup() {
 
     return (
         <>
-            <Grid container>
-                <Grid item xs={3}>
-                </Grid>
+            <Grid container className={styles.imageNature}>
+                <Grid item xs={3} />
                 <Grid item xs={6}>
-                    <Container className="image-nature">
-                        <Card className="centerbutton">
+                    <Container>
+                        <Card className={styles.centerbutton}>
                             <CardContent>
                                 <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                                    <Avatar className="" sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                    <Avatar className={styles.centercadenas} sx={{ m: 1, bgcolor: 'secondary.main' }}>
                                         <LockOutlinedIcon />
                                     </Avatar>
                                     <Typography component="h1" variant="h5">
@@ -77,7 +76,6 @@ export default function Signup() {
                                                 required
                                                 fullWidth
                                                 label='Prénom'
-                                                className='signupInput'
                                                 name='firstname'
                                                 margin="normal"
                                                 rules={{
@@ -100,7 +98,6 @@ export default function Signup() {
                                                 required
                                                 fullWidth
                                                 label='Nom'
-                                                className='signupInput'
                                                 name='lastname'
                                                 margin="normal"
                                                 rules={{
@@ -122,7 +119,6 @@ export default function Signup() {
                                             <TextController
                                                 fullWidth
                                                 label='Telephone'
-                                                className='signupInput'
                                                 variant='outlined'
                                                 name='phone'
                                                 required
@@ -151,7 +147,6 @@ export default function Signup() {
                                             <TextController
                                                 fullWidth
                                                 label='Adresse'
-                                                className='signupInput'
                                                 variant='outlined'
                                                 name='address'
                                                 required
@@ -176,7 +171,6 @@ export default function Signup() {
                                             <TextController
                                                 fullWidth
                                                 label='Ville'
-                                                className='signupInput'
                                                 variant='outlined'
                                                 name='city'
                                                 required
@@ -203,7 +197,6 @@ export default function Signup() {
                                             <TextController
                                                 fullWidth
                                                 label='Code postal'
-                                                className='signupInput'
                                                 variant='outlined'
                                                 name='zipcode'
                                                 required
@@ -233,7 +226,6 @@ export default function Signup() {
                                                 fullWidth
                                                 unique="true"
                                                 label='Email'
-                                                className='signupInput'
                                                 variant='outlined'
                                                 name='email'
                                                 required
@@ -259,7 +251,6 @@ export default function Signup() {
                                             <TextController
                                                 fullWidth
                                                 label='Mot de passe'
-                                                className='signupInput'
                                                 variant='outlined'
                                                 type='password'
                                                 name='password'
@@ -277,7 +268,7 @@ export default function Signup() {
                                                         message: 'Le mot de passe doit contenir minimum 8 caractères.'
                                                     },
                                                     pattern: {
-                                                        value: '(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$',
+                                                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
                                                         message: 'Le mot de passe doit contenir une majuscule, une minuscule, un caractère spécial ou un chiffre.'
                                                     }
                                                 }}
@@ -318,8 +309,7 @@ export default function Signup() {
                         </Card>
                     </Container >
                 </Grid>
-                <Grid item xs={3}>
-                </Grid>
+                <Grid item xs={3} />
             </Grid>
         </>
     );

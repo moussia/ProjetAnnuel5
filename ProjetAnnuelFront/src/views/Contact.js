@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import * as React from 'react';
-import '../style/contact.css';
+import styles from '../style/contact.module.css';
 import { TextField } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { styled } from '@mui/material/styles';

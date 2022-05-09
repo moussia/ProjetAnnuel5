@@ -5,20 +5,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import '../style/forgetpassword.css';
+import styles from '../style/forgetpassword.module.css';
 
 
 
 export const ModifPassword = () => {
 
     return (
-        <Container className="image-nature" component="main" maxWidth="xs">
+        <Container className="image-nature" maxWidth="xs">
             <CssBaseline />
             <Card className="centerbutton">
                 <CardContent>

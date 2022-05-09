@@ -28,14 +28,14 @@ app.use(
 
 passportInit(passport);
 
-// configure express session 
+//configure_express_session 
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false, //Quand on sera en https 
+            secure: false, //Quand_on_sera_en_https 
             maxAge: 30 * 24 * 60 * 60 * 1000, //la session va durer 30 jours
             sameSite: 'none',
         }

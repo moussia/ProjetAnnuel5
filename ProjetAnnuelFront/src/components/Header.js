@@ -10,13 +10,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import "../style/menu.css";
+import styles from "../style/menu.module.css";
 
 const pages = [
     { label: 'Qui sommes-nous ?', route: 'qui-sommes-nous' },
-    { label: 'Nos services', route: 'services' },
-    { label: 'Recrutement', route: 'recrutement' },
+    // { label: 'Nos services', route: 'services' },
+    // { label: 'Recrutement', route: 'recrutement' },
     // { label: 'FAQ', route: 'faq' },
+    { label: 'Mon compte', route: 'moncompte' },
     { label: 'Contact', route: 'contact' },
     { label: 'Connexion', route: 'login' }
 ];
