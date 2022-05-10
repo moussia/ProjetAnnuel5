@@ -1,7 +1,9 @@
 import User from '../model/User.js';
 import bcrypt from 'bcrypt';
+import { sendRegistrationEmail } from '../utils/mail.js';
 
 export const createUser = async (req, res) => {
+    console.log('toto');
     // create and save new player in DB
     const { email, password, firstname, lastname, phone, role, birthday, address, city, country, zipcode } = req.body;
     const hash = await bcrypt.hash(password, 10);
@@ -20,10 +22,12 @@ export const createUser = async (req, res) => {
     });
     user.save();
     console.log('✅ Inscription');
+    console.log(email);
+    sendRegistrationEmail(email);
     res.send();
 }
 
-export const findUser = async (req, res) => {
+export const findUser = async (req) => {
     const { email } = req.body;
     return await User.findOne({ email });
 }

@@ -12,7 +12,7 @@ Content-Type: application/json
     "email" : "moussiamottal@gmail.com",
     "password" : "Hayamottal555/",
     "zipcode" : "75019",
-    "sex" : "f"
+    "sex" : "WOMAN"
 }
 
 ### FAUX PASS

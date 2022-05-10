@@ -36,7 +36,6 @@ export const ValidateSignup = [
         .notEmpty()
         .withMessage(strings.VALIDATE_EMPTY_LASTNAME)
         .trim()
-        .isNumeric()
         .escape(),
     body('phone')
         .exists()
@@ -44,7 +43,10 @@ export const ValidateSignup = [
         .notEmpty()
         .withMessage(strings.VALIDATE_EMPTY_PHONE)
         .trim()
-        .escape(),
+        .escape()
+        .isMobilePhone()
+        .withMessage(strings.VALIDATE_ERROR_PHONE),
+
     body('address')
         .exists()
         .withMessage(strings.VALIDATE_ADDRESS_NEEDED)
@@ -65,7 +67,9 @@ export const ValidateSignup = [
         .notEmpty()
         .withMessage(strings.VALIDATE_EMPTY_ZIPCODE)
         .trim()
-        .escape(),
+        .escape()
+        .isPostalCode('FR')
+        .withMessage(strings.VALIDATE_ERROR_ZIPCODE),
     body('sex')
         .exists()
         .withMessage(strings.VALIDATE_SEX_NEEDED)

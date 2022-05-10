@@ -240,8 +240,13 @@ export default function Signup() {
                                                     minLength: {
                                                         value: '5',
                                                         message: 'L\'email doit contenir minimum 5 caractères.'
+                                                    },
+                                                    pattern: {
+                                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                        message: "Adresse email invalide."
                                                     }
                                                 }}
+
                                                 control={control}
                                                 error={errors.email ? true : false}
                                                 helperText={errors?.email?.message}
@@ -268,7 +273,7 @@ export default function Signup() {
                                                         message: 'Le mot de passe doit contenir minimum 8 caractères.'
                                                     },
                                                     pattern: {
-                                                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+                                                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\/+=%"])[A-Za-z\d@$!%*?&\/+=%"]{8,}$/,
                                                         message: 'Le mot de passe doit contenir une majuscule, une minuscule, un caractère spécial ou un chiffre.'
                                                     }
                                                 }}

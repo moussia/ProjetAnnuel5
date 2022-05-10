@@ -83,7 +83,12 @@ export const Login = () => {
                                         required: {
                                             value: true,
                                             message: 'Saisie incorrecte.'
+                                        },
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: "invalid email address"
                                         }
+
                                     }}
                                     control={control}
                                     error={errors.email ? true : false}

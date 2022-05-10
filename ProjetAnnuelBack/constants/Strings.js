@@ -19,4 +19,6 @@ export const strings = {
     VALIDATE_EMPTY_ZIPCODE: 'Champ vide.',
     VALIDATE_SEX_NEEDED: 'Champ obligatoire.',
     VALIDATE_EMPTY_SEX: 'Champ vide.',
+    VALIDATE_ERROR_ZIPCODE: 'Zip Code non valide.',
+    VALIDATE_ERROR_PHONE: 'Téléphone non valide.'
 }
