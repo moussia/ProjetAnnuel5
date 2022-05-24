@@ -3,16 +3,35 @@ POST http://localhost:3003/user/create
 Content-Type: application/json
 
 {
+    "lastname" : "admin",
+    "firstname" : "admin",
+    "phone" : "0140161716",
+    "address" : "8 rue de romainville",
+    "city" : "paris",
+    "country" : "france",
+    "email" : "kejlerj@gmail.com",
+    "password" : "Hayamottal555/",
+    "zipcode" : "75019",
+    "sex" : "WOMAN"
+}
+
+### CREATE PRO
+POST http://localhost:3003/user/pro/create
+Content-Type: application/json
+
+{
     "lastname" : "coco",
     "firstname" : "coco",
     "phone" : "0140161716",
     "address" : "8 rue de romainville",
     "city" : "paris",
     "country" : "france",
-    "email" : "moussiamottal@gmail.com",
+    "email" : "m0000000ussiamottal@gmail.com",
     "password" : "Hayamottal555/",
     "zipcode" : "75019",
-    "sex" : "WOMAN"
+    "sex" : "WOMAN",
+    "role" : "PRO",
+    "job": "pediatre"
 }
 
 ### FAUX PASS
@@ -23,6 +42,16 @@ Content-Type: application/json
     "email" : "moussiamottal@gmail.com",
     "password" : "coco"
 }
+
+### CONNEXION ADMIN
+POST http://localhost:3003/session
+Content-Type: application/json
+
+{
+    "email" : "sosparentsoff@gmail.com",
+    "password" : "Hayamottal555/"
+}
+
 
 ### FAUX MAIL
 POST http://localhost:3003/session
@@ -54,6 +83,20 @@ Content-Type: application/json
 
 ### 
 GET http://localhost:3003/user/current
+
+
+### 
+GET http://localhost:3003/admin/pro
+
+
+### GET PRO AVEC L'ID 1
+GET http://localhost:8000/pro/1
+content-type: application/json
+
+
+### 
+GET http://localhost:3003/admin/parent
+
 
 
 ### 

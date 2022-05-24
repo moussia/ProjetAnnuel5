@@ -2,7 +2,7 @@ import { body, validationResult } from 'express-validator';
 import { strings } from '../../constants/Strings.js';
 import { roles } from '../../constants/Roles.js';
 
-export const ValidateParentSignup = [
+export const ValidateProSignup = [
     body('email')
         .exists()
         .withMessage(strings.VALIDATE_EMAIL_NEEDED)
@@ -79,12 +79,17 @@ export const ValidateParentSignup = [
         .escape(),
     body('role')
         .trim()
-        .isIn([roles.USER])
+        .isIn([roles.PRO])
+        .escape(),
+    body('job')
+        .exists()
+        .trim()
+        .notEmpty()
         .escape(),
     (req, res, next) => {
         try {
             myValidationResult(req).throw();
-            const { email, password, lastname, firstname, address, city, zipcode, phone, sex, role } = req.body;
+            const { email, password, lastname, firstname, address, city, zipcode, phone, sex, role, job } = req.body;
             req.body = {
                 email,
                 password,
@@ -95,6 +100,7 @@ export const ValidateParentSignup = [
                 zipcode,
                 phone,
                 sex,
+                job,
                 role
             };
             next();

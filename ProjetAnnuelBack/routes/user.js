@@ -1,12 +1,18 @@
 import { Router } from 'express';
-import { createUser, currentUser, updateUser } from '../controller/user.js';
+import { createPro } from '../controller/pro-user.js';
+import { createParent, currentUser, updateUser } from '../controller/user.js';
 import { isAuthenticated } from '../middleware/isAuthenticated.js';
-import { ValidateSignup } from '../middleware/Validators/SignUp.js';
+import { isParent } from '../middleware/isAuthorized.js';
+import { ValidateParentSignup } from '../middleware/Validators/SignUp.js';
+import { ValidateProSignup } from '../middleware/Validators/SignUpPro.js';
+// import { isAdmin } from "../middlewares/isAdmin.js";
 
 const userRouter = Router();
 
-userRouter.post('/create', ValidateSignup, createUser);
+userRouter.post('/create', ValidateParentSignup, createParent);
+userRouter.post('/pro/create', ValidateProSignup, createPro);
 userRouter.get('/current', isAuthenticated, currentUser);
+userRouter.get('/services', isAuthenticated, isParent);
 userRouter.put('/update', isAuthenticated, updateUser);
 
 

@@ -1,7 +1,15 @@
-.imagenature {
+.imageNature {
   background-image: url('../images/nature.jpg');
   background-size: contain;
   background-repeat: no-repeat;
-  width: 100vw;
+  width: 100%;
   height: auto;
+}
+
+.colorpurple {
+  /* background-color: #9c27b0; */
+}
+
+.marginhaut {
+  margin-top: 5%;
 }

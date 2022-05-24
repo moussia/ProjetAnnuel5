@@ -29,17 +29,18 @@ export default function Home() {
         />
     );
     return (
-        <Grid container>
-            <Grid container-fluid className={styles.imageaccueil}>
-                <div className={styles.textcenter}>
+        <div>
+            <Grid container className={styles.imageaccueil}>
+                <div className={styles.textcenter, styles.colorwhite} >
                     <h1>Ne craquez plus, appelez nous pour vous aidez...</h1>
-                    <h2>Vous êtes fatigué ? Vous n'arrivez pas à calmer bébé ? Soufflez un peu et contactez nous !</h2>
-                    <h2>SOS PARENTS GRAND PARIS : </h2>
-                    <h3>Visites d'aides à domicile</h3>
-                    <h4>consultations</h4>
-                    <h4>téléconsultations</h4>
-                    <h4>24h/24, 7j/7</h4>
-                    <h4>(Paris 75, 92, 93, 94)</h4 >
+                    <p>  Vous êtes fatigué ? Vous n'arrivez pas à calmer bébé ? Soufflez un peu et contactez nous !
+                        SOS PARENTS GRAND PARIS :
+                        Visites d'aides à domicile
+                        consultations
+                        téléconsultations
+                        24h/24, 7j/7
+                        (Paris 75, 92, 93, 94)
+                    </p>
                 </div>
             </Grid>
             <Grid container spacing={4} className={styles.textcenter}>
@@ -82,11 +83,8 @@ export default function Home() {
                         Nous recherchons régulièrement des médecins généralistes et urgentistes pour assurer des visites à domicile. Ainsi que des téléopérateurs pour la prise en charge des demandes de nos patients et la régulation médicale.</p>
                     <ColorButton variant="contained" size="large" className={styles.textcenter}>Je dépose ma candidature</ColorButton>
                 </Grid>
-
-
             </Grid>
-
-        </Grid>
+        </div>
 
     );
 }

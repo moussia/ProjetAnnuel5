@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { roles } from '../constants/Roles.js';
 const { Schema, model } = mongoose;
 
 const schema = new Schema({
@@ -15,6 +16,14 @@ const schema = new Schema({
         required: true,
         unique: true
     },
+    activated: {
+        type: Boolean,
+        defaultValue: false
+    },
+    activatedByAdmin: {
+        type: Boolean,
+        defaultValue: false
+    },
     password: {
         type: String,
         required: true
@@ -23,10 +32,20 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    // role: {
-    //     enum: ['PARENT', 'PROFESSIONAL'],
-    //     default: 'PARENT'
-    // },
+    role: {
+        type: String,
+        enum: [roles.PARENT, roles.PRO],
+        default: roles.PARENT,
+        required: true
+    },
+    job: {
+        type: String,
+        required: false
+    },
+    bio: {
+        type: String,
+        required: false
+    },
     // birthday: {
     //     type: Date,
     //     required: true

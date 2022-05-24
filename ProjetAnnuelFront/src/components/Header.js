@@ -23,7 +23,7 @@ const pages = [
     { label: 'Contact', route: 'contact' },
     { label: 'Connexion', route: 'login', restricted: 'public' },
     { label: 'Deconnexion', route: 'logout', restricted: 'private' },
-
+    { label: 'Vous êtes un professionel ?', route: 'pro/create' },
 ];
 
 const Header = () => {
@@ -50,7 +50,6 @@ const Header = () => {
     }
 
     if (isAuthenticated === null) return <Loader />;
-    console.log(isAuthenticated);
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -128,3 +127,68 @@ const Header = () => {
     );
 };
 export default Header;
+
+
+// import React, { useContext } from 'react';
+// import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+// import { LinkContainer } from 'react-router-bootstrap';
+// import { CredentialContext } from './contexts/CredentialContext';
+// import { useHistory } from 'react-router';
+
+// const Header = () => {
+//     const { Toggle, Collapse } = Navbar;
+//     const [context, setContext] = useContext(CredentialContext);
+//     const history = useHistory();
+
+//     const handleLogout = () => {
+//         setContext({ ...context, isAdmin: null });
+//         history.push("/logout");
+//     }
+
+//     return (
+//         <header>
+//             <Navbar bg="light" variant="light" expand="lg" collapseOnSelect>
+//                 <Container>
+//                     <LinkContainer to="/">
+//                     </LinkContainer>
+//                     <Toggle aria-controls="basic-navbar-nav" />
+//                     <Collapse id="basic-navbar-nav">
+//                         <Nav className="ml-auto">
+//                             {context?.token ?
+//                                 <>
+//                                     <LinkContainer to="/cart">
+//                                         <Nav.Link>
+//                                             <i className="fas fa-shopping-cart"></i> PANIER
+//                                         </Nav.Link>
+//                                     </LinkContainer>
+//                                     <Button onClick={handleLogout} >Logged out </Button>
+//                                 </>
+//                                 : <>
+//                                     <LinkContainer to="/loginUser">
+//                                         <Nav.Link>
+//                                             <i className="fas fa-user"></i> Connection
+//                                         </Nav.Link>
+//                                     </LinkContainer>
+//                                     <LinkContainer to="/register">
+//                                         <Nav.Link>
+//                                             <Button variant="info">Inscription PRO</Button>
+//                                         </Nav.Link>
+//                                     </LinkContainer>
+//                                 </>
+//                             }
+//                             {context?.isAdmin &&
+//                                 <LinkContainer to="/dashboard">
+//                                     <Nav.Link>
+//                                         <i className=""></i> Dashboard
+//                                     </Nav.Link>
+//                                 </LinkContainer>
+//                             }
+//                         </Nav>
+//                     </Collapse>
+//                 </Container>
+//             </Navbar>
+//         </header>
+//     );
+// }
+
+// export default Header;

@@ -38,8 +38,6 @@ export const Login = () => {
 
         axios({ url: 'http://localhost:3003/session', method: 'POST', withCredentials: true, data })
             .then((data) => {
-                console.log(data);
-
                 navigate("/");
             })
             .catch((err) => {
@@ -50,8 +48,8 @@ export const Login = () => {
     };
 
     return (
-        <Grid container className={styles.imagenature}>
-            <Container maxWidth="xs">
+        <Grid container className={styles.colorpurple}>
+            <Container maxWidth="xs" className={styles.marginhaut}>
                 <CssBaseline />
                 <Card className={styles.centerbutton}>
                     <CardContent>
@@ -121,7 +119,7 @@ export const Login = () => {
                                     sx={{ mt: 3, mb: 2 }}
                                     disabled={!isValid || !isDirty || isSubmitting}
                                 >
-                                    Sign In
+                                    Connexion
                                 </Button>
                                 <Grid container>
                                     <Grid item xs>

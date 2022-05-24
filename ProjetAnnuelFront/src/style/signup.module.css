@@ -2,12 +2,12 @@
   margin-top: 5%;
   margin-bottom: 5%;
 }
-
+/* 
 .imageNature {
   background-image: url('../images/nature.jpg');
   background-size: contain;
   background-repeat: no-repeat;
-}
+} */
 
 .textalign {
   text-align: center;
@@ -16,4 +16,33 @@
 .centercadenas {
   margin-left: auto !important;
   margin-right: auto !important;
+}
+
+.colorpurple {
+  /* background-color: #f4cbfb; */
+}
+a.colorlinkpurple {
+  color: #9c27b0;
+  text-decoration: underline;
+}
+
+.colorlinkpurple:hover {
+  color: #d74fee;
+}
+
+.buttonsend {
+  background-color: #d74fee; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.buttonsend:hover {
+  background-color: #9c27b0;
 }

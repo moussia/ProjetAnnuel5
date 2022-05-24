@@ -1,22 +1,8 @@
 .imageaccueil {
   width: 100%;
-}
-/* 
-.imagefondaccueil {
-  width: 100%;
-  object-fit: cover;
-  min-height: 100%;
-  height: calc(100vh - 45px);
-  position: relative;
   filter: brightness(50%);
 }
-.text-on-image {
-  position: absolute;
-  color: white;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}*/
+
 .textaccueil {
   text-align: center;
   margin: 5%;
@@ -29,9 +15,9 @@
 
 .imageaccueil {
   background-color: white;
-  background-image: url('../images/accueil.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
+  background-image: url('../images/jonathan-borba-CgWTqYxHEkg-unsplash.jpg');
+  background-size: cover;
+  height: 80vh;
 }
 
 .colorgray {
@@ -46,4 +32,8 @@
 .toto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.colorwhite {
+  color: white;
 }

@@ -3,6 +3,7 @@ import express from 'express';
 import session from 'express-session';
 import userRouter from './routes/user.js';
 import authRouter from './routes/auth.js';
+import adminRouter from './routes/admin.js';
 import './conf/database.js';
 import passport from 'passport';
 import { passportInit } from './conf/passport.js';
@@ -35,8 +36,8 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false, //Quand_on_sera_en_https 
-            maxAge: 30 * 24 * 60 * 60 * 1000, //la session va durer 30 jours
+            secure: false, // Quand_on_sera_en_https 
+            maxAge: 30 * 24 * 60 * 60 * 1000, // la session va durer 30 jours
             sameSite: 'none',
         }
     })
@@ -47,6 +48,7 @@ app.use(passport.session());
 
 app.use('/user', userRouter);
 app.use('/session', authRouter);
+app.use('/admin', adminRouter);
 
 app.listen(process.env.PORT, () => {
     console.log(`✅ App listening on port ${process.env.PORT}`)

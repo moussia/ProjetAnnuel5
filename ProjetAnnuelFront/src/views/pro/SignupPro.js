@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { TextController } from '../components/form/textController';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -14,10 +13,13 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { RadioController } from '../components/form/radioController';
-import styles from '../style/signup.module.css';
+import { RadioController } from '../../components/form/radioController';
+import styles from '../../style/signup.module.css';
+import { TextController } from '../../components/form/textController';
+import { MenuItem } from '@mui/material';
+import { SelectController } from '../../components/form/selectController';
 
-export default function Signup() {
+export default function SignupPro() {
     const navigate = useNavigate();
 
     const {
@@ -38,6 +40,8 @@ export default function Signup() {
             address: '',
             birthday: '',
             phone: '',
+            job: '',
+            role: 'PRO',
             sex: 'WOMAN'
         }
     });
@@ -45,7 +49,7 @@ export default function Signup() {
     const onSubmit = async (data, e) => {
         e?.preventDefault();
 
-        axios({ url: 'http://localhost:3003/user/create', method: 'POST', data, withCredentials: true })
+        axios({ url: 'http://localhost:3003/user/pro/create', method: 'POST', data, withCredentials: true })
             .then((data) => {
                 navigate("/");
             })
@@ -67,8 +71,8 @@ export default function Signup() {
                                     <Avatar className={styles.centercadenas} sx={{ m: 1, bgcolor: 'secondary.main' }}>
                                         <LockOutlinedIcon />
                                     </Avatar>
-                                    <Typography className={styles.textalign} component="h1" variant="h5">
-                                        Inscription
+                                    <Typography component="h1" variant="h5" className={styles.textalign}>
+                                        Inscription Professionnel
                                     </Typography>
                                     <Grid container spacing={3}>
                                         <Grid item xs={6}>
@@ -289,6 +293,19 @@ export default function Signup() {
                                                 {/* <FormControlLabel value="MAN" label="Homme" control={<Radio />} labelPlacement="homme" /> */}
                                             </RadioController>
                                         </Grid>
+                                        <Grid item xs={6}>
+                                            <SelectController name="job" control={control}>
+                                                <MenuItem value="parents">Parents</MenuItem>
+                                                <MenuItem value="pediatre">Pédiatre</MenuItem>
+                                                <MenuItem value="educatrice">Educatrice</MenuItem>
+                                                <MenuItem value="auxiliaire">Auxiliaire</MenuItem>
+                                                <MenuItem value="autre">Autre</MenuItem>
+                                            </SelectController>
+                                        </Grid>
+                                        <Grid item xs={12} className={styles.textalign}>
+                                            <p>Votre CV</p>
+                                            <input type="file" name="cv"></input>
+                                        </Grid>
                                         <Grid item xs={12} className={styles.textalign}>
                                             <Button
                                                 type="submit"
@@ -297,16 +314,16 @@ export default function Signup() {
                                                 disabled={!isValid || !isDirty || isSubmitting}
                                                 className={styles.buttonsend}
                                             >
-                                                Inscription
+                                                ENVOYER
                                             </Button>
                                             <Grid container>
                                                 <Grid item xs>
-                                                    <Link href="/forgetpassword" >
+                                                    <Link href="/forgetpassword" className={styles.colorlinkpurple}>
                                                         Mot de passe oublié
                                                     </Link>
                                                 </Grid>
                                                 <Grid item xs>
-                                                    <Link href="/login" >
+                                                    <Link href="/login" className={styles.colorlinkpurple}>
                                                         {"Connexion"}
                                                     </Link>
                                                 </Grid>

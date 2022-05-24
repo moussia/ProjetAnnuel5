@@ -11,7 +11,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import styles from '../style/forgetpassword.module.css';
 
 
 
@@ -20,12 +19,10 @@ export const ForgetPassword = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-        });
+        // console.log({
+        //     email: data.get('email'),
+        // });
     };
-
-    console.log('IN LOGIN');
 
     return (
         <Container className="image-nature" component="main" maxWidth="xs">
