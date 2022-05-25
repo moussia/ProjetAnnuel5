@@ -15,40 +15,45 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-// export const sendRegistrationEmail = (email) => {
-//     const mailOptions = {
-//         // from: process.env.EMAIL_USERNAME,
-//         from: `"SOS Parents" < ${process.env.EMAIL_USERNAME}> `, // sender address
-
-//         to: email,
-//         subject: 'Inscription',
-//         text: 'Votre inscription a été prise en compte, merci de nous faire confiance !'
-//     };
-
-//     transporter.sendMail(mailOptions, function (error, info) {
-//         if (error) {
-//             console.log(error);
-//         } else {
-//             console.log('Email sent: ' + info.response);
-//         }
-//     });
-// };
-
-
-
-export const sendRegistrationEmail = async (to, name, email) => {
-    let source = await readFile('../template/Email-register.html', 'utf8');
+export const EnvoiMailAuParentPourInscription = async (to, lastname, email) => {
+    let source = await readFile('template/Email-register.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
-        name, email
+        lastname, email
     }
     let html = template(data);
 
     const mailOptions = {
-        from: `"MochiPay" <${process.env.EMAIL_USERNAME}>`, // sender address
+        from: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`, // sender address
         to, // list of receivers
-        subject: "Register", // Subject line
-        text: "Hello world?", // plain text body
+        subject: "Inscription", // Subject line
+        text: "Merci de votre inscription", // plain text body
+        html, // html body
+    }
+
+    // send mail with defined transport object
+    await transporter.sendMail(mailOptions, (error, info) => {
+        if (error) console.log('Email cannot be send: ' + error);
+        else {
+            console.log('Email sent: ' + clientInformation.response);
+            return true;
+        }
+    });
+}
+
+export const EnvoiMailAuProPourInscription = async (to, lastname, email) => {
+    let source = await readFile('template/EmailProRegister.html', 'utf8');
+    let template = handlebars.compile(source);
+    const data = {
+        lastname, email
+    }
+    let html = template(data);
+
+    const mailOptions = {
+        from: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`, // sender address
+        to, // list of receivers
+        subject: "Inscription", // Subject line
+        text: "Merci de votre inscription", // plain text body
         html, // html body
     }
 
@@ -63,38 +68,61 @@ export const sendRegistrationEmail = async (to, name, email) => {
 }
 
 
-// let transporter = nodemailer.createTransport({
-//     host: "smtp.gmail.com",
-//     port: 465,
-//     secure: true, // true for 465, false for other ports
-//     auth: {
-//         user: process.env.EMAIL, // generated ethereal user
-//         pass: process.env.PASS, // generated ethereal password
-//     },
-// });
+export const EnvoiMailAuProPourCompteValide = async (to, lastname, email) => {
+    let source = await readFile('template/EmailCompteValide.html', 'utf8');
+    let template = handlebars.compile(source);
+    const data = {
+        lastname, email
+    }
+    let html = template(data);
 
-// const sellerRegisterEmail = async (to, name, email) => {
-//     let source = await readFile('template/Email-register.html', 'utf8');
-//     let template = handlebars.compile(source);
-//     const data = {
-//         name, email
-//     }
-//     let html = template(data);
+    const mailOptions = {
+        from: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`, // sender address
+        to, // list of receivers
+        subject: "Validation Compte", // Subject line
+        text: "Votre compte à été validé par un administrateur", // plain text body
+        html, // html body
+    }
 
-//     const mailOptions = {
-//         from: `"MochiPay" < ${ process.env.EMAIL }> `, // sender address
-//         to, // list of receivers
-//         subject: "Register", // Subject line
-//         text: "Hello world?", // plain text body
-//         html, // html body
-//     }
+    // send mail with defined transport object
+    await transporter.sendMail(mailOptions, (error, info) => {
+        if (error) console.log('Email cannot be send: ' + error);
+        else {
+            console.log('Email sent: ' + clientInformation.response);
+            return true;
+        }
+    });
+}
 
-//     // send mail with defined transport object
-//     await transporter.sendMail(mailOptions, (error, info) => {
-//         if (error) console.log('Email cannot be send: ' + error);
-//         else {
-//             console.log('Email sent: ' + clientInformation.response);
-//             return true;
-//         }
-//     });
+
+
+export const sendToAdminValidateComptePro = async (lastname, email) => {
+    let source = await readFile('template/EmailAdminNewInscriptionPro.html', 'utf8');
+    let template = handlebars.compile(source);
+    const data = {
+        lastname, email
+    }
+    let html = template(data);
+
+    const mailOptions = {
+        from: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`, // sender address
+        to: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`,
+        subject: "Inscription Pro", // Subject line
+        text: "Activer le compte du nouveau professionnel qui vens de s'inscrire au site.", // plain text body
+        html, // html body
+    }
+
+    // send mail with defined transport object
+    await transporter.sendMail(mailOptions, (error, info) => {
+        if (error) console.log('Email cannot be send: ' + error);
+        else {
+            console.log('Email sent: ' + clientInformation.response);
+            return true;
+        }
+    });
+}
+
+
+// export const sendToAdminValidateComptePro = async (to, lastname, email) => {
+
 // }

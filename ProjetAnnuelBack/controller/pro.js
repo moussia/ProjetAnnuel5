@@ -1,6 +1,6 @@
 import User from '../model/User.js';
 import bcrypt from 'bcrypt';
-import { sendRegistrationEmail } from '../utils/mail.js';
+import { EnvoiMailAuProPourCompteValide, EnvoiMailAuProPourInscription, sendToAdminValidateComptePro } from '../utils/mail.js';
 import { roles } from '../constants/Roles.js';
 
 export const createPro = async (req, res) => {
@@ -23,7 +23,8 @@ export const createPro = async (req, res) => {
     });
     user.save();
     console.log('✅ Inscription Pro');
-    sendRegistrationEmail(email);
+    EnvoiMailAuProPourInscription(email, lastname, email); //mail pour validé l'inscription
+    sendToAdminValidateComptePro(lastname, email); // mail à l'admin pour validé le compte pro
     res.send();
 }
 
@@ -33,6 +34,7 @@ export const activatePro = async (req, res) => {
     const updatePro = await User.findOneAndUpdate({ _id: pro }, { activatedByAdmin: true }, {
         new: true
     });
+    EnvoiMailAuProPourCompteValide(req.user.email, req.user.lastname, req.user.email);
     res.send(updatePro);
 }
 
@@ -49,8 +51,7 @@ export const getPro = async (req, res) => {
 }
 
 export const deletePro = async (req, res) => {
-    User.destroy({ where: { _id: req.user._id } })
+    User.deleteOne({ _id: req.params.proId })
         .then((data) => res.sendStatus(data !== 0 ? 204 : 404))
-    // .catch((e) => res.sendStatus(500));
     console.log("✅ User supprimé");
 }

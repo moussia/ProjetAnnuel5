@@ -13,7 +13,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
-import Popup from 'reactjs-popup';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -106,11 +105,13 @@ function preventDefault(event) {
     event.preventDefault();
 }
 
+
 export const Parents = () => {
     const classes = useStyles();
     const [parent, setParent] = useState([]);
     const navigate = useNavigate();
     const [open] = React.useState(true);
+
 
     useEffect(() => {
         axios({ url: 'http://localhost:3003/admin/parent', method: 'GET', withCredentials: true })
@@ -122,6 +123,16 @@ export const Parents = () => {
     useEffect(() => {
         console.log('parent', parent);
     }, [parent]);
+
+
+
+
+    const deleteParent = async (id) => {
+        const res = await axios({ url: `http://localhost:3003/admin/parent/${id}`, method: 'DELETE', withCredentials: true }
+        );
+        if (res.status === 204)
+            setParent((prev) => [...prev.filter((item) => item._id !== id)]);
+    };
 
     return (
         <React.Fragment>
@@ -166,22 +177,7 @@ export const Parents = () => {
                                         </Link>
                                     </TableCell>
                                     <TableCell>
-                                        <Link onClick={() => navigate(`/parent/${parent._id}`)}>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                        <Link onClick={() => deleteParent(parent._id)}>
                                             <img src={require('../../images/poubelle-de-recyclage.png')} alt="traitement" className={classes.tailleeye} />
                                         </Link>
                                     </TableCell>

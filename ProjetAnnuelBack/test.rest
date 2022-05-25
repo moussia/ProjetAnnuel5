@@ -111,6 +111,12 @@ DELETE http://localhost:3003/admin/628be155fe616596c4795e3e
 GET http://localhost:3003/admin/parent
 
 
+###
+PUT http://localhost:8000/admin/628be114daaf25d16d391487
+content-type: application/json
+{
+    "activatedByAdmin": false
+}
 
 ### 
 DELETE http://localhost:3003/session

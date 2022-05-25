@@ -1,6 +1,6 @@
 import User from '../model/User.js';
 import bcrypt from 'bcrypt';
-import { sendRegistrationEmail } from '../utils/mail.js';
+import { EnvoiMailAuParentPourInscription } from '../utils/mail.js';
 import { roles } from '../constants/Roles.js';
 
 export const createParent = async (req, res) => {
@@ -22,7 +22,8 @@ export const createParent = async (req, res) => {
     });
     user.save();
     console.log('✅ Inscription Client');
-    sendRegistrationEmail(email);
+    // sellerRegisterEmail(req.body.email, req.body.name, req.body.email);
+    EnvoiMailAuParentPourInscription(email, lastname, email);
     res.send();
 }
 
@@ -65,4 +66,12 @@ export const getParentFromId = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+}
+
+
+
+export const deleteParent = async (req, res) => {
+    User.deleteOne({ _id: req.params.parentId })
+        .then((data) => res.sendStatus(data !== 0 ? 204 : 404))
+    console.log("✅ User supprimé");
 }

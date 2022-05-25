@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -13,7 +13,6 @@ import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
-import { MainListItems } from '../../views/admin/ListItems.js';
 import axios from 'axios';
 
 const drawerWidth = 240;
@@ -129,21 +128,23 @@ export const Professionnels = () => {
   const activate = async (id) => {
     const res = await axios({ url: `http://localhost:3003/admin/pro/${id}/activate`, method: 'PUT', withCredentials: true }
     );
-    const data = await res.data;
+    const data = res.data;
     setPros((prev) => {
       const i = prev.findIndex(elem => {
         return elem._id === data._id;
       });
-      console.log(i);
-      const deleted = prev.splice(i, 1, data);
-      console.log('test', deleted, data);
+      prev.splice(i, 1, data);
       return [...prev];
     });
   };
 
-  useEffect(() => {
-    console.log('pros', pros);
-  }, [pros]);
+
+  const deletePro = async (id) => {
+    const res = await axios({ url: `http://localhost:3003/admin/pro/${id}`, method: 'DELETE', withCredentials: true }
+    );
+    if (res.status === 204)
+      setPros((prev) => [...prev.filter((item) => item._id !== id)]);
+  };
 
   return (
     <React.Fragment>
@@ -193,7 +194,7 @@ export const Professionnels = () => {
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <Link onClick={() => navigate(`/pro/${pro._id}`)}>
+                    <Link onClick={() => deletePro(pro._id)}>
                       <img src={require('../../images/poubelle-de-recyclage.png')} alt="traitement" className={classes.tailleeye} />
                     </Link>
                   </TableCell>
