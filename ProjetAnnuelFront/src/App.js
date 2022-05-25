@@ -25,6 +25,9 @@ import Logout from '../src/components/Logout';
 import { Services } from './views/Services';
 import { Reservation } from './views/client/Reservation';
 import Dashboard from './views/admin/Dashboard';
+import { Parents } from './components/admin/Parents';
+import { Professionnel } from './components/admin/Professionnel';
+import { Parent } from './components/admin/Parent';
 
 export const App = () => {
 
@@ -50,9 +53,12 @@ export const App = () => {
           <Route exact path='/error404' element={<NotFoundPage />} />
           <Route exact path='/forgetpassword' element={<ForgetPassword />} />
 
-          {/* ADMIN */}
+          {/* ADMIN DASHBOARD */}
           <Route exact path='/dashboard' element={<Dashboard />} />
           <Route exact path='/pro' element={<Professionnels />} />
+          <Route exact path='/parent' element={<Parents />} />
+          <Route exact path='/pro/:id' element={<Professionnel />} />
+          <Route exact path='/parent/:id' element={<Parent />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

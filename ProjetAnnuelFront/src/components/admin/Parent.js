@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+// import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -96,11 +97,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Professionnel = () => {
+export const Parent = () => {
   const classes = useStyles();
-  // const history = useNavigate();
-  const [pro, setPro] = useState({});
-  const [open] = useState(true);
+  const [parent, setParent] = useState({});
   const { id } = useParams();
 
   // if (context?.token === null) history.push('/login');
@@ -108,13 +107,13 @@ export const Professionnel = () => {
 
   useEffect(() => {
     console.log('test')
-    axios({ url: `http://localhost:3003/admin/pro/${id}`, method: 'GET', withCredentials: true })
-      .then((res) => setPro(res.data))
+    axios({ url: `http://localhost:3003/admin/parent/${id}`, method: 'GET', withCredentials: true })
+      .then((res) => setParent(res.data))
   }, [id])
 
   useEffect(() => {
-    console.log(pro)
-  }, [pro])
+    console.log(parent)
+  }, [parent])
 
 
   return (
@@ -123,31 +122,31 @@ export const Professionnel = () => {
         <Card className={classes.root} variant="outlined">
           <CardContent>
             <Typography className={classes.title} color="textSecondary" gutterBottom>
-              <h1>Professionnel :  {pro.firstname} </h1>
+              <h1>Parent :  {parent.firstname} </h1>
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
               Lastname
             </Typography>
             <Typography variant="h5" component="h2">
-              {pro.lastname}
+              {parent.lastname}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
               Email
             </Typography>
             <Typography variant="h5" component="h2">
-              {pro.email}
+              {parent.email}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
               Téléphone
             </Typography>
             <Typography variant="h5" component="h2">
-              {pro.phone}
+              {parent.phone}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
               Adresse
             </Typography>
             <Typography variant="h5" component="h2">
-              {pro.address}
+              {parent.address}
             </Typography>
           </CardContent>
         </Card>

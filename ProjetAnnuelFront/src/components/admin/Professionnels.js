@@ -58,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: 36,
   },
+  //   cursorpointer: {
+  //     pointer- events: auto,
+  // },
   menuButtonHidden: {
     display: 'none',
   },
@@ -97,6 +100,10 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  tailleeye: {
+    width: '25px',
+    cursor: 'pointer',
+  },
 }));
 
 function preventDefault(event) {
@@ -106,14 +113,14 @@ function preventDefault(event) {
 export const Professionnels = () => {
   const classes = useStyles();
   const [pros, setPros] = useState([]);
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [open] = React.useState(true);
 
   // if (context?.token === null) history.push('/login');
   // if (context?.isAdmin !== true) history.push('/');
 
   useEffect(() => {
-    axios({ url: 'http://localhost:3003/admin/pro', method: 'GET', withCredentials: true })
+    axios({ url: `http://localhost:3003/admin/pro`, method: 'GET', withCredentials: true })
       .then((data) => setPros(data.data))
   }, []);
 
@@ -162,35 +169,42 @@ export const Professionnels = () => {
                 <TableCell>Prénom</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Téléphone</TableCell>
-                <TableCell>Adresse</TableCell>
-                <TableCell>Ville</TableCell>
-                <TableCell align="right">Activé</TableCell>
+                <TableCell>Activé</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {pros.map((pro) => (
-                <TableRow key={pro._id}>
-                  <TableCell>
-                    <Link onClick={() => history.push(`/pro/${pro._id}`)}> {pro.lastname}</Link>
-                  </TableCell>
+                <TableRow key={pro._id} className={classes.cursorpointer}>
+
+                  <TableCell>{pro.lastname}</TableCell>
                   <TableCell>{pro.firstname}</TableCell>
                   <TableCell>{pro.email}</TableCell>
                   <TableCell>{pro.phone}</TableCell>
-                  <TableCell>{pro.address}</TableCell>
-                  <TableCell>{pro.city}</TableCell>
-                  <TableCell align="right">
+                  <TableCell>
                     {
                       !pro.activatedByAdmin ? <Button onClick={() => activate(pro._id)} variant="contained" color="primary">Activate </Button>
                         : <div>Activated</div>
                     }
                   </TableCell>
+                  <TableCell>
+                    <Link onClick={() => navigate(`/pro/${pro._id}`)}>
+                      <img src={require('../../images/eye.png')} alt="traitement" className={classes.tailleeye} />
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Link onClick={() => navigate(`/pro/${pro._id}`)}>
+                      <img src={require('../../images/poubelle-de-recyclage.png')} alt="traitement" className={classes.tailleeye} />
+                    </Link>
+                  </TableCell>
+
                 </TableRow>
               ))}
             </TableBody>
           </Table>
           <div className={classes.seeMore}>
             <Link color="primary" href="#" onClick={preventDefault}>
-              See more sellers
+              Voir plus de professionnels
             </Link>
           </div>
 

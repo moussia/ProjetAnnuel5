@@ -26,7 +26,7 @@ Content-Type: application/json
     "address" : "8 rue de romainville",
     "city" : "paris",
     "country" : "france",
-    "email" : "m0000000ussiamottal@gmail.com",
+    "email" : "moussiamottal@gmail.com",
     "password" : "Hayamottal555/",
     "zipcode" : "75019",
     "sex" : "WOMAN",
@@ -42,16 +42,6 @@ Content-Type: application/json
     "email" : "moussiamottal@gmail.com",
     "password" : "coco"
 }
-
-### CONNEXION ADMIN
-POST http://localhost:3003/session
-Content-Type: application/json
-
-{
-    "email" : "sosparentsoff@gmail.com",
-    "password" : "Hayamottal555/"
-}
-
 
 ### FAUX MAIL
 POST http://localhost:3003/session
@@ -85,13 +75,36 @@ Content-Type: application/json
 GET http://localhost:3003/user/current
 
 
+
+### CONNEXION ADMIN
+POST http://localhost:3003/session
+Content-Type: application/json
+
+{
+    "email" : "sosparentsoff@gmail.com",
+    "password" : "Hayamottal555/"
+}
+
 ### 
 GET http://localhost:3003/admin/pro
 
 
-### GET PRO AVEC L'ID 1
-GET http://localhost:8000/pro/1
+### GET PRO Moussiamottal@gmail.com
+GET http://localhost:3003/admin/pro/628be114daaf25d16d391487
 content-type: application/json
+
+
+### GET PARENT kejlerj@gmail.com
+GET http://localhost:3003/admin/parent/628be155fe616596c4795e3e
+
+
+content-type: application/json
+### SUPPRIMER UN PRO moussiamottal@gmail.com
+DELETE http://localhost:3003/admin/628be114daaf25d16d391487
+
+
+### SUPPRIMER UN PARENT kejlerj@gmail.com
+DELETE http://localhost:3003/admin/628be155fe616596c4795e3e
 
 
 ### 

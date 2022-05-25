@@ -43,36 +43,25 @@ export const updateUser = async (req, res) => {
     res.send(updatedUser);
 }
 
-export const activatePro = async (req, res) => {
-    const pro = req.params.proId;
-    console.log(pro);
-    const updatePro = await User.findOneAndUpdate({ _id: pro }, { activatedByAdmin: true }, {
-        new: true
-    });
-    res.send(updatePro);
-}
-
-export const updatePro = async (req, res) => {
-    const updatePro = await User.findOneAndUpdate({ _id: req.user._id }, req.body, {
-        new: true
-    });
-    res.send(updatePro);
-}
-
-export const getPro = async (req, res) => {
-    const pro = await User.find({ role: roles.PRO }, { password: 0 });
-    res.send(pro);
-}
-
-export const getParent = async (req, res) => {
+export const getParents = async (req, res) => {
     const parents = await User.find({ role: roles.PARENT }, { password: 0 });
     res.send(parents);
 }
 
 export const getProFromId = async (req, res) => {
     try {
-        const getPro = await User.findByPk({ _id: req.user._id });
-        res.send(getPro.dataValues);
+        const getPro = await User.findById({ _id: req.params.proId });
+        res.send(getPro);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+export const getParentFromId = async (req, res) => {
+    try {
+        const getParent = await User.findById({ _id: req.params.parentId });
+        res.send(getParent);
     } catch (err) {
         console.log(err);
     }

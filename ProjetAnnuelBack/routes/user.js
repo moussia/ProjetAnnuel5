@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createPro } from '../controller/pro-user.js';
+import { createPro } from '../controller/pro.js';
 import { createParent, currentUser, updateUser } from '../controller/user.js';
 import { isAuthenticated } from '../middleware/isAuthenticated.js';
 import { isParent } from '../middleware/isAuthorized.js';
