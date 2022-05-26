@@ -10,19 +10,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import { AuthContext } from './contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 const pages = [
     { label: 'Qui sommes-nous ?', route: 'qui-sommes-nous' },
-    { label: 'Mon compte', route: 'moncompte', restricted: 'private' },
+    { label: 'Mon compte', route: 'moncompte' },
     { label: 'Contact', route: 'contact' },
-    { label: 'Connexion', route: 'login', restricted: 'public' },
-    { label: 'Vous êtes un professionel ?', route: 'pro/create', restricted: 'public' },
-    { label: 'Dashboard', route: 'dashboard', restricted: 'private' },
-    { label: 'Deconnexion', route: 'logout', restricted: 'private' },
+    { label: 'Deconnexion', route: 'logout' },
 ];
 
-const Header = () => {
+const HeaderPro = () => {
     const { context } = React.useContext(AuthContext);
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const navigate = useNavigate();
@@ -115,4 +112,4 @@ const Header = () => {
         </AppBar>
     );
 };
-export default Header;
+export default HeaderPro;

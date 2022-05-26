@@ -4,6 +4,7 @@ import {
   Route,
   Routes
 } from "react-router-dom";
+import * as React from 'react';
 import { Login } from './views/Login';
 import Signup from './views/Signup';
 import SignupPro from './views/pro/SignupPro';
@@ -12,7 +13,7 @@ import { ForgetPassword } from './views/ForgetPassword';
 import { Faq } from './views/Faq';
 import { Quisommesnous } from './views/Quisommesnous';
 import Footer from './components/Footer';
-import Header from './components/Header';
+import Header from './components/header/Header';
 import { Recrutement } from './views/Recrutement';
 import { ServicesPro } from './views/ServicesPro';
 import { Moncompte } from './views/Moncompte';
@@ -30,10 +31,11 @@ import { Professionnel } from './components/admin/Professionnel';
 import { Parent } from './components/admin/Parent';
 import { Disponible } from './views/pro/Disponible';
 import { Donation } from './views/paiement/Donation';
-import AuthProvider from './components/contexts/AuthContext';
+import AuthProvider, { AuthContext } from './components/contexts/AuthContext';
 import { roles } from './constants/roles';
 
 export const App = () => {
+
   return (
     <BrowserRouter>
       <AuthProvider>
