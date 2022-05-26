@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,11 +15,18 @@ import { TextController } from '../components/form/textController';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import styles from '../style/login.module.css';
+import { AuthContext } from '../components/contexts/AuthContext';
 
 
 export const Login = () => {
+    const { context, setContext } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    React.useEffect(() => {
+        if (context.isLoggedIn) {
+            navigate("/");
+        }
+    }, [navigate, context.isLoggedIn]);
     const {
         handleSubmit,
         formState: { errors, isSubmitting, isDirty, isValid },
@@ -38,6 +45,7 @@ export const Login = () => {
 
         axios({ url: 'http://localhost:3003/session', method: 'POST', withCredentials: true, data })
             .then((data) => {
+                setContext(() => ({ isLoggedIn: true, role: data.data.role }));
                 navigate("/");
             })
             .catch((err) => {

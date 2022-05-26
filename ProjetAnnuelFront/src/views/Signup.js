@@ -16,9 +16,17 @@ import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { RadioController } from '../components/form/radioController';
 import styles from '../style/signup.module.css';
+import { AuthContext } from '../components/contexts/AuthContext';
 
 export default function Signup() {
     const navigate = useNavigate();
+    const { context } = React.useContext(AuthContext);
+
+    React.useEffect(() => {
+        if (context.isLoggedIn) {
+            navigate("/");
+        }
+    }, [navigate, context.isLoggedIn]);
 
     const {
         handleSubmit,

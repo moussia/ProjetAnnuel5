@@ -28,42 +28,52 @@ import Dashboard from './views/admin/Dashboard';
 import { Parents } from './components/admin/Parents';
 import { Professionnel } from './components/admin/Professionnel';
 import { Parent } from './components/admin/Parent';
+import { Disponible } from './views/pro/Disponible';
+import { Donation } from './views/paiement/Donation';
+import AuthProvider from './components/contexts/AuthContext';
+import { roles } from './constants/roles';
 
 export const App = () => {
-
   return (
     <BrowserRouter>
-      <Header />
-      <div className='heighpage'>
-        <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route exact path='/login' element={<Login />} />
-          <Route exact path='/pro/create' element={<SignupPro />} />
-          <Route exact path='/logout' element={<Logout />} />
-          <Route exact path='/signup' element={<Signup />} />
-          <Route exact path='/moncompte' element={<PrivateRoute Component={Moncompte} />} />
-          <Route exact path='/faq' element={<Faq />} />
-          <Route exact path='/reservation' element={<Reservation />} />
-          <Route exact path='/recrutement' element={<Recrutement />} />
-          <Route exact path='/pro/services' element={<ServicesPro />} />
-          <Route exact path='/services' element={<Services />} />
-          <Route exact path='/contact' element={<Contact />} />
-          <Route exact path='/modifPassword' element={<ModifPassword />} />
-          <Route exact path='/qui-sommes-nous' element={<Quisommesnous />} />
-          <Route exact path='/error404' element={<NotFoundPage />} />
-          <Route exact path='/forgetpassword' element={<ForgetPassword />} />
+      <AuthProvider>
+        <Header />
+        <div className='heighpage'>
+          <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/pro/create' element={<SignupPro />} />
+            <Route exact path='/logout' element={<Logout />} />
+            <Route exact path='/signup' element={<Signup />} />
+            <Route exact path='/faq' element={<Faq />} />
+            <Route exact path='/recrutement' element={<Recrutement />} />
+            <Route exact path='/services' element={<Services />} />
+            <Route exact path='/contact' element={<Contact />} />
+            <Route exact path='/modifPassword' element={<ModifPassword />} />
+            <Route exact path='/qui-sommes-nous' element={<Quisommesnous />} />
+            <Route exact path='/forgetpassword' element={<ForgetPassword />} />
+            <Route exact path='/donation' element={<Donation />} />
 
-          {/* ADMIN DASHBOARD */}
-          <Route exact path='/dashboard' element={<Dashboard />} />
-          <Route exact path='/pro' element={<Professionnels />} />
-          <Route exact path='/parent' element={<Parents />} />
-          <Route exact path='/pro/:id' element={<Professionnel />} />
-          <Route exact path='/parent/:id' element={<Parent />} />
+            {/* Page PARENT */}
+            <Route exact path='/reservation' element={<PrivateRoute restricted={roles.PARENT} Component={Reservation} />} />
+            <Route exact path='/moncompte' element={<PrivateRoute restricted={roles.PARENT} Component={Moncompte} />} />
 
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </div>
-      <Footer />
+            {/* Page PRO */}
+            <Route exact path='/pro/services' element={<PrivateRoute restricted={roles.PRO} Component={ServicesPro} />} />
+            <Route exact path='/pro/disponible' element={<PrivateRoute restricted={roles.PRO} Component={Disponible} />} />
+
+            {/* ADMIN DASHBOARD */}
+            <Route exact path='/dashboard' element={<PrivateRoute restricted={roles.ADMIN} Component={Dashboard} />} />
+            <Route exact path='/pro' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnels} />} />
+            <Route exact path='/parent' element={<PrivateRoute restricted={roles.ADMIN} Component={Parents} />} />
+            <Route exact path='/pro/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnel} />} />
+            <Route exact path='/parent/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Parent} />} />
+
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
+        <Footer />
+      </AuthProvider>
     </BrowserRouter>
   );
 }

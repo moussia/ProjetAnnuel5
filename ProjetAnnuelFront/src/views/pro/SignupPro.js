@@ -18,6 +18,7 @@ import styles from '../../style/signup.module.css';
 import { TextController } from '../../components/form/textController';
 import { MenuItem } from '@mui/material';
 import { SelectController } from '../../components/form/selectController';
+import { AuthContext } from '../../components/contexts/AuthContext';
 
 export default function SignupPro() {
     const navigate = useNavigate();
@@ -45,6 +46,14 @@ export default function SignupPro() {
             sex: 'WOMAN'
         }
     });
+
+    const { context } = React.useContext(AuthContext);
+
+    React.useEffect(() => {
+        if (context.isLoggedIn) {
+            navigate("/");
+        }
+    }, [navigate, context.isLoggedIn]);
 
     const onSubmit = async (data, e) => {
         e?.preventDefault();

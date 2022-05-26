@@ -1,24 +1,14 @@
 import { Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from '../components/contexts/AuthContext';
 
+const PrivateRoute = ({ Component, restricted = false }) => {
+    const { context } = useContext(AuthContext);
 
-const PrivateRoute = ({ Component }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(null);
+    if (!context.isLoggedIn) return (<Navigate to={{ pathname: '/login' }} replace />);
+    if (restricted && context.role !== restricted) return (<Navigate to={{ pathname: '/' }} replace />);
 
-    useEffect(() => {
-        axios({ url: 'http://localhost:3003/user/current', withCredentials: true })
-            .then(() => setIsAuthenticated(true))
-            .catch(() => setIsAuthenticated(false));
-    }, []);
-
-    return (
-        isAuthenticated !== null && (
-            isAuthenticated
-                ? <Component />
-                : <Navigate to={{ pathname: '/login' }} replace />
-        )
-    )
+    return (<Component />);
 };
 
 export default PrivateRoute;

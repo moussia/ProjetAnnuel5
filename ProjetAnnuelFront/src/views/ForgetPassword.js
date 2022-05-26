@@ -11,6 +11,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../components/contexts/AuthContext';
 
 
 
@@ -18,11 +20,16 @@ export const ForgetPassword = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        // console.log({
-        //     email: data.get('email'),
-        // });
     };
+
+    const navigate = useNavigate();
+    const { context } = React.useContext(AuthContext);
+
+    React.useEffect(() => {
+        if (context.isLoggedIn) {
+            navigate("/");
+        }
+    }, [navigate, context.isLoggedIn]);
 
     return (
         <Container className="image-nature" component="main" maxWidth="xs">

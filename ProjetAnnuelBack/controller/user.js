@@ -32,7 +32,6 @@ export const findUser = async (req) => {
     return await User.findOne({ email });
 }
 
-
 export const currentUser = async (req, res) => {
     // console.log(res.user);
     res.send(req.user);
@@ -58,7 +57,6 @@ export const getProFromId = async (req, res) => {
     }
 }
 
-
 export const getParentFromId = async (req, res) => {
     try {
         const getParent = await User.findById({ _id: req.params.parentId });
@@ -67,8 +65,6 @@ export const getParentFromId = async (req, res) => {
         console.log(err);
     }
 }
-
-
 
 export const deleteParent = async (req, res) => {
     User.deleteOne({ _id: req.params.parentId })

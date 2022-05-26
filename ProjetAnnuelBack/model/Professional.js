@@ -1,28 +1,29 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
-const professionalSchema = new mongoose.Schema({
-    id_user: {
+
+const schema = new Schema({
+    id_pro: {
         type: Number,
         required: true
     },
-    gender: {
+    datedebut: {
         type: String,
         required: true
     },
-    job: {
+    datefin: {
         type: String,
         required: true
     },
-    // pdf du cv
-    resume: {
+    type: {
         type: String,
         required: true
     },
-    biography: {
+    status: {
         type: String,
-        required: false
+        required: true
     }
 
 });
 
-module.exports = mongoose.model('Professional', professionalSchema);
+export default model('Professional', schema);

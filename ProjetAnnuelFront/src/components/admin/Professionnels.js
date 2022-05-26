@@ -14,6 +14,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -203,11 +205,9 @@ export const Professionnels = () => {
               ))}
             </TableBody>
           </Table>
-          <div className={classes.seeMore}>
-            <Link color="primary" href="#" onClick={preventDefault}>
-              Voir plus de professionnels
-            </Link>
-          </div>
+          <Stack spacing={2}>
+            <Pagination count={10} size="large" />
+          </Stack>
 
 
         </main>

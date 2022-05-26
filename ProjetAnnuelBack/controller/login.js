@@ -5,7 +5,6 @@ export const Login = async (email, password, done) => {
     console.log(email, password)
     const user = await User.findOne({ email });
     if (!user) {
-        // console.log('❌ Le login n existe pas');
         return done(null, false);
     }
     const isValid = await bcrypt.compare(password, user.password);

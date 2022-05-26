@@ -3,19 +3,19 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { Grid } from '@mui/material';
 import styles from '../../style/reservation.module.css';
+import { Button } from '@material-ui/core';
 
 
 export const Reservation = () => {
     return (
 
         <Grid container spacing={3} className={styles.margintoptrois}>
-            <Grid item xs={2}>
-                <p>xs=6</p>
+            <Grid item xs={5}>
+
             </Grid>
-            <Grid item xs={10}>
-
-                <p>Choisissez l'heure et la date à laquelle vous voulez q'un professionnel vienne dans votre domicile.</p>
-
+            <Grid item xs={7}>
+                <h2>Bonjour  </h2>
+                <p>Choisissez l'heure et la date à laquelle vous voulez qu'un professionnel vienne dans votre domicile.</p>
                 <Stack component="form" noValidate spacing={3}>
                     <TextField
                         id="jour"
@@ -40,7 +40,11 @@ export const Reservation = () => {
                         }}
                         sx={{ width: 150 }}
                     />
+
                 </Stack>
+                <Button variant="contained" color="success">
+                    Success
+                </Button>
             </Grid>
         </Grid>
 
