@@ -9,6 +9,7 @@
 # testing
 /coverage
 ProjetAnnuelBack/node_modules
+ProjetAnnuelBack/.env
 ProjetAnnuelFront/node_modules
 
 # production
