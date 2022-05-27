@@ -11,8 +11,7 @@ import Container from '@mui/material/Container';
 import { TextController } from '../components/form/textController';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const NewPassword = () => {
     const { search } = useLocation();

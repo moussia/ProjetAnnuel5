@@ -17,9 +17,15 @@ import axios from 'axios';
 import styles from '../style/login.module.css';
 import { AuthContext } from '../components/contexts/AuthContext';
 import { roles } from '../constants/roles';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export const Login = () => {
+    const [open, setOpen] = React.useState(false);
     const { context, setContext } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -55,11 +61,17 @@ export const Login = () => {
                 setContext(() => ({ isLoggedIn: true, role: data.data.role }));
             })
             .catch((err) => {
+                setOpen(true);
                 console.log(err.message);
                 e.target.reset();
                 reset();
             });
     };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setOpen(false);
+    }
 
     return (
         <Grid container className={styles.colorpurple}>
@@ -152,6 +164,11 @@ export const Login = () => {
                     </CardContent>
                 </Card>
             </Container>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    Email ou mot de passe invalide
+                </Alert>
+            </Snackbar>
         </Grid>
     );
 }
