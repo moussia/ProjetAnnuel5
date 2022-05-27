@@ -2,45 +2,27 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from '../components/contexts/AuthContext';
+import { TextController } from '../components/form/textController';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
-import { TextController } from '../components/form/textController';
-// import { useSnackbar } from 'notistack';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-export const ForgetPassword = () => {
+export const NewPassword = () => {
+    const { search } = useLocation();
     const navigate = useNavigate();
-    const { context } = React.useContext(AuthContext);
-
-    // const { enqueueSnackbar } = useSnackbar();
-
-    // const handleClickVariant = (variant) => () => {
-    //     enqueueSnackbar('This is a success message!', { variant });
-    // };
-
-
-    React.useEffect(() => {
-        if (context.isLoggedIn === true) {
-            navigate("/");
-        }
-    }, [navigate, context]);
-
 
     const {
         handleSubmit,
-        formState: { errors, isSubmitting, isDirty, isValid },
         reset,
-        control
+        control,
+        formState: { errors, isSubmitting, isDirty, isValid },
     } = useForm({
         mode: 'onChange',
         defaultValues: {
@@ -48,24 +30,28 @@ export const ForgetPassword = () => {
         }
     });
 
-    const onSubmit = async (data, e) => {
-        e.preventDefault();
 
-        axios({ url: 'http://localhost:3003/user/forgetPassword', method: 'POST', data })
+    const onSubmit = async (data, e) => {
+        // e?.preventDefault();
+
+        const token = new URLSearchParams(search).get('token');
+
+        axios({ url: 'http://localhost:3003/user/resetPassword', method: 'POST', data: { ...data, token } })
             .then((data) => {
-                e.target.reset();
-                reset();
+                console.log(data);
+                navigate("/login");
+                // setContext(() => ({ isLoggedIn: true, role: data.data.role }));
             })
             .catch((err) => {
                 console.log(err.message);
                 // mettre ici la snackbar erreur
-                e.target.reset();
+                // e?.target?.reset();
                 reset();
             });
     };
 
     return (
-        <Container className="image-nature" component="main" maxWidth="xs">
+        <Container className="image-nature" maxWidth="xs">
             <CssBaseline />
             <Card className="centerbutton">
                 <CardContent>
@@ -82,26 +68,38 @@ export const ForgetPassword = () => {
                                 <LockOutlinedIcon />
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                Mot de passe oublié
+                                Nouveau mot de passe
                             </Typography>
                             <Box>
                                 <TextController
                                     margin="normal"
                                     required
                                     fullWidth
-                                    label="Email"
-                                    name="email"
-                                    autoComplete="email"
                                     control={control}
-                                    error={errors.email ? true : false}
+                                    label="Nouveau mot de passe"
+                                    name="new_password"
+                                    autoFocus
+                                />
+
+                                <TextController
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    control={control}
+                                    label="Confirmation mot de passe"
+                                    name="confirmation_password"
                                     rules={{
                                         required: {
                                             value: true,
                                             message: 'Ce champ est obligatoire.'
                                         },
+                                        minLength: {
+                                            value: '8',
+                                            message: 'Le mot de passe doit contenir minimum 8 caractères.'
+                                        },
                                         pattern: {
-                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                            message: "Adresse email invalide."
+                                            value: '(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$',
+                                            message: 'Le mot de passe doit contenir une majuscule, une minuscule, un caractère spécial ou un chiffre.'
                                         }
                                     }}
                                     autoFocus
@@ -116,24 +114,20 @@ export const ForgetPassword = () => {
                                 >
                                     Envoyer
                                 </Button>
-                                {/* <Button onClick={handleClickVariant('success')}>Show success snackbar</Button> */}
-                                <Grid container>
-                                    <Grid item xs>
-                                        <Link href="/login" variant="body2">
-                                            Connexion
-                                        </Link>
-                                    </Grid>
-                                    <Grid item>
-                                        <Link href="/signup" variant="body2">
-                                            {"Inscription"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
                             </Box>
                         </Box>
                     </form>
                 </CardContent>
             </Card>
-        </Container >
+        </Container>
     );
 }
+
+
+
+
+
+
+
+
+

@@ -51,14 +51,14 @@ export default function Signup() {
     });
 
     const onSubmit = async (data, e) => {
-        e?.preventDefault();
+        e.preventDefault();
 
         axios({ url: 'http://localhost:3003/user/create', method: 'POST', data, withCredentials: true })
             .then((data) => {
                 navigate("/");
             })
             .catch((err) => {
-                e?.target?.reset();
+                e.target.reset();
                 reset();
             });
     };

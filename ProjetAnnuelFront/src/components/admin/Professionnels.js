@@ -125,8 +125,6 @@ export const Professionnels = () => {
       .then((data) => setPros(data.data))
   }, []);
 
-  console.log(pros);
-
   const activate = async (id) => {
     const res = await axios({ url: `http://localhost:3003/admin/pro/${id}/activate`, method: 'PUT', withCredentials: true }
     );

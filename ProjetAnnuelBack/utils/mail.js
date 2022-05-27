@@ -123,17 +123,17 @@ export const sendToAdminValidateComptePro = async (lastname, email) => {
 }
 
 //Envoie email lorsque l'utilisateur oublie son mot de passe
-export const sendToUserForgetPassword = async (lastname, email) => {
+export const sendToUserForgetPassword = async (to, link) => {
     let source = await readFile('template/EmailForgetPassword.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
-        lastname, email
+        link
     }
     let html = template(data);
 
     const mailOptions = {
         from: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`, // sender address
-        to: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`,
+        to,
         subject: "Mot de passe oublié", // Subject line
         text: "Vous avez oubliez votre mot de passe.", // plain text body
         html, // html body
@@ -147,6 +147,7 @@ export const sendToUserForgetPassword = async (lastname, email) => {
             return true;
         }
     });
+    console.log("✅ EMAIL ENVOYE");
 }
 
 

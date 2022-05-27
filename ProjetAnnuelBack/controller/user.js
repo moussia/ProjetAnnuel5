@@ -71,3 +71,10 @@ export const deleteParent = async (req, res) => {
         .then((data) => res.sendStatus(data !== 0 ? 204 : 404))
     console.log("✅ User supprimé");
 }
+
+// Enregistrement du nouveau mot de passe lorsqu'on a oublié son mot de passe
+export const NewPasswordForget = async (req, res) => {
+    // console.log('body', req.body);
+    const updatedUser = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
+    res.send(updatedUser);
+}

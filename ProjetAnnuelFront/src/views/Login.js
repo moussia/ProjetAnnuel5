@@ -25,13 +25,10 @@ export const Login = () => {
 
     React.useEffect(() => {
         if (context.isLoggedIn === true) {
-            console.log(context.role);
             if (context.role === roles.ADMIN) {
-                console.log("dash")
                 navigate("/dashboard");
             }
             else {
-                console.log("home")
                 navigate("/");
             }
         }
@@ -51,7 +48,7 @@ export const Login = () => {
     });
 
     const onSubmit = async (data, e) => {
-        e?.preventDefault();
+        e.preventDefault();
 
         axios({ url: 'http://localhost:3003/session', method: 'POST', withCredentials: true, data })
             .then((data) => {
@@ -59,7 +56,7 @@ export const Login = () => {
             })
             .catch((err) => {
                 console.log(err.message);
-                e?.target?.reset();
+                e.target.reset();
                 reset();
             });
     };

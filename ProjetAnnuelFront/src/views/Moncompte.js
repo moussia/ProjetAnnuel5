@@ -41,15 +41,14 @@ export const Moncompte = () => {
     }, [reset]);
 
     const onSubmit = async (data, e) => {
-        e?.preventDefault();
-
+        // e?.preventDefault();
         axios({ url: 'http://localhost:3003/user/update', method: 'PUT', withCredentials: true, data })
             .then((data) => {
                 console.log(data);
             })
             .catch((err) => {
                 console.log(err.message);
-                e?.target?.reset();
+                // e?.target?.reset();
                 reset();
             });
     };

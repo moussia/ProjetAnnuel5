@@ -107,7 +107,6 @@ export const Professionnel = () => {
   // if (context?.isAdmin !== true) history.push('/');
 
   useEffect(() => {
-    console.log('test')
     axios({ url: `http://localhost:3003/admin/pro/${id}`, method: 'GET', withCredentials: true })
       .then((res) => setPro(res.data))
   }, [id])
