@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { AuthContext } from '../contexts/AuthContext';
 
 const pages = [
-    { label: 'Mon compte', route: 'moncompte' },
+    // { label: 'Mon compte', route: 'moncompte' },
     { label: 'Dashboard', route: 'dashboard' },
     { label: 'Deconnexion', route: 'logout' },
 ];
@@ -39,16 +39,6 @@ const HeaderAdmin = () => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        color="black"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-                        onClick={() => handleMenuClick('/')}
-                    >
-                        SOS PARENTS
-                    </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton

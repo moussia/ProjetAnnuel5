@@ -16,6 +16,7 @@ const pages = [
     { label: 'Qui sommes-nous ?', route: 'qui-sommes-nous' },
     { label: 'Mon compte', route: 'moncompte' },
     { label: 'Contact', route: 'contact' },
+    { label: 'Reservation', route: 'reservation' },
     { label: 'Deconnexion', route: 'logout' },
 ];
 

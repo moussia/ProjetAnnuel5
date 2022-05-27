@@ -31,6 +31,20 @@ export const ForgetPassword = () => {
         }
     }, [navigate, context.isLoggedIn]);
 
+
+    // const onSubmit = async (data, e) => {
+    //     e?.preventDefault();
+
+    //     axios({ url: 'http://localhost:3003/user/pro/create', method: 'POST', data, withCredentials: true })
+    //         .then((data) => {
+    //             navigate("/");
+    //         })
+    //         .catch((err) => {
+    //             e?.target?.reset();
+    //             reset();
+    //         });
+    // };
+
     return (
         <Container className="image-nature" component="main" maxWidth="xs">
             <CssBaseline />

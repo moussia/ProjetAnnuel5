@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import styles from '../style/login.module.css';
 import { AuthContext } from '../components/contexts/AuthContext';
+import { roles } from '../constants/roles';
 
 
 export const Login = () => {
@@ -24,9 +25,17 @@ export const Login = () => {
 
     React.useEffect(() => {
         if (context.isLoggedIn === true) {
-            navigate("/");
+            console.log(context.role);
+            if (context.role === roles.ADMIN) {
+                console.log("dash")
+                navigate("/dashboard");
+            }
+            else {
+                console.log("home")
+                navigate("/");
+            }
         }
-    }, [navigate, context.isLoggedIn]);
+    }, [navigate, context]);
 
     const {
         handleSubmit,
@@ -47,7 +56,6 @@ export const Login = () => {
         axios({ url: 'http://localhost:3003/session', method: 'POST', withCredentials: true, data })
             .then((data) => {
                 setContext(() => ({ isLoggedIn: true, role: data.data.role }));
-                navigate("/");
             })
             .catch((err) => {
                 console.log(err.message);

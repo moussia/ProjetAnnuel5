@@ -13,9 +13,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { AuthContext } from '../contexts/AuthContext';
 
 const pages = [
-    { label: 'Qui sommes-nous ?', route: 'qui-sommes-nous' },
     { label: 'Mon compte', route: 'moncompte' },
-    { label: 'Contact', route: 'contact' },
+    { label: 'Disponibilité', route: 'pro/disponible' },
     { label: 'Deconnexion', route: 'logout' },
 ];
 

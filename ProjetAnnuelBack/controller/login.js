@@ -23,4 +23,16 @@ export const Logout = async (req, res) => {
     res.send(200);
 }
 
+// Pour que l'utilisateur qui a oublié son mot de passe puisse le modifié.
+export const SendEmailForForgePassword = async (req, res) => {
+    res.send(200);
+}
+
+// Pour que l'utilisateur qui a oublié son mot de passe puisse le modifié.
+export const ModifPasswordForget = async (req, res) => {
+    const updatePasswordForget = await User.findOneAndUpdate({ _id: req.user._id }, req.body, {
+        new: true
+    });
+    res.send(updatePasswordForget);
+}
 

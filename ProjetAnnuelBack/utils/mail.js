@@ -122,6 +122,33 @@ export const sendToAdminValidateComptePro = async (lastname, email) => {
     });
 }
 
+//Envoie email lorsque l'utilisateur oublie son mot de passe
+export const sendToUserForgetPassword = async (lastname, email) => {
+    let source = await readFile('template/EmailForgetPassword.html', 'utf8');
+    let template = handlebars.compile(source);
+    const data = {
+        lastname, email
+    }
+    let html = template(data);
+
+    const mailOptions = {
+        from: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`, // sender address
+        to: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`,
+        subject: "Mot de passe oublié", // Subject line
+        text: "Vous avez oubliez votre mot de passe.", // plain text body
+        html, // html body
+    }
+
+    // send mail with defined transport object
+    await transporter.sendMail(mailOptions, (error, info) => {
+        if (error) console.log('Email cannot be send: ' + error);
+        else {
+            console.log('Email sent: ' + clientInformation.response);
+            return true;
+        }
+    });
+}
+
 
 // export const sendToAdminValidateComptePro = async (to, lastname, email) => {
 

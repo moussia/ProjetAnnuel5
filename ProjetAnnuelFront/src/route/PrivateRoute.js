@@ -6,7 +6,10 @@ const PrivateRoute = ({ Component, restricted = false }) => {
     const { context } = useContext(AuthContext);
 
     if (!context.isLoggedIn) return (<Navigate to={{ pathname: '/login' }} replace />);
-    if (restricted && context.role !== restricted) return (<Navigate to={{ pathname: '/' }} replace />);
+    if (restricted && context.role !== restricted) {
+        console.log("->", context.role)
+        return (<Navigate to={{ pathname: '/' }} replace />)
+    };
 
     return (<Component />);
 };
