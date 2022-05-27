@@ -23,7 +23,7 @@ export const Login = () => {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        if (context.isLoggedIn) {
+        if (context.isLoggedIn === true) {
             navigate("/");
         }
     }, [navigate, context.isLoggedIn]);

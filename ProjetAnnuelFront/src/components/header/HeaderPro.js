@@ -82,11 +82,9 @@ const HeaderPro = () => {
                         >
                             {pages.map((page) => (
                                 <React.Fragment>
-                                    {!((page.restricted === 'public' && context.isLoggedIn) || (page.restricted === 'private' && !context.isLoggedIn)) &&
-                                        <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
-                                            <Typography textAlign="center">{page.label}</Typography>
-                                        </MenuItem>
-                                    }
+                                    <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
+                                        <Typography textAlign="center">{page.label}</Typography>
+                                    </MenuItem>
                                 </React.Fragment>
 
                             ))}
@@ -95,15 +93,13 @@ const HeaderPro = () => {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <React.Fragment>
-                                {!((page.restricted === 'public' && context.isLoggedIn) || (page.restricted === 'private' && !context.isLoggedIn)) &&
-                                    <Button
-                                        key={page.label}
-                                        onClick={() => handleMenuClick(page.route)}
-                                        sx={{ my: 2, color: 'black', display: 'block' }}
-                                    >
-                                        {page.label}
-                                    </Button>
-                                }
+                                <Button
+                                    key={page.label}
+                                    onClick={() => handleMenuClick(page.route)}
+                                    sx={{ my: 2, color: 'black', display: 'block' }}
+                                >
+                                    {page.label}
+                                </Button>
                             </React.Fragment>
                         ))}
                     </Box>

@@ -50,7 +50,7 @@ export default function SignupPro() {
     const { context } = React.useContext(AuthContext);
 
     React.useEffect(() => {
-        if (context.isLoggedIn) {
+        if (context.isLoggedIn === true) {
             navigate("/");
         }
     }, [navigate, context.isLoggedIn]);
