@@ -2,7 +2,6 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
@@ -10,10 +9,60 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import styles from '../style/forgetpassword.module.css';
+import { TextController } from '../components/form/textController';
+import MuiAlert from '@mui/material/Alert';
+import axios from 'axios';
+import { useForm } from "react-hook-form";
+import Snackbar from '@mui/material/Snackbar';
 
+
+// const Alert = React.forwardRef(function Alert(props, ref) {
+//     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+// });
 
 
 export const ModifPassword = () => {
+    // const [open, setOpen] = React.useState(false);
+    // const [openSuccess, setOpenSuccess] = React.useState(false);
+
+
+    const {
+        handleSubmit,
+        formState: { errors, isSubmitting, isDirty, isValid },
+        reset,
+        control
+    } = useForm({
+        mode: 'onChange',
+        defaultValues: {
+            password: '',
+        }
+    });
+
+
+    const onSubmit = async (data, e) => {
+        e.preventDefault();
+
+        axios({ url: 'http://localhost:3003/user/modifPassword', method: 'POST', data, withCredentials: true })
+            .then((data) => {
+                e.target.reset();
+                // setOpenSuccess(true);
+                reset();
+            })
+            .catch((err) => {
+                console.log(err.message);
+                // mettre ici la snackbar erreur
+                // setOpen(true);
+                e.target.reset();
+                reset();
+            });
+    };
+
+
+    // const handleClose = (event, reason) => {
+    //     if (reason === 'clickaway') return;
+    //     setOpen(false);
+    // }
+
 
     return (
         <Container className="image-nature" maxWidth="xs">
@@ -34,23 +83,16 @@ export const ModifPassword = () => {
                         <Typography component="h1" variant="h5">
                             Modification du mot de passe
                         </Typography>
-                        <Box component="form" noValidate sx={{ mt: 1 }}>
-                            <TextField
+                        <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit(onSubmit)}>
+                            <TextController
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="current_password"
-                                label="Current password"
-                                name="current_password"
+                                label="Nouveau mot de passe"
+                                name="password"
                                 autoFocus
-                            />
-
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="new_password"
-                                label="New password"
+                                control={control}
+                                error={errors.password ? true : false}
                                 rules={{
                                     required: {
                                         value: true,
@@ -65,8 +107,6 @@ export const ModifPassword = () => {
                                         message: 'Le mot de passe doit contenir une majuscule, une minuscule, un caractère spécial ou un chiffre.'
                                     }
                                 }}
-                                name="newpassword"
-                                autoFocus
                             />
 
                             <Button
@@ -74,6 +114,7 @@ export const ModifPassword = () => {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
+                                disabled={!isValid || !isDirty || isSubmitting}
                             >
                                 Enregistrer
                             </Button>
@@ -81,6 +122,11 @@ export const ModifPassword = () => {
                     </Box>
                 </CardContent>
             </Card>
+            {/* <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Mot de passe enregistré
+                </Alert>
+            </Snackbar> */}
         </Container>
     );
 }

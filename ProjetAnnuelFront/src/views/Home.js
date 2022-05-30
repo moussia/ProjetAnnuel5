@@ -31,18 +31,20 @@ export default function Home() {
     return (
         <div>
             <Grid container className={styles.imageaccueil}>
-                <div className={styles.textcenter, styles.colorwhite} >
-                    <h1>Ne craquez plus, appelez nous pour vous aidez...</h1>
-                    <p>  Vous êtes fatigué ? Vous n'arrivez pas à calmer bébé ? Soufflez un peu et contactez nous !
-                        SOS PARENTS GRAND PARIS :
-                        Visites d'aides à domicile
-                        consultations
-                        téléconsultations
-                        24h/24, 7j/7
-                        (Paris 75, 92, 93, 94)
-                    </p>
+                <div className={styles.textcenter && styles.colorwhite && styles.positionrelative} >
+                    <div className={styles.positionabsolute}>
+                        <h1>Ne craquez plus, appelez nous pour vous aidez...</h1>
+                        <p>  Vous êtes fatigué ? Vous n'arrivez pas à calmer bébé ? Soufflez un peu et contactez nous !
+                            SOS PARENTS GRAND PARIS :
+                            Visites d'aides à domicile
+                            consultations
+                            téléconsultations
+                            24h/24, 7j/7
+                            (Paris 75, 92, 93, 94)
+                        </p>
+                    </div>
                 </div>
-            </Grid>
+            </Grid >
             <Grid container spacing={4} className={styles.textcenter}>
                 <Grid item xs={4}>
                     <ColorButton variant="contained" size="large" className={styles.textcenter}>Demander une visite à domicile</ColorButton>
@@ -84,7 +86,7 @@ export default function Home() {
                     <ColorButton variant="contained" size="large" className={styles.textcenter}>Je dépose ma candidature</ColorButton>
                 </Grid>
             </Grid>
-        </div>
+        </div >
 
     );
 }

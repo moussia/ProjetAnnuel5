@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { resetPassword, SendEmailForForgePassword } from '../controller/login.js';
+import { activatedMail, modifPassword, resetPassword, SendEmailForForgePassword } from '../controller/login.js';
 // import { ModifPasswordForget, SendEmailForForgePassword } from '../controller/login.js';
 import { createPro } from '../controller/pro.js';
 import { createParent, currentUser, updateUser } from '../controller/user.js';
@@ -17,7 +17,10 @@ userRouter.get('/current', isAuthenticated, currentUser);
 userRouter.get('/services', isAuthenticated, isParent);
 userRouter.put('/update', isAuthenticated, updateUser);
 userRouter.post('/forgetPassword', SendEmailForForgePassword);
+userRouter.post('/modifPassword', isAuthenticated, modifPassword);
 userRouter.post('/resetPassword', resetPassword);
+userRouter.post('/activatedMail', activatedMail);
+
 
 
 export default userRouter;

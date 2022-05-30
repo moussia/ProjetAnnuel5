@@ -19,8 +19,17 @@ import { TextController } from '../../components/form/textController';
 import { MenuItem } from '@mui/material';
 import { SelectController } from '../../components/form/selectController';
 import { AuthContext } from '../../components/contexts/AuthContext';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function SignupPro() {
+    const [open, setOpen] = React.useState(false);
+    const [openErreur, setOpenErreur] = React.useState(false);
+    const { context } = React.useContext(AuthContext);
     const navigate = useNavigate();
 
     const {
@@ -47,7 +56,6 @@ export default function SignupPro() {
         }
     });
 
-    const { context } = React.useContext(AuthContext);
 
     React.useEffect(() => {
         if (context.isLoggedIn === true) {
@@ -60,13 +68,24 @@ export default function SignupPro() {
 
         axios({ url: 'http://localhost:3003/user/pro/create', method: 'POST', data, withCredentials: true })
             .then((data) => {
-                navigate("/");
+                setOpen(true);
             })
             .catch((err) => {
-                e.target.reset();
-                reset();
+                setOpenErreur(true);
             });
+        e.target.reset();
+        reset();
     };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setOpen(false);
+    }
+
+    const handleCloseErreur = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setOpenErreur(false);
+    }
 
     return (
         <>
@@ -344,6 +363,16 @@ export default function SignupPro() {
                         </Card>
                     </Container >
                 </Grid>
+                <Snackbar open={openErreur} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                    <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                        Inscription invalide
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={open} autoHideDuration={3000} onClose={handleCloseErreur} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                    <Alert onClose={handleCloseErreur} severity="success" sx={{ width: '100%' }}>
+                        Merci pour votre inscription. Regardez votre mail pour confirmer votre compte.
+                    </Alert>
+                </Snackbar>
                 <Grid item xs={3} />
             </Grid>
         </>

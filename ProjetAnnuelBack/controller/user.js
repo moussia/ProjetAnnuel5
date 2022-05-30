@@ -2,6 +2,7 @@ import User from '../model/User.js';
 import bcrypt from 'bcrypt';
 import { EnvoiMailAuParentPourInscription } from '../utils/mail.js';
 import { roles } from '../constants/Roles.js';
+import jwt from 'jsonwebtoken';
 
 export const createParent = async (req, res) => {
     // create and save new player in DB
@@ -23,8 +24,13 @@ export const createParent = async (req, res) => {
     user.save();
     console.log('✅ Inscription Client');
     // sellerRegisterEmail(req.body.email, req.body.name, req.body.email);
-    EnvoiMailAuParentPourInscription(email, lastname, email);
-    res.send();
+    const link = jwt.sign({
+        data: { _id: user._id }
+    }, process.env.JWT_ACTIVATE, { expiresIn: '24h' });
+    EnvoiMailAuParentPourInscription(email, lastname, `${process.env.URL_FRONT}/activatedMail?token=${link}`);
+
+    // comme mot de passe oublié, genere un token jwt que jenvoie par email et je change le template pour le mail
+    res.sendStatus(200);
 }
 
 export const findUser = async (req) => {

@@ -15,11 +15,11 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-export const EnvoiMailAuParentPourInscription = async (to, lastname, email) => {
+export const EnvoiMailAuParentPourInscription = async (to, lastname, link) => {
     let source = await readFile('template/Email-register.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
-        lastname, email
+        lastname, link
     }
     let html = template(data);
 

@@ -34,6 +34,7 @@ import { Donation } from './views/paiement/Donation';
 import AuthProvider, { AuthContext } from './components/contexts/AuthContext';
 import { roles } from './constants/roles';
 import { NewPassword } from './views/NewPassword';
+import { ActivateMail } from './views/ActivateMail';
 
 export const App = () => {
 
@@ -53,6 +54,7 @@ export const App = () => {
             <Route exact path='/services' element={<Services />} />
             <Route exact path='/contact' element={<Contact />} />
             <Route exact path='/modifPassword' element={<ModifPassword />} />
+            <Route exact path='/activatedMail' element={<ActivateMail />} />
             <Route exact path='/newPassword' element={<NewPassword />} />
             <Route exact path='/qui-sommes-nous' element={<Quisommesnous />} />
             <Route exact path='/forgetpassword' element={<ForgetPassword />} />

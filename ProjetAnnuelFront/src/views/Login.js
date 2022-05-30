@@ -26,6 +26,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export const Login = () => {
     const [open, setOpen] = React.useState(false);
+    // const [openWarning, setOpenWarning] = React.useState(false);
     const { context, setContext } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -71,6 +72,7 @@ export const Login = () => {
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') return;
         setOpen(false);
+        // setOpenWarning(false);
     }
 
     return (
@@ -169,6 +171,11 @@ export const Login = () => {
                     Email ou mot de passe invalide
                 </Alert>
             </Snackbar>
+            {/* <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+                    En attente de l'activation de ton compte par l'admin.
+                </Alert>
+            </Snackbar> */}
         </Grid>
     );
 }

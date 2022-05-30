@@ -1,6 +1,6 @@
 .imageaccueil {
   width: 100%;
-  filter: brightness(50%);
+  /* filter: brightness(50%); */
 }
 
 .textaccueil {
@@ -11,6 +11,16 @@
 
 .textcenter {
   text-align: center;
+}
+
+.positionrelative {
+  position: relative;
+}
+
+.positionabsolute {
+  position: absolute;
+  top: 50%; /* poussé de la moitié de hauteur du référent */
+  transform: translateY(-50%);
 }
 
 .imageaccueil {

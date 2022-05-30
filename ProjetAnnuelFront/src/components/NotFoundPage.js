@@ -19,7 +19,7 @@ export class NotFoundPage extends React.Component {
                 height={400}
                 width={400} />
             <p style={{ textAlign: "center" }}>
-                <Link to="/">Go to Home </Link>
+                <Link to="/">Retourner sur l'accueil</Link>
             </p>
         </div>;
     }
