@@ -2,6 +2,7 @@ import User from '../model/User.js';
 import bcrypt from 'bcrypt';
 import { EnvoiMailAuProPourCompteValide, EnvoiMailAuProPourInscription, sendToAdminValidateComptePro } from '../utils/mail.js';
 import { roles } from '../constants/Roles.js';
+import jwt from 'jsonwebtoken';
 
 export const createPro = async (req, res) => {
     // create and save new user pro in DB
@@ -23,9 +24,12 @@ export const createPro = async (req, res) => {
     });
     user.save();
     console.log('✅ Inscription Pro');
-    EnvoiMailAuProPourInscription(email, lastname, email); //mail pour validé l'inscription
+    const link = jwt.sign({
+        data: { _id: user._id }
+    }, process.env.JWT_ACTIVATE, { expiresIn: '24h' });
+    EnvoiMailAuProPourInscription(email, lastname, `${process.env.URL_FRONT}/activatedMail?token=${link}`); //mail pour validé l'inscription
     sendToAdminValidateComptePro(lastname, email); // mail à l'admin pour validé le compte pro
-    res.send();
+    res.sendStatus(200);
 }
 
 export const activatePro = async (req, res) => {

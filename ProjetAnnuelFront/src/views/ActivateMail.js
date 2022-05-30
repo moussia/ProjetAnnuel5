@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import * as animationData from '../images/lotties/activateemail.json';
 import * as notActivateImage from '../images/lotties/notactivateemail.json';
 import * as loader from '../images/lotties/loader.json';
 import axios from 'axios';
 import Lottie from 'react-lottie';
 import { Link } from 'react-router-dom';
-import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const defaultOptions = {
@@ -36,14 +35,6 @@ const notactivateEmail = {
 };
 
 export const ActivateMail = () => {
-
-    // si jai recu un token, je fais une requete vers le back sur la route quon a creer avec le jwt.verify
-    // .then -> jappelle cette route la, si elle me renvoi 200 alors jaffiche le message de succes
-    // sinon (.cath) -> affiche l'erreur !
-    // decklarer un state activated par defaut a false, si c un succes, je le passe a true.
-    // dans mon return : if (activation = success) je return le lotify de succes
-    // else ..
-
     const [activation, setActivation] = React.useState(null);
     const { search } = useLocation(); //permet de recuperer dans l'url
     const navigate = useNavigate();
