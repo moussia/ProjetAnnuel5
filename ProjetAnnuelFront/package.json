@@ -12,6 +12,7 @@
     "@mui/material": "^5.5.1",
     "@mui/styled-engine-sc": "^5.4.2",
     "@mui/x-date-pickers": "^5.0.0-alpha.4",
+    "@react-spring/web": "^9.4.5",
     "@stripe/react-stripe-js": "^1.8.1",
     "@stripe/stripe-js": "^1.29.0",
     "@testing-library/jest-dom": "^5.16.2",

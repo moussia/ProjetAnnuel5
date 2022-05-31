@@ -1,52 +1,92 @@
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import { Grid } from '@mui/material';
-import styles from '../../style/reservation.module.css';
 import { Button } from '@material-ui/core';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import PropTypes from 'prop-types';
+import Backdrop from '@mui/material/Backdrop';
+import Typography from '@mui/material/Typography';
+// web.cjs is required for IE11 support
+import { useSpring, animated } from 'react-spring/web.cjs';
 
-export const Disponible = () => {
-    const [datedebut, setDateDebut] = React.useState(new Date('2022-01-01T00:12:00.000Z'));
-    const [datefin, setDateFin] = React.useState(new Date('2022-01-01T00:12:00.000Z'));
+
+
+
+const Fade = React.forwardRef(function Fade(props, ref) {
+    const { in: open, children, onEnter, onExited, ...other } = props;
+    const style = useSpring({
+        from: { opacity: 0 },
+        to: { opacity: open ? 1 : 0 },
+        onStart: () => {
+            if (open && onEnter) {
+                onEnter();
+            }
+        },
+        onRest: () => {
+            if (!open && onExited) {
+                onExited();
+            }
+        },
+    });
 
     return (
+        <animated.div ref={ref} style={style} {...other}>
+            {children}
+        </animated.div>
+    );
+});
 
-        <Grid container spacing={3} className={styles.margintoptrois}>
-            <Grid item xs={3}>
-            </Grid>
-            <Grid item xs={3}>
-                <h2>Chère Professionnel,  </h2>
-                <p>Choisissez l'heure et la date à laquelle vous êtes disponible et vous souhaitez aidez des parents.</p>
+Fade.propTypes = {
+    children: PropTypes.element,
+    in: PropTypes.bool.isRequired,
+    onEnter: PropTypes.func,
+    onExited: PropTypes.func,
+};
 
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <Stack spacing={3}>
-                        <DateTimePicker
-                            label="Date de début"
-                            renderInput={(params) => <TextField {...params} />}
-                            value={datedebut}
-                            onChange={(newValue) => {
-                                setDateDebut(newValue);
-                            }}
-                        />
-                        <DateTimePicker
-                            label="Date de fin"
-                            renderInput={(params) => <TextField {...params} />}
-                            value={datefin}
-                            onChange={(newValue) => {
-                                setDateFin(newValue);
-                            }}
-                        />
-                    </Stack>
-                </LocalizationProvider>
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
-                <Button variant="contained" color="success">
-                    Success
-                </Button>
-            </Grid>
-        </Grid >
 
+export const Disponible = () => {
+
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    return (
+        <div>
+            <Button onClick={handleOpen}>Open modal</Button>
+            <Modal
+                aria-labelledby="spring-modal-title"
+                aria-describedby="spring-modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={open}>
+                    <Box sx={style}>
+                        <Typography id="spring-modal-title" variant="h6" component="h2">
+                            Text in a modal
+                        </Typography>
+                        <Typography id="spring-modal-description" sx={{ mt: 2 }}>
+                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        </Typography>
+                    </Box>
+                </Fade>
+            </Modal>
+        </div>
     );
 }
