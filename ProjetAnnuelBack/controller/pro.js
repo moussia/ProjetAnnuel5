@@ -5,31 +5,37 @@ import { roles } from '../constants/Roles.js';
 import jwt from 'jsonwebtoken';
 
 export const createPro = async (req, res) => {
-    // create and save new user pro in DB
-    const { email, password, firstname, lastname, phone, birthday, address, city, country, zipcode, job } = req.body;
-    const hash = await bcrypt.hash(password, 10);
-    const user = new User({
-        email,
-        password: hash,
-        firstname,
-        lastname,
-        phone,
-        birthday,
-        address,
-        city,
-        country,
-        zipcode,
-        job,
-        role: roles.PRO
-    });
-    user.save();
-    console.log('✅ Inscription Pro');
-    const link = jwt.sign({
-        data: { _id: user._id }
-    }, process.env.JWT_ACTIVATE, { expiresIn: '24h' });
-    EnvoiMailAuProPourInscription(email, lastname, `${process.env.URL_FRONT}/activatedMail?token=${link}`); //mail pour validé l'inscription
-    sendToAdminValidateComptePro(lastname, email); // mail à l'admin pour validé le compte pro
-    res.sendStatus(200);
+    try {
+        // create and save new user pro in DB
+        const { email, password, firstname, lastname, phone, birthday, address, city, country, zipcode, job } = req.body;
+        const hash = await bcrypt.hash(password, 10);
+        const user = new User({
+            email,
+            password: hash,
+            firstname,
+            lastname,
+            phone,
+            birthday,
+            address,
+            city,
+            country,
+            zipcode,
+            job,
+            role: roles.PRO
+        });
+        user.save();
+        console.log('✅ Inscription Pro');
+        const link = jwt.sign({
+            data: { _id: user._id }
+        }, process.env.JWT_ACTIVATE, { expiresIn: '24h' });
+        EnvoiMailAuProPourInscription(email, lastname, `${process.env.URL_FRONT}/activatedMail?token=${link}`); //mail pour validé l'inscription
+        sendToAdminValidateComptePro(lastname, email); // mail à l'admin pour validé le compte pro
+        res.sendStatus(200);
+    }
+    catch (err) {
+        console.error(err);
+        res.sendStatus(400);
+    }
 }
 
 export const activatePro = async (req, res) => {

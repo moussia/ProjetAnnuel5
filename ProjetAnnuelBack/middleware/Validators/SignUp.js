@@ -8,8 +8,8 @@ export const ValidateParentSignup = [
         .withMessage(strings.VALIDATE_EMAIL_NEEDED)
         .notEmpty()
         .withMessage(strings.VALIDATE_EMPTY_MAIL)
-        .trim()
-        .escape()
+        .trim() //retirer les espaces a gauche et a droite
+        .escape() //pour ne pas qu'il y ai des caracteres bizare
         .normalizeEmail()
         .isEmail()
         .withMessage(strings.VALIDATE_INVALID_MAIL),

@@ -77,6 +77,7 @@ export const NewPassword = () => {
                                     control={control}
                                     label="Nouveau mot de passe"
                                     name="new_password"
+                                    type='password'
                                     autoFocus
                                 />
 
@@ -87,6 +88,7 @@ export const NewPassword = () => {
                                     control={control}
                                     label="Confirmation mot de passe"
                                     name="confirmation_password"
+                                    type='password'
                                     rules={{
                                         required: {
                                             value: true,

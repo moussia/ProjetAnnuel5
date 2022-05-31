@@ -26,9 +26,9 @@ Content-Type: application/json
     "address" : "8 rue de romainville",
     "city" : "paris",
     "country" : "france",
-    "email" : "moussiamottal@gmail.com",
+    "email" : "mmoussiamottal@gmail.com",
     "password" : "Hayamottal555/",
-    "zipcode" : "75019",
+    "zipcode" : "750191",
     "sex" : "WOMAN",
     "role" : "PRO",
     "job": "pediatre"

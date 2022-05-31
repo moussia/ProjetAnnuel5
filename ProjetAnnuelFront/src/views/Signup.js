@@ -235,13 +235,9 @@ export default function Signup() {
                                                         value: true,
                                                         message: 'Ce champ est obligatoire.'
                                                     },
-                                                    min: {
-                                                        value: '2',
-                                                        message: 'Veuillez saisir minimum 2 caractères.'
-                                                    },
-                                                    minLength: {
-                                                        value: '2',
-                                                        message: 'Le code postal doit contenir minimum 2 caractères.'
+                                                    pattern: {
+                                                        value: /[0-9]{5}/gm,
+                                                        message: 'Code postale invalide'
                                                     }
                                                 }}
                                                 control={control}

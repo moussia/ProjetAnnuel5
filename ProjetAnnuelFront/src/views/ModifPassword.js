@@ -16,14 +16,13 @@ import { useForm } from "react-hook-form";
 import Snackbar from '@mui/material/Snackbar';
 
 
-// const Alert = React.forwardRef(function Alert(props, ref) {
-//     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-// });
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 export const ModifPassword = () => {
-    // const [open, setOpen] = React.useState(false);
-    // const [openSuccess, setOpenSuccess] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
 
     const {
@@ -38,30 +37,27 @@ export const ModifPassword = () => {
         }
     });
 
-
     const onSubmit = async (data, e) => {
         e.preventDefault();
 
         axios({ url: 'http://localhost:3003/user/modifPassword', method: 'POST', data, withCredentials: true })
             .then((data) => {
                 e.target.reset();
-                // setOpenSuccess(true);
+                setOpen(true);
                 reset();
             })
             .catch((err) => {
                 console.log(err.message);
-                // mettre ici la snackbar erreur
-                // setOpen(true);
                 e.target.reset();
                 reset();
             });
     };
 
 
-    // const handleClose = (event, reason) => {
-    //     if (reason === 'clickaway') return;
-    //     setOpen(false);
-    // }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setOpen(false);
+    }
 
 
     return (
@@ -88,6 +84,7 @@ export const ModifPassword = () => {
                                 margin="normal"
                                 required
                                 fullWidth
+                                type='password'
                                 label="Nouveau mot de passe"
                                 name="password"
                                 autoFocus
@@ -122,11 +119,11 @@ export const ModifPassword = () => {
                     </Box>
                 </CardContent>
             </Card>
-            {/* <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    Mot de passe enregistré
+                    Nouveau mot de passe enregistré
                 </Alert>
-            </Snackbar> */}
+            </Snackbar>
         </Container>
     );
 }

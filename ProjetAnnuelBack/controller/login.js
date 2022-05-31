@@ -65,6 +65,10 @@ export const resetPassword = async (req, res) => {
 export const modifPassword = async (req, res) => {
     const newPassword = req.body.password;
     console.log(newPassword);
+    const hash = await bcrypt.hash(newPassword, 10);
+    await User.findOneAndUpdate({ _id: req.user._id }, { password: hash }, {
+        new: true
+    });
     res.sendStatus(200);
 }
 

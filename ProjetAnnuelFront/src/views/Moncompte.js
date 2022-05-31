@@ -9,8 +9,8 @@ import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import axios from 'axios';
 import { TextController } from '../components/form/textController';
-import Link from '@mui/material/Link';
 import { RadioController } from '../components/form/radioController';
+import { Link } from 'react-router-dom';
 
 export const Moncompte = () => {
     const {
@@ -240,7 +240,7 @@ export const Moncompte = () => {
 
                                 <Grid container>
                                     <Grid item xs>
-                                        <Link href="/modifPassword" variant="body2">
+                                        <Link to="/modifPassword" variant="body2">
                                             Modifier mot de passe
                                         </Link>
                                     </Grid>

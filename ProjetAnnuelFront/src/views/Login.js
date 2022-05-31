@@ -19,6 +19,7 @@ import { AuthContext } from '../components/contexts/AuthContext';
 import { roles } from '../constants/roles';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { PasswordController } from '../components/form/passwordController';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
