@@ -5,32 +5,39 @@ import { roles } from '../constants/Roles.js';
 import jwt from 'jsonwebtoken';
 
 export const createParent = async (req, res) => {
-    // create and save new player in DB
-    const { email, password, firstname, lastname, phone, birthday, address, city, country, zipcode } = req.body;
-    const hash = await bcrypt.hash(password, 10);
-    const user = new User({
-        email,
-        password: hash,
-        firstname,
-        lastname,
-        phone,
-        birthday,
-        address,
-        city,
-        country,
-        zipcode,
-        role: roles.PARENT
-    });
-    user.save();
-    console.log('✅ Inscription Client');
-    // sellerRegisterEmail(req.body.email, req.body.name, req.body.email);
-    const link = jwt.sign({
-        data: { _id: user._id }
-    }, process.env.JWT_ACTIVATE, { expiresIn: '24h' });
-    EnvoiMailAuParentPourInscription(email, lastname, `${process.env.URL_FRONT}/activatedMail?token=${link}`);
+    try {
+        // create and save new player in DB
+        const { email, password, firstname, lastname, phone, birthday, address, city, country, zipcode } = req.body;
+        const hash = await bcrypt.hash(password, 10);
+        const user = new User({
+            email,
+            password: hash,
+            firstname,
+            lastname,
+            phone,
+            birthday,
+            address,
+            city,
+            country,
+            zipcode,
+            activatedByAdmin: true,
+            role: roles.PARENT
+        });
+        await user.save();
+        console.log('✅ Inscription Client');
+        // sellerRegisterEmail(req.body.email, req.body.name, req.body.email);
+        const link = jwt.sign({
+            data: { _id: user._id }
+        }, process.env.JWT_ACTIVATE, { expiresIn: '24h' });
+        EnvoiMailAuParentPourInscription(email, lastname, `${process.env.URL_FRONT}/activatedMail?token=${link}`);
+        // comme mot de passe oublié, genere un token jwt que jenvoie par email et je change le template pour le mail
+        res.sendStatus(200);
+    }
+    catch (err) {
+        console.error(err);
+        res.sendStatus(400);
+    }
 
-    // comme mot de passe oublié, genere un token jwt que jenvoie par email et je change le template pour le mail
-    res.sendStatus(200);
 }
 
 export const findUser = async (req) => {

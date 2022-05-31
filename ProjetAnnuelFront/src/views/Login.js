@@ -26,7 +26,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export const Login = () => {
     const [open, setOpen] = React.useState(false);
-    // const [openWarning, setOpenWarning] = React.useState(false);
+    const [openWarning, setOpenWarning] = React.useState(false);
     const { context, setContext } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -62,7 +62,12 @@ export const Login = () => {
                 setContext(() => ({ isLoggedIn: true, role: data.data.role }));
             })
             .catch((err) => {
-                setOpen(true);
+                if (err.message === "Activation by admin required")
+                    setOpenWarning(true);
+                if (err.message === "Activation require")
+                    setOpen(true);
+                else
+                    setOpen(true);
                 console.log(err.message);
                 e.target.reset();
                 reset();
@@ -72,7 +77,11 @@ export const Login = () => {
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') return;
         setOpen(false);
-        // setOpenWarning(false);
+    }
+
+    const handleCloseWarning = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setOpenWarning(false);
     }
 
     return (
@@ -171,11 +180,11 @@ export const Login = () => {
                     Email ou mot de passe invalide
                 </Alert>
             </Snackbar>
-            {/* <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+            <Snackbar open={openWarning} autoHideDuration={3000} onClose={handleCloseWarning} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Alert onClose={handleCloseWarning} severity="warning" sx={{ width: '100%' }}>
                     En attente de l'activation de ton compte par l'admin.
                 </Alert>
-            </Snackbar> */}
+            </Snackbar>
         </Grid>
     );
 }

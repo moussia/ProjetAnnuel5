@@ -346,16 +346,18 @@ export default function Signup() {
                         </Card>
                     </Container >
                 </Grid>
-                <Snackbar open={openErreur} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Snackbar open={openErreur} autoHideDuration={3000} onClose={handleCloseErreur} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
                     <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                         Inscription invalide.
                     </Alert>
                 </Snackbar>
-                <Snackbar open={open} autoHideDuration={3000} onClose={handleCloseErreur} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
                     <Alert onClose={handleCloseErreur} severity="success" sx={{ width: '100%' }}>
                         Merci pour votre inscription. Regardez votre mail pour confirmer votre compte.
                     </Alert>
                 </Snackbar>
+
+
                 <Grid item xs={3} />
             </Grid>
         </>

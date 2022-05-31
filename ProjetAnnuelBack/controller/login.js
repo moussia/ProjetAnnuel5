@@ -10,8 +10,15 @@ export const Login = async (email, password, done) => {
         return done(null, false);
     }
     const isValid = await bcrypt.compare(password, user.password);
-    if (!isValid || !user.activated) {
+
+    if (!isValid) {
         return done(null, false);
+    }
+    if (!user.activated) {
+        return done("Activation require");
+    }
+    if (!user.activatedByAdmin) {
+        return done("Activation by admin required");
     }
     return done(null, user)
 }
