@@ -19,6 +19,7 @@ import styles from '../style/signup.module.css';
 import { AuthContext } from '../components/contexts/AuthContext';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { PasswordController } from '../components/form/passwordController';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -277,11 +278,10 @@ export default function Signup() {
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <TextController
+                                            <PasswordController
                                                 fullWidth
                                                 label='Mot de passe'
                                                 variant='outlined'
-                                                type='password'
                                                 name='password'
                                                 required
                                                 margin="normal"
@@ -290,7 +290,7 @@ export default function Signup() {
                                                 rules={{
                                                     required: {
                                                         value: true,
-                                                        message: 'Ce champ est obligatoire.'
+                                                        message: 'Saisie incorrecte.'
                                                     },
                                                     minLength: {
                                                         value: '8',

@@ -6,7 +6,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Controller } from "react-hook-form"
 import { OutlinedInput } from '@mui/material';
 
-export const PasswordController = ({ control, name, rules, label, ...props }) => {
+export const PasswordController = ({ control, name, rules, label, required, ...props }) => {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleMouseDownPassword = (event) => {
@@ -15,14 +15,15 @@ export const PasswordController = ({ control, name, rules, label, ...props }) =>
 
     return (
         <Controller
-            label={label}
             name={name}
             control={control}
             rules={rules}
             render={({ field: { onChange, value } }) => (
                 <OutlinedInput
+                    label={label}
                     type={showPassword ? 'text' : 'password'}
                     value={value}
+                    required={required}
                     onChange={onChange}
                     endAdornment={
                         <InputAdornment position="end">

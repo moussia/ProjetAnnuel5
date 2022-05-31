@@ -21,6 +21,7 @@ import { SelectController } from '../../components/form/selectController';
 import { AuthContext } from '../../components/contexts/AuthContext';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { PasswordController } from '../../components/form/passwordController';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -278,27 +279,25 @@ export default function SignupPro() {
                                                         message: "Adresse email invalide."
                                                     }
                                                 }}
-
                                                 control={control}
                                                 error={errors.email ? true : false}
                                                 helperText={errors?.email?.message}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <TextController
+                                            <PasswordController
                                                 fullWidth
                                                 label='Mot de passe'
                                                 variant='outlined'
-                                                type='password'
                                                 name='password'
                                                 required
                                                 margin="normal"
-                                                autoComplete=""
+                                                autoComplete="password"
                                                 autoFocus
                                                 rules={{
                                                     required: {
                                                         value: true,
-                                                        message: 'Ce champ est obligatoire.'
+                                                        message: 'Saisie incorrecte.'
                                                     },
                                                     minLength: {
                                                         value: '8',
