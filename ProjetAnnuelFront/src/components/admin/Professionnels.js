@@ -107,10 +107,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
 export const Professionnels = () => {
   const classes = useStyles();
   const [pros, setPros] = useState([]);
@@ -147,71 +143,67 @@ export const Professionnels = () => {
   };
 
   return (
-    <React.Fragment>
-      <div className={classes.root}>
-        <CssBaseline />
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-          }}
-          open={open}
-        >
-          <Divider />
-          {/* <MainListItems /> */}
-          <Divider />
-        </Drawer>
-        <main className={classes.content}>
-          <h1>Compte Pro</h1>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>Nom</TableCell>
-                <TableCell>Prénom</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Téléphone</TableCell>
-                <TableCell>Activé</TableCell>
-                <TableCell></TableCell>
+    <div className={classes.root}>
+      <CssBaseline />
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+        }}
+        open={open}
+      >
+        <Divider />
+        {/* <MainListItems /> */}
+        <Divider />
+      </Drawer>
+      <main className={classes.content}>
+        <h1>Compte Pro</h1>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Nom</TableCell>
+              <TableCell>Prénom</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Téléphone</TableCell>
+              <TableCell>Activé</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {pros.map((pro) => (
+              <TableRow key={pro._id} className={classes.cursorpointer}>
+
+                <TableCell>{pro.lastname}</TableCell>
+                <TableCell>{pro.firstname}</TableCell>
+                <TableCell>{pro.email}</TableCell>
+                <TableCell>{pro.phone}</TableCell>
+                <TableCell>
+                  {
+                    !pro.activatedByAdmin ? <Button onClick={() => activate(pro._id)} variant="contained" color="primary">Activate </Button>
+                      : <div>Activated</div>
+                  }
+                </TableCell>
+                <TableCell>
+                  <Link onClick={() => navigate(`/pro/${pro._id}`)}>
+                    <img src={require('../../images/eye.png')} alt="traitement" className={classes.tailleeye} />
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Link onClick={() => deletePro(pro._id)}>
+                    <img src={require('../../images/poubelle-de-recyclage.png')} alt="traitement" className={classes.tailleeye} />
+                  </Link>
+                </TableCell>
+
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {pros.map((pro) => (
-                <TableRow key={pro._id} className={classes.cursorpointer}>
-
-                  <TableCell>{pro.lastname}</TableCell>
-                  <TableCell>{pro.firstname}</TableCell>
-                  <TableCell>{pro.email}</TableCell>
-                  <TableCell>{pro.phone}</TableCell>
-                  <TableCell>
-                    {
-                      !pro.activatedByAdmin ? <Button onClick={() => activate(pro._id)} variant="contained" color="primary">Activate </Button>
-                        : <div>Activated</div>
-                    }
-                  </TableCell>
-                  <TableCell>
-                    <Link onClick={() => navigate(`/pro/${pro._id}`)}>
-                      <img src={require('../../images/eye.png')} alt="traitement" className={classes.tailleeye} />
-                    </Link>
-                  </TableCell>
-                  <TableCell>
-                    <Link onClick={() => deletePro(pro._id)}>
-                      <img src={require('../../images/poubelle-de-recyclage.png')} alt="traitement" className={classes.tailleeye} />
-                    </Link>
-                  </TableCell>
-
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <Stack spacing={2}>
-            <Pagination count={10} size="large" />
-          </Stack>
+            ))}
+          </TableBody>
+        </Table>
+        <Stack spacing={2}>
+          <Pagination count={10} size="large" />
+        </Stack>
 
 
-        </main>
-      </div>
-
-
-    </React.Fragment>
+      </main>
+    </div>
   );
 }

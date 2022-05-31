@@ -135,67 +135,61 @@ export const Parents = () => {
     };
 
     return (
-        <React.Fragment>
-            <div className={classes.root}>
-                <CssBaseline />
-                <Drawer
-                    variant="permanent"
-                    classes={{
-                        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                    }}
-                    open={open}
-                >
-                    <Divider />
-                    {/* <MainListItems /> */}
-                    <Divider />
-                </Drawer>
-                <main className={classes.content}>
-                    <h1>Compte Parent</h1>
-                    <Table size="small">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Nom</TableCell>
-                                <TableCell>Prénom</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Téléphone</TableCell>
-                                <TableCell></TableCell>
+        <div className={classes.root}>
+            <CssBaseline />
+            <Drawer
+                variant="permanent"
+                classes={{
+                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                }}
+                open={open}
+            >
+                <Divider />
+                {/* <MainListItems /> */}
+                <Divider />
+            </Drawer>
+            <main className={classes.content}>
+                <h1>Compte Parent</h1>
+                <Table size="small">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Nom</TableCell>
+                            <TableCell>Prénom</TableCell>
+                            <TableCell>Email</TableCell>
+                            <TableCell>Téléphone</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {parent.map((parent) => (
+                            <TableRow key={parent._id}>
+
+                                <TableCell>
+                                    {parent.lastname}
+                                </TableCell>
+                                <TableCell>{parent.firstname}</TableCell>
+                                <TableCell>{parent.email}</TableCell>
+                                <TableCell>{parent.phone}</TableCell>
+                                <TableCell>
+                                    <Link onClick={() => navigate(`/parent/${parent._id}`)}>
+                                        <img src={require('../../images/eye.png')} alt="traitement" className={classes.tailleeye} />
+                                    </Link>
+                                </TableCell>
+                                <TableCell>
+                                    <Link onClick={() => deleteParent(parent._id)}>
+                                        <img src={require('../../images/poubelle-de-recyclage.png')} alt="traitement" className={classes.tailleeye} />
+                                    </Link>
+                                </TableCell>
                             </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {parent.map((parent) => (
-                                <TableRow key={parent._id}>
-
-                                    <TableCell>
-                                        {parent.lastname}
-                                    </TableCell>
-                                    <TableCell>{parent.firstname}</TableCell>
-                                    <TableCell>{parent.email}</TableCell>
-                                    <TableCell>{parent.phone}</TableCell>
-                                    <TableCell>
-                                        <Link onClick={() => navigate(`/parent/${parent._id}`)}>
-                                            <img src={require('../../images/eye.png')} alt="traitement" className={classes.tailleeye} />
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Link onClick={() => deleteParent(parent._id)}>
-                                            <img src={require('../../images/poubelle-de-recyclage.png')} alt="traitement" className={classes.tailleeye} />
-                                        </Link>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                    <div className={classes.seeMore}>
-                        <Link color="primary" href="#" onClick={preventDefault}>
-                            Voir plus de parents
-                        </Link>
-                    </div>
-
-
-                </main>
-            </div>
-
-
-        </React.Fragment >
+                        ))}
+                    </TableBody>
+                </Table>
+                <div className={classes.seeMore}>
+                    <Link color="primary" href="#" onClick={preventDefault}>
+                        Voir plus de parents
+                    </Link>
+                </div>
+            </main>
+        </div>
     );
 }

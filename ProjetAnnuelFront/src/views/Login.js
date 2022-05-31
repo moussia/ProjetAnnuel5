@@ -130,15 +130,14 @@ export const Login = () => {
                                     error={errors.email ? true : false}
                                     helperText={errors?.email?.message}
                                 />
-                                <TextController
+                                <PasswordController
                                     fullWidth
                                     label='Mot de passe'
                                     variant='outlined'
-                                    type='password'
                                     name='password'
                                     required
                                     margin="normal"
-                                    autoComplete="email"
+                                    autoComplete="password"
                                     autoFocus
                                     rules={{
                                         required: {

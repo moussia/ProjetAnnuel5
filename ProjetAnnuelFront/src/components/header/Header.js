@@ -88,12 +88,9 @@ const Header = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <React.Fragment>
-                                    <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
-                                        <Typography textAlign="center">{page.label}</Typography>
-                                    </MenuItem>
-                                </React.Fragment>
-
+                                <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
+                                    <Typography textAlign="center">{page.label}</Typography>
+                                </MenuItem>
                             ))}
                         </Menu>
                     </Box>
