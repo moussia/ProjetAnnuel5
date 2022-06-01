@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -136,7 +137,6 @@ export const Login = () => {
                                     variant='outlined'
                                     name='password'
                                     required
-                                    margin="normal"
                                     autoComplete="password"
                                     autoFocus
                                     rules={{

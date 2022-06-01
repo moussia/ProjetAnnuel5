@@ -21,7 +21,7 @@ export const NewPassword = () => {
         handleSubmit,
         reset,
         control,
-        formState: { errors, isSubmitting, isDirty, isValid },
+        formState: { isSubmitting, isDirty, isValid },
     } = useForm({
         mode: 'onChange',
         defaultValues: {

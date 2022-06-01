@@ -96,15 +96,13 @@ const Header = () => {
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <React.Fragment>
-                                <Button
-                                    key={page.label}
-                                    onClick={() => handleMenuClick(page.route)}
-                                    sx={{ my: 2, color: 'black', display: 'block' }}
-                                >
-                                    {page.label}
-                                </Button>
-                            </React.Fragment>
+                            <Button
+                                key={page.label}
+                                onClick={() => handleMenuClick(page.route)}
+                                sx={{ my: 2, color: 'black', display: 'block' }}
+                            >
+                                {page.label}
+                            </Button>
                         ))}
                     </Box>
                 </Toolbar>

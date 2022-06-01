@@ -8,6 +8,7 @@ import './conf/database.js';
 import passport from 'passport';
 import { passportInit } from './conf/passport.js';
 import cors from 'cors';
+// import proRouter from './routes/pro.js';
 
 
 const app = express();

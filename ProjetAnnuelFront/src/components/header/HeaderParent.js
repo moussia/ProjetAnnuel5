@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import { AuthContext } from '../contexts/AuthContext';
+// import { AuthContext } from '../contexts/AuthContext';
 
 const pages = [
     { label: 'Qui sommes-nous ?', route: 'qui-sommes-nous' },
@@ -21,7 +21,7 @@ const pages = [
 ];
 
 const HeaderParent = () => {
-    const { context } = React.useContext(AuthContext);
+    // const { context } = React.useContext(AuthContext);
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const navigate = useNavigate();
 
@@ -82,26 +82,21 @@ const HeaderParent = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <React.Fragment>
-                                    <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
-                                        <Typography textAlign="center">{page.label}</Typography>
-                                    </MenuItem>
-                                </React.Fragment>
-
+                                <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
+                                    <Typography textAlign="center">{page.label}</Typography>
+                                </MenuItem>
                             ))}
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <React.Fragment>
-                                <Button
-                                    key={page.label}
-                                    onClick={() => handleMenuClick(page.route)}
-                                    sx={{ my: 2, color: 'black', display: 'block' }}
-                                >
-                                    {page.label}
-                                </Button>
-                            </React.Fragment>
+                            <Button
+                                key={page.label}
+                                onClick={() => handleMenuClick(page.route)}
+                                sx={{ my: 2, color: 'black', display: 'block' }}
+                            >
+                                {page.label}
+                            </Button>
                         ))}
                     </Box>
                 </Toolbar>

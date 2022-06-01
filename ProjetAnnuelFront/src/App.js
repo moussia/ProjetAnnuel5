@@ -1,4 +1,3 @@
-import './App.css';
 import {
   BrowserRouter,
   Route,
@@ -21,7 +20,7 @@ import { Contact } from './views/Contact';
 import { NotFoundPage } from '../src/components/NotFoundPage';
 import { Professionnels } from '../src/components/admin/Professionnels';
 import { ModifPassword } from './views/ModifPassword';
-import PrivateRoute from './route/PrivateRoute';
+import { PrivateRoute } from './route/PrivateRoute';
 import Logout from '../src/components/Logout';
 import { Services } from './views/Services';
 import { Reservation } from './views/client/Reservation';
@@ -31,10 +30,12 @@ import { Professionnel } from './components/admin/Professionnel';
 import { Parent } from './components/admin/Parent';
 import { Disponible } from './views/pro/Disponible';
 import { Donation } from './views/paiement/Donation';
-import AuthProvider, { AuthContext } from './components/contexts/AuthContext';
+import AuthProvider from './components/contexts/AuthContext';
 import { roles } from './constants/roles';
 import { NewPassword } from './views/NewPassword';
 import { ActivateMail } from './views/ActivateMail';
+import './App.css';
+
 
 export const App = () => {
 

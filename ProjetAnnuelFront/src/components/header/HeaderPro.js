@@ -10,10 +10,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import { AuthContext } from '../contexts/AuthContext';
 import { Radio } from '@mui/material';
 import styles from '../../style/header.module.css';
-import { pink } from '@mui/material/colors';
+import { pink, green } from '@mui/material/colors';
 
 const pages = [
     { label: 'Mon compte', route: 'moncompte' },
@@ -22,7 +21,6 @@ const pages = [
 ];
 
 const HeaderPro = () => {
-    const { context } = React.useContext(AuthContext);
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const navigate = useNavigate();
 
@@ -39,7 +37,7 @@ const HeaderPro = () => {
     }
 
     // pour la disponibilite à droite
-    const [selectedValue, setSelectedValue] = React.useState('a');
+    const [selectedValue, setSelectedValue] = React.useState('indisponible');
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
@@ -98,37 +96,40 @@ const HeaderPro = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <React.Fragment>
-                                    <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
-                                        <Typography textAlign="center">{page.label}</Typography>
-                                    </MenuItem>
-                                </React.Fragment>
-
+                                <MenuItem key={page.label} onClick={() => handleMenuClick(page.route)}>
+                                    <Typography textAlign="center">{page.label}</Typography>
+                                </MenuItem>
                             ))}
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <React.Fragment>
-                                <Button
-                                    key={page.label}
-                                    onClick={() => handleMenuClick(page.route)}
-                                    sx={{ my: 2, color: 'black', display: 'block' }}
-                                >
-                                    {page.label}
-                                </Button>
-                            </React.Fragment>
+                            <Button
+                                key={page.label}
+                                onClick={() => handleMenuClick(page.route)}
+                                sx={{ my: 2, color: 'black', display: 'block' }}
+                            >
+                                {page.label}
+                            </Button>
                         ))}
                     </Box>
                     <p className={styles.colorblack}>Disponibilité</p>
-                    <Radio {...controlProps('indisponible')} color="error" />
-                    <Radio {...controlProps('disponible')} color="success" />
                     <Radio
-                        {...controlProps('e')}
+                        {...controlProps('disponible')}
+                        sx={{
+                            color: green[800],
+                            '&.Mui-checked': {
+                                color: green[600],
+                            },
+                        }}
+                    />
+                    <Radio
+                        {...controlProps('indisponible')}
                         sx={{
                             color: pink[800],
                             '&.Mui-checked': {
                                 color: pink[600],
+                                default: true,
                             },
                         }}
                     />

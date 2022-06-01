@@ -1,9 +1,6 @@
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import { Grid } from '@mui/material';
+import { Grid, Button, Stack, TextField } from '@mui/material';
 import styles from '../../style/reservation.module.css';
-import { Button } from '@material-ui/core';
 
 
 export const Reservation = () => {

@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import styles from '../style/forgetpassword.module.css';
 import { TextController } from '../components/form/textController';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';

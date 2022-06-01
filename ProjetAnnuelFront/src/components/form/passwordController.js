@@ -4,7 +4,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Controller } from "react-hook-form"
-import { OutlinedInput } from '@mui/material';
+import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
 
 export const PasswordController = ({ control, name, rules, label, required, ...props }) => {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -19,25 +19,29 @@ export const PasswordController = ({ control, name, rules, label, required, ...p
             control={control}
             rules={rules}
             render={({ field: { onChange, value } }) => (
-                <OutlinedInput
-                    label={label}
-                    type={showPassword ? 'text' : 'password'}
-                    value={value}
-                    required={required}
-                    onChange={onChange}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                onClick={() => setShowPassword((prev) => !prev)}
-                                onMouseDown={handleMouseDownPassword}
-                                edge="end"
-                            >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    {...props}
-                />)}
+                <FormControl {...props}>
+                    <InputLabel>{label}</InputLabel>
+                    <OutlinedInput
+                        label={label}
+                        type={showPassword ? 'text' : 'password'}
+                        value={value}
+                        required={required}
+                        onChange={onChange}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={() => setShowPassword((prev) => !prev)}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                        {...props}
+                    />
+                </FormControl>
+            )}
         />
 
     );
