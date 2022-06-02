@@ -9,24 +9,24 @@ import { purple } from '@mui/material/colors';
 
 export default function Home() {
 
-    const iconsArray = [
-        {
-            icon: 'friend.png',
-            text: 'Discuter 7j/7 et 24h/24 avec des professionnels',
-        },
-        {
-            icon: 'free.png',
-            text: 'Complètement gratuit',
-        },
-        {
-            icon: 'massage.png',
-            text: 'Faites vous aider',
-        },
-        {
-            icon: 'heart.png',
-            text: 'Faites un don en toute confiance',
-        },
-    ];
+    // const iconsArray = [
+    //     {
+    //         icon: 'friend.png',
+    //         text: 'Discuter 7j/7 et 24h/24 avec des professionnels',
+    //     },
+    //     {
+    //         icon: 'free.png',
+    //         text: 'Complètement gratuit',
+    //     },
+    //     {
+    //         icon: 'massage.png',
+    //         text: 'Faites vous aider',
+    //     },
+    //     {
+    //         icon: 'heart.png',
+    //         text: 'Faites un don en toute confiance',
+    //     },
+    // ];
 
     const ColorButton = styled(Button)(({ theme }) => ({
         color: theme.palette.getContrastText(purple[500]),
