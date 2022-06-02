@@ -68,7 +68,7 @@ Content-Type: application/json
 
 {
     "email" : "moussiamottal@gmail.com",
-    "password" : "coco"
+    "password" : "Hayamottal555/"
 }
 
 ### 
@@ -107,10 +107,6 @@ DELETE http://localhost:3003/admin/628be114daaf25d16d391487
 DELETE http://localhost:3003/admin/628be155fe616596c4795e3e
 
 
-### 
-GET http://localhost:3003/admin/parent
-
-
 ###
 PUT http://localhost:8000/admin/628be114daaf25d16d391487
 content-type: application/json
@@ -124,3 +120,13 @@ content-type: application/json
 
 ### 
 DELETE http://localhost:3003/session
+
+
+
+#### 
+POST http://localhost:3003/pro/dispo/update
+Content-Type: application/json
+{
+   "id_pro": "629605afae305793e55b128d",
+   "isDisponible" : true
+}

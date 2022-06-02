@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Radio } from '@mui/material';
 import styles from '../../style/header.module.css';
 import { pink, green } from '@mui/material/colors';
+import axios from 'axios';
 
 const pages = [
     { label: 'Mon compte', route: 'moncompte' },
@@ -37,17 +38,28 @@ const HeaderPro = () => {
     }
 
     // pour la disponibilite à droite
-    const [selectedValue, setSelectedValue] = React.useState('indisponible');
+    const [isDisponible, setIsDisponible] = React.useState(false);
+
+    React.useEffect(() => {
+        console.log(isDisponible);
+    }, [isDisponible]);
+
 
     const handleChange = (event) => {
-        setSelectedValue(event.target.value);
+        setIsDisponible(event.target.value);
+        axios({ url: 'http://localhost:3003/pro/dispo/update', method: 'POST', data: { disponibility: isDisponible }, withCredentials: true })
+            .then((data) => {
+                console.log("ok");
+            })
+            .catch((err) => {
+                console.log("non");
+            });
     };
 
     const controlProps = (item) => ({
-        checked: selectedValue === item,
+        checked: isDisponible === item,
         onChange: handleChange,
         value: item,
-        name: 'color-radio-button-demo',
         inputProps: { 'aria-label': item },
     });
 
@@ -115,7 +127,7 @@ const HeaderPro = () => {
                     </Box>
                     <p className={styles.colorblack}>Disponibilité</p>
                     <Radio
-                        {...controlProps('disponible')}
+                        {...controlProps(true)}
                         sx={{
                             color: green[800],
                             '&.Mui-checked': {
@@ -124,7 +136,7 @@ const HeaderPro = () => {
                         }}
                     />
                     <Radio
-                        {...controlProps('indisponible')}
+                        {...controlProps(false)}
                         sx={{
                             color: pink[800],
                             '&.Mui-checked': {

@@ -1,12 +1,12 @@
-// import { Router } from 'express';
-// import { createDisponibilite, createIndisponibilite } from '../controller/disponibilite';
+import { Router } from 'express';
+import { createDisponibilite, getDisponibilite } from '../controller/disponibilite.js';
+import { isAuthenticated } from '../middleware/isAuthenticated.js';
+import { isPro } from '../middleware/isAuthorized.js';
 
-// const proRouter = Router();
+const proRouter = Router();
+
+proRouter.post('/dispo/update', isAuthenticated, isPro, createDisponibilite)
+proRouter.get('/dispo', isAuthenticated, isPro, getDisponibilite)
 
 
-// proRouter.get('/disponibilite', createDisponibilite)
-// proRouter.get('/indisponibilite', createIndisponibilite)
-
-
-
-// export default proRouter;
+export default proRouter;

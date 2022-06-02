@@ -11,6 +11,7 @@ import axios from 'axios';
 import { TextController } from '../components/form/textController';
 import { RadioController } from '../components/form/radioController';
 import { Link } from 'react-router-dom';
+import { request } from '../utils/request.js';
 
 export const Moncompte = () => {
     const {
@@ -33,7 +34,7 @@ export const Moncompte = () => {
     });
 
     useEffect(() => {
-        axios({ url: 'http://localhost:3003/user/current', method: 'GET', withCredentials: true })
+        request('http://localhost:3003/user/current', 'GET')
             .then((data) => {
                 console.log(data.data);
                 reset(data.data);
@@ -42,7 +43,7 @@ export const Moncompte = () => {
 
     const onSubmit = async (data, e) => {
         // e?.preventDefault();
-        axios({ url: 'http://localhost:3003/user/update', method: 'PUT', withCredentials: true, data })
+        await request('http://localhost:3003/user/update', 'PUT', data)
             .then((data) => {
                 console.log(data);
             })

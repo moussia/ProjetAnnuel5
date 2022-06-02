@@ -1,18 +1,17 @@
 import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
-import { disponibilite } from '../constants/Disponibilite';
 
 const schema = new Schema({
-    id_prof: {
-        type: Number
+    id_pro: {
+        type: String,
+        required: false
     },
     date: {
         type: Date
     },
-    status: {
-        type: String,
-        enum: [disponibilite.DISPONIBLE, disponibilite.INDISPONIBLE],
-        default: disponibilite.INDISPONIBLE
+    isDisponible: {
+        type: Boolean,
+        default: false
     },
 });
 

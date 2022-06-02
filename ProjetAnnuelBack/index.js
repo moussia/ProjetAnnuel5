@@ -8,7 +8,7 @@ import './conf/database.js';
 import passport from 'passport';
 import { passportInit } from './conf/passport.js';
 import cors from 'cors';
-// import proRouter from './routes/pro.js';
+import proRouter from './routes/pro.js';
 
 
 const app = express();
@@ -50,6 +50,7 @@ app.use(passport.session());
 app.use('/user', userRouter);
 app.use('/session', authRouter);
 app.use('/admin', adminRouter);
+app.use('/pro', proRouter);
 
 app.listen(process.env.PORT, () => {
     console.log(`✅ App listening on port ${process.env.PORT}`)

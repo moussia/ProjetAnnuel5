@@ -1,46 +1,25 @@
-import Disponibilite from '../model/Disponibilite';
-import { dispo } from '../constants/Disponibilite.js';
+import Disponibilite from '../model/Disponibilite.js';
 
 export const createDisponibilite = async (req, res) => {
-    const { id_pro } = req.body;
+    try {
+        const { disponibility } = req.body;
 
-    var d = new Date(),
-        hour = d.getHours(),
-        min = d.getMinutes(),
-        month = d.getMonth(),
-        year = d.getFullYear(),
-        sec = d.getSeconds(),
-        day = d.getDate();
-    const { date } = new Date(year + ',' + month + ',' + day + ',' + hour + ',' + min + ',' + sec)
-    const disponibilite = new Disponibilite({
-        id_pro,
-        date,
-        status: dispo.DISPONIBLE,
-    });
-    disponibilite.save();
-    console.log('✅ Disponibilite enregistré');
-    res.send();
+        await Disponibilite.findOneAndUpdate({ id_pro: req.user._id }, {
+            id_pro: req.user._id,
+            isDisponible: disponibility,
+        }, { new: true, upsert: true })
+
+        console.log('✅ Disponibilite enregistré');
+        res.send(200);
+    }
+    catch (err) {
+        console.error(err);
+        res.sendStatus(400);
+    }
 }
 
-export const createIndisponibilite = async (req, res) => {
-    const { id_pro } = req.body;
 
-    var d = new Date(),
-        hour = d.getHours(),
-        min = d.getMinutes(),
-        month = d.getMonth(),
-        year = d.getFullYear(),
-        sec = d.getSeconds(),
-        day = d.getDate();
-
-    const { date } = new Date(year + ',' + month + ',' + day + ',' + hour + ',' + min + ',' + sec)
-
-    const disponibilite = new Disponibilite({
-        id_pro,
-        date,
-        status: dispo.INDISPONIBLE,
-    });
-    disponibilite.save();
-    console.log('✅ Indisponibilite enregistré');
-    res.send();
+export const getDisponibilite = async (req, res) => {
+    await Disponibilite.findOne({ id_pro: req.user._id });
+    res.status(200);
 }
