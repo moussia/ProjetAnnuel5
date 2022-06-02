@@ -18,10 +18,9 @@ ReactDOM.render(
 
         <ThemeProvider theme={themeLight}>
             <CssBaseline />
-
             <App />
         </ThemeProvider>
 
     </React.StrictMode>,
     document.getElementById('root')
-); 
+);

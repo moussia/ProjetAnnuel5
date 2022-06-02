@@ -29,7 +29,7 @@ import { Parents } from './components/admin/Parents';
 import { Professionnel } from './components/admin/Professionnel';
 import { Parent } from './components/admin/Parent';
 import { Disponible } from './views/pro/Disponible';
-import { Donation } from './views/paiement/Donation';
+// import { Checkout } from './views/paiement/Checkout';
 import AuthProvider from './components/contexts/AuthContext';
 import { roles } from './constants/roles';
 import { NewPassword } from './views/NewPassword';
@@ -59,7 +59,7 @@ export const App = () => {
             <Route exact path='/newPassword' element={<NewPassword />} />
             <Route exact path='/qui-sommes-nous' element={<Quisommesnous />} />
             <Route exact path='/forgetpassword' element={<ForgetPassword />} />
-            <Route exact path='/donation' element={<Donation />} />
+            {/* <Route exact path='/donation' element={<Checkout />} /> */}
 
             {/* Page PARENT */}
             <Route exact path='/reservation' element={<PrivateRoute restricted={roles.PARENT} Component={Reservation} />} />
