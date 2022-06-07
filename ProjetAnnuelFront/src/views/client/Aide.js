@@ -36,6 +36,73 @@ function ChildModal() {
         setOpen(false);
     };
 
+    const handleChange = (data, e) => {
+        axios({ url: 'http://localhost:3003/user/sendReservation', method: 'POST', withCredentials: true })
+            .then((data) => {
+                console.log("ok");
+            })
+            .catch((err) => {
+                console.log("non");
+                console.log(err);
+            });
+    };
+
+    return (
+        <React.Fragment>
+            <Button variant="outlined" onClick={handleOpen}>Être contacter par téléphone</Button>
+            <Modal
+                // hideBackdrop
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="child-modal-title"
+                aria-describedby="child-modal-description"
+            >
+                <Box sx={{ ...style, width: 200 }}>
+                    <h2 id="child-modal-title">Vérifier votre téléphone</h2>
+                    <p id="child-modal-description">
+                        Penser à vérifier votre numéro de téléphone juste <Link href="/moncompte" color="inherit">
+                            ici.
+                        </Link>
+                    </p>
+                    <Button onClick={handleChange} variant="contained" color="success">
+                        Être appeler par un professionnel
+                    </Button>
+                </Box>
+            </Modal>
+        </React.Fragment>
+    );
+}
+
+function ChatModal() {
+    const OpenChat = (data, e) => {
+        axios({ url: 'http://localhost:3003/user/demandeTchat', method: 'POST', withCredentials: true })
+            .then((data) => {
+                console.log("ok chat");
+            })
+            .catch((err) => {
+                console.log("non chat");
+                console.log(err);
+            });
+    };
+
+    return (
+        <React.Fragment>
+            <Button variant="outlined" onClick={OpenChat}>Faites vous aider par tchat</Button>
+        </React.Fragment>
+    );
+}
+
+export const Aide = () => {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+
     // _______________
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
@@ -82,29 +149,19 @@ function ChildModal() {
         setActiveStep(0);
     };
     // ——————————————————————————
-
-    const handleChange = (data, e) => {
-        axios({ url: 'http://localhost:3003/user/sendReservation', method: 'POST', withCredentials: true })
-            .then((data) => {
-                console.log("ok");
-            })
-            .catch((err) => {
-                console.log("non");
-                console.log(err);
-            });
-    };
-
     return (
-        <React.Fragment>
-            <Button variant="outlined" onClick={handleOpen}>Être contacter par téléphone</Button>
+        <Grid container
+            direction="column"
+            justifyContent="center"
+            alignItems="center">
+            <Button size="large" variant="contained" color="success" onClick={handleOpen}>Demander de l'aide</Button>
             <Modal
-                // hideBackdrop
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="child-modal-title"
-                aria-describedby="child-modal-description"
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
             >
-                {/* <Box sx={{ width: '100%' }}>
+                <Box sx={{ ...style, width: 800 }}>
                     <Stepper activeStep={activeStep}>
                         {steps.map((label, index) => {
                             const stepProps = {};
@@ -136,7 +193,7 @@ function ChildModal() {
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
-                            <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+                            <Typography sx={{ mt: 2, mb: 1 }}>step {activeStep + 1}</Typography>
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                 <Button
                                     color="inherit"
@@ -159,69 +216,13 @@ function ChildModal() {
                             </Box>
                         </React.Fragment>
                     )}
-                </Box> */}
-                <Box sx={{ ...style, width: 200 }}>
-                    <h2 id="child-modal-title">Vérifier votre téléphone</h2>
-                    <p id="child-modal-description">
-                        Penser à vérifier votre numéro de téléphone juste <Link href="/moncompte" color="inherit">
-                            ici.
-                        </Link>
-                    </p>
-                    <Button onClick={handleChange} variant="contained" color="success">
-                        Être appeler par un professionnel
-                    </Button>
                 </Box>
-            </Modal>
-        </React.Fragment>
-    );
-}
-
-function ChatModal() {
-    const OpenChat = (data, e) => {
-        axios({ url: 'http://localhost:3003/user/demandeTchat', method: 'POST', withCredentials: true })
-            .then((data) => {
-                console.log("ok chat");
-            })
-            .catch((err) => {
-                console.log("non chat");
-                console.log(err);
-            });
-    };
-
-    return (
-        <React.Fragment>
-            <Button variant="outlined" onClick={OpenChat}>Faites vous aider par tchat</Button>
-        </React.Fragment>
-    );
-}
-
-export const Aide = () => {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    return (
-        <Grid container
-            direction="column"
-            justifyContent="center"
-            alignItems="center">
-            <Button size="large" variant="contained" color="success" onClick={handleOpen}>Demander de l'aide</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="parent-modal-title"
-                aria-describedby="parent-modal-description"
-            >
-                <Box sx={{ ...style, width: 400 }}>
+                {/* <Box sx={{ ...style, width: 400 }}>
                     <h2 id="parent-modal-title">Comment voulez-vous être aider ?</h2>
                     <ChildModal />
                     <p>ou</p>
                     <ChatModal />
-                </Box>
+                </Box> */}
             </Modal>
         </Grid>
     );
