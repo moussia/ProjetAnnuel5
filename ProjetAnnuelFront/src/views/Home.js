@@ -95,7 +95,7 @@ export default function Home() {
                                 //         icon.icon)
                                 // }
                                 className={styles.widthdix}
-                            // src={require('../images/' + icon.icon)}
+                                src={require('../images/' + icon.icon)}
                             />
                             <p>{icon.text}</p>
                         </Fade>
