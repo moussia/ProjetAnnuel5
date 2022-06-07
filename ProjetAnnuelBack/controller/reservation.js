@@ -1,17 +1,37 @@
-// import Reservation from '../model/Reservation.js';
-// import { reserv } from '../constants/Reservation.js';
+import Reservation from '../model/Reservation.js';
+import { reserv } from '../constants/Reservation.js';
 
-// export const createReservationRdvDomicile = async (req, res) => {
-//     const { id_pro, id_parent, date, heure } = req.body;
-//     const reservation = new Reservation({
-//         id_pro,
-//         id_parent,
-//         date,
-//         heure,
-//         status: reserv.LIBRE,
-//         type: reserv.DOMICILE
-//     });
-//     reservation.save();
-//     console.log('Reservation enregistré');
-//     res.send();
-// }
+export const createReservationPhone = async (req, res) => {
+    try {
+        const reservation = new Reservation({
+            id_parent: req.user._id,
+            date: Date.now(),
+            status: reserv.DEMANDE,
+            type: reserv.TELEPHONE
+        });
+        reservation.save();
+        console.log('✅ Demande reservation enregistré');
+        res.send();
+    } catch (error) {
+        console.log(error);
+        console.log('palpitation');
+    }
+}
+
+
+export const createReservationTchat = async (req, res) => {
+    try {
+        const reservation = new Reservation({
+            id_parent: req.user._id,
+            date: Date.now(),
+            status: reserv.DEMANDE,
+            type: reserv.TCHAT
+        });
+        reservation.save();
+        console.log('✅ Demande reservation tchat enregistré');
+        res.send();
+    } catch (error) {
+        console.log(error);
+        console.log('palpitation');
+    }
+}

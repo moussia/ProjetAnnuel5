@@ -5,7 +5,7 @@ export const createDisponibilite = async (req, res) => {
         const { disponibility } = req.body;
 
         await Disponibilite.findOneAndUpdate({ id_pro: req.user._id }, {
-            id_pro: req.user._id,
+            id_parent: req.user._id,
             isDisponible: disponibility,
         }, { new: true, upsert: true })
 

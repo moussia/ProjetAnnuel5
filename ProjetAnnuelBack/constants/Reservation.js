@@ -1,8 +1,10 @@
-export const reservation = {
+export const reserv = {
     LIBRE: 'LIBRE',
     FINI: 'FINI',
     RESERVE: 'RESERVE',
+    DEMANDE: 'DEMANDE',
     EN_COURS: 'EN_COURS',
     ANNULE: 'ANNULE',
-    DOMICILE: 'DOMICILE'
+    TELEPHONE: 'TELEPHONE',
+    TCHAT: 'TCHAT'
 }

@@ -23,7 +23,7 @@ import { ModifPassword } from './views/ModifPassword';
 import { PrivateRoute } from './route/PrivateRoute';
 import Logout from '../src/components/Logout';
 import { Services } from './views/Services';
-import { Reservation } from './views/client/Reservation';
+import { Aide } from './views/client/Aide';
 import Dashboard from './views/admin/Dashboard';
 import { Parents } from './components/admin/Parents';
 import { Professionnel } from './components/admin/Professionnel';
@@ -62,7 +62,7 @@ export const App = () => {
             {/* <Route exact path='/donation' element={<Checkout />} /> */}
 
             {/* Page PARENT */}
-            <Route exact path='/reservation' element={<PrivateRoute restricted={roles.PARENT} Component={Reservation} />} />
+            <Route exact path='/aide' element={<PrivateRoute restricted={roles.PARENT} Component={Aide} />} />
             <Route exact path='/moncompte' element={<PrivateRoute restricted={roles.PARENT} Component={Moncompte} />} />
 
             {/* Page PRO */}

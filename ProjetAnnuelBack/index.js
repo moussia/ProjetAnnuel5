@@ -39,7 +39,7 @@ app.use(
         cookie: {
             secure: false, // Quand_on_sera_en_https 
             maxAge: 30 * 24 * 60 * 60 * 1000, // la session va durer 30 jours
-            sameSite: 'none',
+            // sameSite: 'none',
         }
     })
 );

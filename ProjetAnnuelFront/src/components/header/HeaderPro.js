@@ -14,12 +14,29 @@ import { Radio } from '@mui/material';
 import styles from '../../style/header.module.css';
 import { pink, green } from '@mui/material/colors';
 import axios from 'axios';
+import { alpha, styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
 
 const pages = [
     { label: 'Mon compte', route: 'moncompte' },
     { label: 'Disponibilité', route: 'pro/disponible' },
     { label: 'Deconnexion', route: 'logout' },
 ];
+
+const GreenSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-switchBase.Mui-checked': {
+        color: pink[600],
+        '&:hover': {
+            backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+        },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+        backgroundColor: pink[600],
+    },
+}));
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
 
 const HeaderPro = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -46,8 +63,8 @@ const HeaderPro = () => {
 
 
     const handleChange = (event) => {
-        setIsDisponible(event.target.value);
-        axios({ url: 'http://localhost:3003/pro/dispo/update', method: 'POST', data: { disponibility: isDisponible }, withCredentials: true })
+        setIsDisponible(event.target.checked);
+        axios({ url: 'http://localhost:3003/pro/dispo/update', method: 'POST', data: { disponibility: event.target.checked }, withCredentials: true })
             .then((data) => {
                 console.log("ok");
             })
@@ -55,14 +72,6 @@ const HeaderPro = () => {
                 console.log("non");
             });
     };
-
-    const controlProps = (item) => ({
-        checked: isDisponible === item,
-        onChange: handleChange,
-        value: item,
-        inputProps: { 'aria-label': item },
-    });
-
 
     return (
         <AppBar className={styles.colorwhite} position="static">
@@ -126,25 +135,7 @@ const HeaderPro = () => {
                         ))}
                     </Box>
                     <p className={styles.colorblack}>Disponibilité</p>
-                    <Radio
-                        {...controlProps(true)}
-                        sx={{
-                            color: green[800],
-                            '&.Mui-checked': {
-                                color: green[600],
-                            },
-                        }}
-                    />
-                    <Radio
-                        {...controlProps(false)}
-                        sx={{
-                            color: pink[800],
-                            '&.Mui-checked': {
-                                color: pink[600],
-                                default: true,
-                            },
-                        }}
-                    />
+                    <GreenSwitch {...label} checked={isDisponible} onChange={handleChange} />
                 </Toolbar>
             </Container>
         </AppBar>

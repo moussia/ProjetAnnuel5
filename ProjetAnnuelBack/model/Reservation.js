@@ -1,29 +1,26 @@
 import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
-import { reservation } from '../constants/Reservation.js';
+import { reserv } from '../constants/Reservation.js';
 
 const schema = new Schema({
-    id_prof: {
-        type: Number
+    id_pro: {
+        type: String
     },
     id_parent: {
-        type: Number
+        type: String
     },
     date: {
-        type: String
-    },
-    heure: {
-        type: String
+        type: Date,
     },
     status: {
         type: String,
-        enum: [reservation.ANNULE, reservation.EN_COURS, reservation.FINI, reservation.LIBRE, reservation.RESERVE],
-        default: reservation.LIBRE
+        enum: [reserv.DEMANDE, reserv.FINI, reserv.LIBRE, reserv.RESERVE],
+        default: reserv.DEMANDE
     },
     type: {
         type: String,
-        enum: [reservation.DOMICILE],
-        default: reservation.DOMICILE
+        enum: [reserv.TELEPHONE, reserv.TCHAT],
+        default: reserv.TELEPHONE,
     }
 });
 

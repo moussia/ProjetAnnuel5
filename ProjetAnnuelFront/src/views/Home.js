@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 // import ContactForm from '../components/ContactForm';
 // import Maps from '../components/Maps';
 import styles from '../style/bonjour.module.css';
-
+import Grid from '@mui/material/Grid';
 
 export default function Home() {
     const iconsArray = [
@@ -55,7 +55,7 @@ export default function Home() {
                                 </h2>
                             </Fade>
                             <Fade left delay={750}>
-                                <NavLink to='/configurator'>
+                                <NavLink to='/login'>
                                     <Button
                                         name='button'
                                         variant='contained'
@@ -65,7 +65,7 @@ export default function Home() {
                                         size='medium'
                                         className='config-button'
                                     >
-                                        Je crée mon meuble
+                                        Connectez-vous
                                     </Button>
                                 </NavLink>
                             </Fade>
@@ -83,27 +83,21 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* <div id='list_icon' className='icon_desc container-fluid'> */}
-            <div id='list_icon' className={styles.icon_desc}>
+            <Grid container id='list_icon' spacing={1} className={styles.icon_desc}>
                 {iconsArray.map((icon, i) => (
-                    <div className={'col-md-3 icon' + i} key={i}>
+                    <Grid container xs={3} key={i}>
                         <Fade left delay={i * 300}>
                             <img
                                 alt='icon'
-                                // src={
-                                //     require('../images/' +
-                                //         icon.icon)
-                                // }
                                 className={styles.widthdix}
                                 src={require('../images/' + icon.icon)}
                             />
                             <p>{icon.text}</p>
                         </Fade>
-                    </div>
+                    </Grid>
                 ))}
-            </div>
-            {/* <div className='container hometextcontainer'> */}
-            <div className={styles.hometextcontainer}>
+            </Grid>
+            <Grid contaienr className={styles.hometextcontainer}>
                 <Fade left>
                     <div className='row'>
                         <h4 className='col-12'>WoodMonkey</h4>
@@ -118,7 +112,7 @@ export default function Home() {
                         </div>
                     </div>
                 </Fade>
-            </div>
+            </Grid>
         </div >
     );
 }
