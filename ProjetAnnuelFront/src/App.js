@@ -33,9 +33,9 @@ import { Disponible } from './views/pro/Disponible';
 import AuthProvider from './components/contexts/AuthContext';
 import { roles } from './constants/roles';
 import { NewPassword } from './views/NewPassword';
+import { Demande } from "./views/pro/Demande";
 import { ActivateMail } from './views/ActivateMail';
 import './App.css';
-import { Demande } from "./views/pro/Demande";
 
 
 export const App = () => {

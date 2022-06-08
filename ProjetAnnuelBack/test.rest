@@ -26,9 +26,9 @@ Content-Type: application/json
     "address" : "8 rue de romainville",
     "city" : "paris",
     "country" : "france",
-    "email" : "mmoussiamottal@gmail.com",
+    "email" : "bonjour@gmail.com",
     "password" : "Hayamottal555/",
-    "zipcode" : "750191",
+    "zipcode" : "75019",
     "sex" : "WOMAN",
     "role" : "PRO",
     "job": "pediatre"
@@ -81,9 +81,21 @@ POST http://localhost:3003/session
 Content-Type: application/json
 
 {
-    "email" : "sosparentsoff@gmail.com",
+    "email" : "crechelesphoenix@gmail.com",
     "password" : "Hayamottal555/"
 }
+
+
+
+### CONNEXION PRO
+POST http://localhost:3003/session
+Content-Type: application/json
+
+{
+    "email" : "moussiamottal@gmail.com",
+    "password" : "Hayamottal555/"
+}
+
 
 ### 
 GET http://localhost:3003/admin/pro
@@ -130,3 +142,28 @@ Content-Type: application/json
    "id_pro": "629605afae305793e55b128d",
    "isDisponible" : true
 }
+
+
+
+### CONNEXION PRO
+POST http://localhost:3003/session
+Content-Type: application/json
+
+{
+    "email" : "moussiamottal@gmail.com",
+    "password" : "Hayamottal555/"
+}
+
+### CONNEXION PRO
+POST http://localhost:3003/session
+Content-Type: application/json
+
+{
+    "email" : "bonjour@gmail.com",
+    "password" : "Hayamottal555/"
+}
+
+
+###  GET DEMANDE
+GET http://localhost:3003/pro/getDemandes
+

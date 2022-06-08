@@ -97,7 +97,7 @@ export default function Home() {
                     </Grid>
                 ))}
             </Grid>
-            <Grid contaienr className={styles.hometextcontainer}>
+            <Grid container className={styles.hometextcontainer}>
                 <Fade left>
                     <div className='row'>
                         <h4 className='col-12'>WoodMonkey</h4>

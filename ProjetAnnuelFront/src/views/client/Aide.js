@@ -32,8 +32,8 @@ const style = {
 
 export const Aide = () => {
     const [open, setOpen] = React.useState(false);
-    const [choix, setChoix] = React.useState(false);
-    const [symptomes, setSymptomes] = React.useState(false);
+    const [choix, setChoix] = React.useState('tel');
+    const [symptomes, setSymptomes] = React.useState('malade');
 
     const handleOpen = () => {
         setOpen(true);
@@ -133,14 +133,14 @@ export const Aide = () => {
                             {activeStep === 1 && <StepperProblem symptomes={symptomes} setSymptomes={setSymptomes} />}
                             {activeStep === 2 && <StepperConfirmation choix={choix} setChoix={setChoix} />}
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                <Button
+                                {activeStep !== steps.length - 1 && <Button
                                     color="inherit"
                                     disabled={activeStep === 0}
                                     onClick={handleBack}
                                     sx={{ mr: 1 }}
                                 >
                                     Back
-                                </Button>
+                                </Button>}
                                 <Box sx={{ flex: '1 1 auto' }} />
 
                                 {activeStep === steps.length - 2 && <Button type="submit" onClick={handleFinish}>
