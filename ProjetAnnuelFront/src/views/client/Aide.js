@@ -3,15 +3,17 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import axios from 'axios';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
+import { StepperChoice } from '../../components/modal/StepperChoice';
+import { StepperProblem } from '../../components/modal/StepperProblem';
+import { StepperConfirmation } from '../../components/modal/StepperConfirmation';
+import { Link } from 'react-router-dom';
 
-
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const steps = ['Choix', 'Symptômes', 'Confirmation'];
 
 const style = {
     position: 'absolute',
@@ -27,89 +29,43 @@ const style = {
     pb: 3,
 };
 
-function ChildModal() {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleChange = (data, e) => {
-        axios({ url: 'http://localhost:3003/user/sendReservation', method: 'POST', withCredentials: true })
-            .then((data) => {
-                console.log("ok");
-            })
-            .catch((err) => {
-                console.log("non");
-                console.log(err);
-            });
-    };
-
-    return (
-        <React.Fragment>
-            <Button variant="outlined" onClick={handleOpen}>Être contacter par téléphone</Button>
-            <Modal
-                // hideBackdrop
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="child-modal-title"
-                aria-describedby="child-modal-description"
-            >
-                <Box sx={{ ...style, width: 200 }}>
-                    <h2 id="child-modal-title">Vérifier votre téléphone</h2>
-                    <p id="child-modal-description">
-                        Penser à vérifier votre numéro de téléphone juste <Link href="/moncompte" color="inherit">
-                            ici.
-                        </Link>
-                    </p>
-                    <Button onClick={handleChange} variant="contained" color="success">
-                        Être appeler par un professionnel
-                    </Button>
-                </Box>
-            </Modal>
-        </React.Fragment>
-    );
-}
-
-function ChatModal() {
-    const OpenChat = (data, e) => {
-        axios({ url: 'http://localhost:3003/user/demandeTchat', method: 'POST', withCredentials: true })
-            .then((data) => {
-                console.log("ok chat");
-            })
-            .catch((err) => {
-                console.log("non chat");
-                console.log(err);
-            });
-    };
-
-    return (
-        <React.Fragment>
-            <Button variant="outlined" onClick={OpenChat}>Faites vous aider par tchat</Button>
-        </React.Fragment>
-    );
-}
 
 export const Aide = () => {
     const [open, setOpen] = React.useState(false);
+    const [choix, setChoix] = React.useState(false);
+    const [symptomes, setSymptomes] = React.useState(false);
+
     const handleOpen = () => {
         setOpen(true);
     };
+
+    React.useEffect(() => {
+        console.log(choix);
+    }, [choix]);
+
+    React.useEffect(() => {
+        console.log(symptomes);
+    }, [symptomes]);
+
+    const handleFinish = () => {
+        axios({ url: `http://localhost:3003/user/sendReservation`, method: 'POST', data: { choix: choix, symptomes: symptomes }, withCredentials: true })
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log("-----------------");
+                console.log(err);
+            });
+        handleNext();
+    };
+
     const handleClose = () => {
         setOpen(false);
     };
-
-
 
     // _______________
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
-
-    const isStepOptional = (step) => {
-        return step === 1;
-    };
 
     const isStepSkipped = (step) => {
         return skipped.has(step);
@@ -130,30 +86,15 @@ export const Aide = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleSkip = () => {
-        if (!isStepOptional(activeStep)) {
-            // You probably want to guard against something like this,
-            // it should never occur unless someone's actively trying to break something.
-            throw new Error("You can't skip a step that isn't optional.");
-        }
-
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped((prevSkipped) => {
-            const newSkipped = new Set(prevSkipped.values());
-            newSkipped.add(activeStep);
-            return newSkipped;
-        });
-    };
-
-    const handleReset = () => {
-        setActiveStep(0);
-    };
     // ——————————————————————————
     return (
         <Grid container
             direction="column"
             justifyContent="center"
             alignItems="center">
+            <p>Attention ! Pensé à vérifié votre numéro de téléphone <Link to="/moncompte" color="inherit">
+                dans votre compte
+            </Link>, pour qu'un professionnel puisse vous contacter.</p>
             <Button size="large" variant="contained" color="success" onClick={handleOpen}>Demander de l'aide</Button>
             <Modal
                 open={open}
@@ -166,11 +107,6 @@ export const Aide = () => {
                         {steps.map((label, index) => {
                             const stepProps = {};
                             const labelProps = {};
-                            if (isStepOptional(index)) {
-                                labelProps.optional = (
-                                    <Typography variant="caption">Optional</Typography>
-                                );
-                            }
                             if (isStepSkipped(index)) {
                                 stepProps.completed = false;
                             }
@@ -184,16 +120,18 @@ export const Aide = () => {
                     {activeStep === steps.length ? (
                         <React.Fragment>
                             <Typography sx={{ mt: 2, mb: 1 }}>
-                                All steps completed - you&apos;re finished
+                                Merci de votre confiance.
                             </Typography>
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                 <Box sx={{ flex: '1 1 auto' }} />
-                                <Button onClick={handleReset}>Reset</Button>
+                                <Button>Envoyer</Button>
                             </Box>
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
-                            <Typography sx={{ mt: 2, mb: 1 }}>step {activeStep + 1}</Typography>
+                            {activeStep === 0 && <StepperChoice choix={choix} setChoix={setChoix} />}
+                            {activeStep === 1 && <StepperProblem symptomes={symptomes} setSymptomes={setSymptomes} />}
+                            {activeStep === 2 && <StepperConfirmation choix={choix} setChoix={setChoix} />}
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                 <Button
                                     color="inherit"
@@ -204,25 +142,18 @@ export const Aide = () => {
                                     Back
                                 </Button>
                                 <Box sx={{ flex: '1 1 auto' }} />
-                                {isStepOptional(activeStep) && (
-                                    <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                                        Skip
-                                    </Button>
-                                )}
 
-                                <Button onClick={handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                </Button>
+                                {activeStep === steps.length - 2 && <Button type="submit" onClick={handleFinish}>
+                                    FINISH
+                                </Button>}
+                                {activeStep < 1 && <Button type="submit" onClick={handleNext}>
+                                    NEXT
+                                </Button>}
+
                             </Box>
                         </React.Fragment>
                     )}
                 </Box>
-                {/* <Box sx={{ ...style, width: 400 }}>
-                    <h2 id="parent-modal-title">Comment voulez-vous être aider ?</h2>
-                    <ChildModal />
-                    <p>ou</p>
-                    <ChatModal />
-                </Box> */}
             </Modal>
         </Grid>
     );

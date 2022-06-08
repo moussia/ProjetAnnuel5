@@ -10,17 +10,18 @@ const schema = new Schema({
         type: String
     },
     date: {
-        type: Date,
+        type: Date
     },
     status: {
         type: String,
         enum: [reserv.DEMANDE, reserv.FINI, reserv.LIBRE, reserv.RESERVE],
         default: reserv.DEMANDE
     },
-    type: {
+    choix: {
         type: String,
-        enum: [reserv.TELEPHONE, reserv.TCHAT],
-        default: reserv.TELEPHONE,
+    },
+    symptomes: {
+        type: String,
     }
 });
 

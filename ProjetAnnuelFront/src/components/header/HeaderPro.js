@@ -20,6 +20,7 @@ import Switch from '@mui/material/Switch';
 const pages = [
     { label: 'Mon compte', route: 'moncompte' },
     { label: 'Disponibilité', route: 'pro/disponible' },
+    { label: 'Demande', route: 'pro/demande' },
     { label: 'Deconnexion', route: 'logout' },
 ];
 

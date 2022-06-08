@@ -6,5 +6,10 @@ export const reserv = {
     EN_COURS: 'EN_COURS',
     ANNULE: 'ANNULE',
     TELEPHONE: 'TELEPHONE',
-    TCHAT: 'TCHAT'
+    TCHAT: 'TCHAT',
+    AUTRE: 'AUTRE',
+    MALADE: 'MALADE',
+    PLEURE: 'PLEURE',
+    DORMIR: 'DORMIR',
+    SOUTIEN: 'SOUTIEN'
 }

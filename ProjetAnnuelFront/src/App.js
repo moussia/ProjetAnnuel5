@@ -35,6 +35,7 @@ import { roles } from './constants/roles';
 import { NewPassword } from './views/NewPassword';
 import { ActivateMail } from './views/ActivateMail';
 import './App.css';
+import { Demande } from "./views/pro/Demande";
 
 
 export const App = () => {
@@ -68,6 +69,7 @@ export const App = () => {
             {/* Page PRO */}
             <Route exact path='/pro/services' element={<PrivateRoute restricted={roles.PRO} Component={ServicesPro} />} />
             <Route exact path='/pro/disponible' element={<PrivateRoute restricted={roles.PRO} Component={Disponible} />} />
+            <Route exact path='/pro/demande' element={<PrivateRoute restricted={roles.PRO} Component={Demande} />} />
 
             {/* ADMIN DASHBOARD */}
             <Route exact path='/dashboard' element={<PrivateRoute restricted={roles.ADMIN} Component={Dashboard} />} />
