@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useEffect } from 'react';
@@ -18,41 +17,26 @@ const style = {
     p: 4,
 };
 
-export default function PhoneParent(idDemande) {
-    const [open, setOpen] = React.useState(false);
+export default function PhoneParent({ open, onClose, idDemande }) {
     const [phone, setPhone] = React.useState(null);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-
-    useEffect(() => {
-        console.log("phone : ", phone)
-
-
-    }, [phone]);
 
     useEffect(() => {
         axios({ url: `http://localhost:3003/pro/getDemande/${idDemande}`, method: 'GET', withCredentials: true })
-            .then((data) => {
-                setPhone(data);
-                console.log("data-> ", data);
+            .then((res) => {
+                setPhone(res.data.phone);
+                console.log("data-> ", res.data.phone);
             })
 
     }, [idDemande]);
 
     return (
         <div>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
+            <Modal open={open} onClose={onClose}>
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <Typography variant="h6" component="h2">
                         Text in a modal
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <Typography sx={{ mt: 2 }}>
                         phone : {phone}
                     </Typography>
                 </Box>

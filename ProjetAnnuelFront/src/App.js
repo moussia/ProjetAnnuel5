@@ -36,6 +36,7 @@ import { NewPassword } from './views/NewPassword';
 import { Demande } from "./views/pro/Demande";
 import { ActivateMail } from './views/ActivateMail';
 import './App.css';
+import Chat from "./views/chat/Chat";
 
 
 export const App = () => {
@@ -77,6 +78,9 @@ export const App = () => {
             <Route exact path='/parent' element={<PrivateRoute restricted={roles.ADMIN} Component={Parents} />} />
             <Route exact path='/pro/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnel} />} />
             <Route exact path='/parent/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Parent} />} />
+
+            {/* CHAT */}
+            <Route exact path='/chat' element={<PrivateRoute Component={Chat} />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

@@ -106,7 +106,7 @@ export const Demande = () => {
     const classes = useStyles();
     const [pros, setPros] = useState([]);
     const [open, setOpen] = React.useState(false);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => setOpen(null);
 
     useEffect(() => {
         axios({ url: `http://localhost:3003/pro/getDemandes`, method: 'GET', withCredentials: true })
@@ -156,17 +156,16 @@ export const Demande = () => {
                                     }
                                 </TableCell>
                                 <TableCell>
-                                    <Button type="submit" variant="contained" onClick={() => setOpen(true)} sx={{ mt: 3, mb: 2 }}>
+                                    <Button type="submit" variant="contained" onClick={() => setOpen(demand._id)} sx={{ mt: 3, mb: 2 }}>
                                         En savoir plus
                                     </Button>
-                                    <PhoneParent open={open} onClose={handleClose} idDemande={demand._id} />
                                 </TableCell>
                             </TableRow>
                         ))}
 
                     </TableBody>
-
                 </Table>
+                <PhoneParent open={open !== null} onClose={handleClose} idDemande={open} />
                 <Stack spacing={2}>
                     <Pagination count={10} size="large" />
                 </Stack>
