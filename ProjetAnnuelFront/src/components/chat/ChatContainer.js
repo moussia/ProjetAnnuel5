@@ -4,33 +4,47 @@ import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 // import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
+import * as animationData from '../../images/lotties/chat.json';
+import Lottie from "react-lottie";
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: animationData,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice'
+  }
+};
+
+
 
 export default function ChatContainer({ currentChat, socket }) {
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
-  useEffect(async () => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-    const response = await axios.post(recieveMessageRoute, {
-      from: data._id,
-      to: currentChat._id,
-    });
-    setMessages(response.data);
-  }, [currentChat]);
 
-  useEffect(() => {
-    const getCurrentChat = async () => {
-      if (currentChat) {
-        await JSON.parse(
-          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-        )._id;
-      }
-    };
-    getCurrentChat();
-  }, [currentChat]);
+  // useEffect(async () => {
+  //   const data = await JSON.parse(
+  //     localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+  //   );
+  //   const response = await axios.post(recieveMessageRoute, {
+  //     from: data._id,
+  //     to: currentChat._id,
+  //   });
+  //   setMessages(response.data);
+  // }, [currentChat]);
+
+  // useEffect(() => {
+  //   const getCurrentChat = async () => {
+  //     if (currentChat) {
+  //       await JSON.parse(
+  //         localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+  //       )._id;
+  //     }
+  //   };
+  //   getCurrentChat();
+  // }, [currentChat]);
 
   const handleSendMsg = async (msg) => {
     const data = await JSON.parse(
@@ -41,11 +55,11 @@ export default function ChatContainer({ currentChat, socket }) {
       from: data._id,
       msg,
     });
-    await axios.post(sendMessageRoute, {
-      from: data._id,
-      to: currentChat._id,
-      message: msg,
-    });
+    // await axios.post(sendMessageRoute, {
+    //   from: data._id,
+    //   to: currentChat._id,
+    //   message: msg,
+    // });
 
     const msgs = [...messages];
     msgs.push({ fromSelf: true, message: msg });
@@ -71,19 +85,13 @@ export default function ChatContainer({ currentChat, socket }) {
   return (
     <Container>
       <div className="chat-header">
-        <div className="user-details">
-          <div className="avatar">
-            <img
-              src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-              alt=""
-            />
-          </div>
-          <div className="username">
-            <h3>{currentChat.username}</h3>
-          </div>
-        </div>
       </div>
       <div className="chat-messages">
+        {/* afficher lotifile */}
+        {currentChat === 'undefined'}
+        <Lottie options={defaultOptions}
+          height={400}
+          width={400} />
         {messages.map((message) => {
           return (
             <div ref={scrollRef} key={uuidv4()}>

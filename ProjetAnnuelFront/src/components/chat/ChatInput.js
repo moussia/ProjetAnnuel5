@@ -1,83 +1,140 @@
-import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
+import React, { useState } from "react";
+// import { BsEmojiSmileFill } from "react-icons/bs";
 import styled from "styled-components";
-// import { allUsersRoute, host } from "../utils/APIRoutes";
-import ChatContainer from "./ChatContainer";
-import Contacts from "./Contacts";
-import Welcome from "./Welcome";
+// import Picker from "emoji-picker-react";
 
-export default function Chat() {
-    const navigate = useNavigate();
-    const socket = useRef();
-    const [contacts, setContacts] = useState([]);
-    const [currentChat, setCurrentChat] = useState(undefined);
-    const [currentUser, setCurrentUser] = useState(undefined);
-    useEffect(async () => {
-        if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-            navigate("/login");
-        } else {
-            setCurrentUser(
-                await JSON.parse(
-                    localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-                )
-            );
-        }
-    }, []);
-    useEffect(() => {
-        if (currentUser) {
-            socket.current = io(host);
-            socket.current.emit("add-user", currentUser._id);
-        }
-    }, [currentUser]);
+export default function ChatInput({ handleSendMsg }) {
+    const [msg, setMsg] = useState("");
+    // const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    //   const handleEmojiPickerhideShow = () => {
+    //     setShowEmojiPicker(!showEmojiPicker);
+    //   };
 
-    useEffect(async () => {
-        if (currentUser) {
-            if (currentUser.isAvatarImageSet) {
-                const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-                setContacts(data.data);
-            } else {
-                navigate("/setAvatar");
-            }
+    // const handleEmojiClick = (event, emojiObject) => {
+    //     let message = msg;
+    //     message += emojiObject.emoji;
+    //     setMsg(message);
+    // };
+
+    const sendChat = (event) => {
+        event.preventDefault();
+        if (msg.length > 0) {
+            handleSendMsg(msg);
+            setMsg("");
         }
-    }, [currentUser]);
-    const handleChatChange = (chat) => {
-        setCurrentChat(chat);
     };
+
     return (
-        <>
-            <Container>
-                <div className="container">
-                    <Contacts contacts={contacts} changeChat={handleChatChange} />
-                    {currentChat === undefined ? (
-                        <Welcome />
-                    ) : (
-                        <ChatContainer currentChat={currentChat} socket={socket} />
-                    )}
-                </div>
-            </Container>
-        </>
+        <Container>
+            <div className="button-container">
+                {/* <div className="emoji"> */}
+                {/* <BsEmojiSmileFill onClick={handleEmojiPickerhideShow} /> */}
+                {/* {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />} */}
+                {/* </div> */}
+            </div>
+            <form className="input-container" onSubmit={(event) => sendChat(event)}>
+                <input
+                    type="text"
+                    placeholder="type your message here"
+                    onChange={(e) => setMsg(e.target.value)}
+                    value={msg}
+                />
+                <button type="submit" />
+            </form>
+        </Container>
     );
 }
 
 const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
+  display: grid;
   align-items: center;
-  background-color: #131324;
-  .container {
-    height: 85vh;
-    width: 85vw;
-    background-color: #00000076;
-    display: grid;
-    grid-template-columns: 25% 75%;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-      grid-template-columns: 35% 65%;
+  grid-template-columns: 5% 95%;
+  background-color: #080420;
+  padding: 0 2rem;
+  @media screen and (min-width: 720px) and (max-width: 1080px) {
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+  .button-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 1rem;
+    .emoji {
+      position: relative;
+      svg {
+        font-size: 1.5rem;
+        color: #ffff00c8;
+        cursor: pointer;
+      }
+      .emoji-picker-react {
+        position: absolute;
+        top: -350px;
+        background-color: #080420;
+        box-shadow: 0 5px 10px #9a86f3;
+        border-color: #9a86f3;
+        .emoji-scroll-wrapper::-webkit-scrollbar {
+          background-color: #080420;
+          width: 5px;
+          &-thumb {
+            background-color: #9a86f3;
+          }
+        }
+        .emoji-categories {
+          button {
+            filter: contrast(0);
+          }
+        }
+        .emoji-search {
+          background-color: transparent;
+          border-color: #9a86f3;
+        }
+        .emoji-group:before {
+          background-color: #080420;
+        }
+      }
+    }
+  }
+  .input-container {
+    width: 100%;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: #ffffff34;
+    input {
+      width: 90%;
+      height: 60%;
+      background-color: transparent;
+      color: white;
+      border: none;
+      padding-left: 1rem;
+      font-size: 1.2rem;
+      &::selection {
+        background-color: #9a86f3;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      padding: 0.3rem 2rem;
+      border-radius: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #9a86f3;
+      border: none;
+      @media screen and (min-width: 720px) and (max-width: 1080px) {
+        padding: 0.3rem 1rem;
+        svg {
+          font-size: 1rem;
+        }
+      }
+      svg {
+        font-size: 2rem;
+        color: white;
+      }
     }
   }
 `;

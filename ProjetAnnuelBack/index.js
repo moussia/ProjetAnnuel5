@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
+import http from "http";
+import { Server } from "socket.io";
 import userRouter from './routes/user.js';
 import authRouter from './routes/auth.js';
 import adminRouter from './routes/admin.js';
@@ -9,7 +11,6 @@ import passport from 'passport';
 import { passportInit } from './conf/passport.js';
 import cors from 'cors';
 import proRouter from './routes/pro.js';
-
 
 const app = express();
 app.use(express.json());
@@ -52,6 +53,23 @@ app.use('/session', authRouter);
 app.use('/admin', adminRouter);
 app.use('/pro', proRouter);
 
-app.listen(process.env.PORT, () => {
+const server = http.createServer(app);
+
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+    },
+});
+
+io.on("connection", (socket) => {
+    console.log(`User Connected: ${socket.id}`);
+
+    socket.on("send_message", (data) => {
+        socket.to(data.room).emit("receive_message", data);
+    });
+});
+
+server.listen(process.env.PORT, () => {
     console.log(`✅ App listening on port ${process.env.PORT}`)
 })

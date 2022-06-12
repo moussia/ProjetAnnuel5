@@ -8,7 +8,7 @@ export const createDemandeReservation = async (req, res) => {
     try {
         const { choix, symptomes } = req.body;
         const reservation = new Reservation({
-            id_parent: req.user._id,
+            id_parent: mongoose.Types.ObjectId(req.user._id),
             date: Date.now(),
             status: reserv.DEMANDE,
             choix,
@@ -33,7 +33,11 @@ export const getDemandeReservation = async (req, res) => {
 
 export const takeDemandeId = async (req, res) => {
     const demand = req.params.demandeId;
-    const updateDemand = await Reservation.findOneAndUpdate({ _id: demand }, { status: 'RESERVE', id_pro: req.user._id }, { new: true });
+    const updateDemand = await Reservation.findOneAndUpdate(
+        { _id: demand },
+        { status: 'RESERVE', id_pro: mongoose.Types.ObjectId(req.user._id) },
+        { new: true }
+    );
     // EnvoiMailAuPourCompteValide(req.user.email, req.user.lastname, req.user.email);
     res.send(updateDemand);
 }
@@ -42,15 +46,11 @@ export const getPhone = async (req, res) => {
     try {
         const demandId = req.params.demandId;
         const DemandeParent = await Reservation.findOne({ _id: demandId, id_pro: req.user._id, status: 'RESERVE', choix: 'tel' });
-        console.log('demande parent -----------------> ', DemandeParent);
         if (DemandeParent) {
             const phone = await User.findById(new mongoose.Types.ObjectId(DemandeParent.id_parent), { phone: 1 });
-            console.log('phone -----------------> ', phone);
             res.send(phone);
         }
-        else {
-            res.sendStatus(401);
-        }
+        else res.sendStatus(401);
     } catch (err) {
         console.log(err);
     }

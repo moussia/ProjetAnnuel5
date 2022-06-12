@@ -63,6 +63,11 @@ export const App = () => {
             <Route exact path='/forgetpassword' element={<ForgetPassword />} />
             {/* <Route exact path='/donation' element={<Checkout />} /> */}
 
+
+            {/* CHAT */}
+            <Route exact path='/chat' element={<Chat />} />
+
+
             {/* Page PARENT */}
             <Route exact path='/aide' element={<PrivateRoute restricted={roles.PARENT} Component={Aide} />} />
             <Route exact path='/moncompte' element={<PrivateRoute restricted={roles.PARENT} Component={Moncompte} />} />
@@ -78,9 +83,6 @@ export const App = () => {
             <Route exact path='/parent' element={<PrivateRoute restricted={roles.ADMIN} Component={Parents} />} />
             <Route exact path='/pro/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnel} />} />
             <Route exact path='/parent/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Parent} />} />
-
-            {/* CHAT */}
-            <Route exact path='/chat' element={<PrivateRoute Component={Chat} />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

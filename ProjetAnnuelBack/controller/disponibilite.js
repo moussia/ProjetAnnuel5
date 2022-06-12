@@ -18,7 +18,6 @@ export const createDisponibilite = async (req, res) => {
     }
 }
 
-
 export const getDisponibilite = async (req, res) => {
     await Disponibilite.findOne({ id_pro: req.user._id });
     res.status(200);

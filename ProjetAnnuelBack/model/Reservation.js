@@ -4,10 +4,12 @@ import { reserv } from '../constants/Reservation.js';
 
 const schema = new Schema({
     id_pro: {
-        type: String
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     id_parent: {
-        type: String
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     date: {
         type: Date

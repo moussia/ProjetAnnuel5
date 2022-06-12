@@ -3,8 +3,9 @@ const { Schema, model } = mongoose;
 
 const schema = new Schema({
     id_pro: {
-        type: String,
-        required: false
+        type: Schema.Types.ObjectId,
+        required: false,
+        ref: 'User'
     },
     date: {
         type: Date

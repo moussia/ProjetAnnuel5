@@ -17,7 +17,6 @@ export const StepperChoice = ({ choix, setChoix }) => {
                 <RadioGroup row value={choix} onChange={handleChange}>
                     <FormControlLabel value="tel" control={<Radio />} label="Téléphone" />
                     <FormControlLabel value="chat" control={<Radio />} label="Chat" />
-                    <FormControlLabel value="other" control={<Radio />} label="Peu importe" />
                 </RadioGroup>
             </FormControl>
         </div>
