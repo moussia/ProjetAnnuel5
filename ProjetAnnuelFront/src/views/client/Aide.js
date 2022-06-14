@@ -53,7 +53,6 @@ export const Aide = () => {
                 console.log(data);
             })
             .catch((err) => {
-                console.log("-----------------");
                 console.log(err);
             });
         handleNext();

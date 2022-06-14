@@ -34,10 +34,11 @@ export default function PhoneParent({ open, onClose, idDemande }) {
             <Modal open={open} onClose={onClose}>
                 <Box sx={style}>
                     <Typography variant="h6" component="h2">
-                        Text in a modal
+                        Appeler le parent
                     </Typography>
                     <Typography sx={{ mt: 2 }}>
-                        phone : {phone}
+                        Voici le numéro de téléphone à contacter : {phone}. <br></br>
+                        Si vous voulez appeler en numéro masqué, n'oubliez pas de mettre "#31#" avant le numéro.
                     </Typography>
                 </Box>
             </Modal>

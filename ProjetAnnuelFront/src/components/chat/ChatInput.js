@@ -1,48 +1,36 @@
 import React, { useState } from "react";
-// import { BsEmojiSmileFill } from "react-icons/bs";
 import styled from "styled-components";
-// import Picker from "emoji-picker-react";
 
 export default function ChatInput({ handleSendMsg }) {
-    const [msg, setMsg] = useState("");
-    // const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-    //   const handleEmojiPickerhideShow = () => {
-    //     setShowEmojiPicker(!showEmojiPicker);
-    //   };
+  const [msg, setMsg] = useState("");
 
-    // const handleEmojiClick = (event, emojiObject) => {
-    //     let message = msg;
-    //     message += emojiObject.emoji;
-    //     setMsg(message);
-    // };
+  const sendChat = (event) => {
+    event.preventDefault();
+    if (msg.length > 0) {
+      handleSendMsg(msg);
+      setMsg("");
+    }
+  };
 
-    const sendChat = (event) => {
-        event.preventDefault();
-        if (msg.length > 0) {
-            handleSendMsg(msg);
-            setMsg("");
-        }
-    };
-
-    return (
-        <Container>
-            <div className="button-container">
-                {/* <div className="emoji"> */}
-                {/* <BsEmojiSmileFill onClick={handleEmojiPickerhideShow} /> */}
-                {/* {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />} */}
-                {/* </div> */}
-            </div>
-            <form className="input-container" onSubmit={(event) => sendChat(event)}>
-                <input
-                    type="text"
-                    placeholder="type your message here"
-                    onChange={(e) => setMsg(e.target.value)}
-                    value={msg}
-                />
-                <button type="submit" />
-            </form>
-        </Container>
-    );
+  return (
+    <Container>
+      <div className="button-container">
+        {/* <div className="emoji"> */}
+        {/* <BsEmojiSmileFill onClick={handleEmojiPickerhideShow} /> */}
+        {/* {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />} */}
+        {/* </div> */}
+      </div>
+      <form className="input-container" onSubmit={(event) => sendChat(event)}>
+        <input
+          type="text"
+          placeholder="Tapez votre message ici."
+          onChange={(e) => setMsg(e.target.value)}
+          value={msg}
+        />
+        <button type="submit">ENVOYER</button>
+      </form>
+    </Container >
+  );
 }
 
 const Container = styled.div`
@@ -59,6 +47,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     color: white;
+    cursor:pointer;
     gap: 1rem;
     .emoji {
       position: relative;
@@ -122,6 +111,7 @@ const Container = styled.div`
       border-radius: 2rem;
       display: flex;
       justify-content: center;
+      cursor:pointer;
       align-items: center;
       background-color: #9a86f3;
       border: none;

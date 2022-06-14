@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
-import http from "http";
+import { createServer } from "http";
 import { Server } from "socket.io";
 import userRouter from './routes/user.js';
 import authRouter from './routes/auth.js';
@@ -32,19 +32,18 @@ app.use(
 passportInit(passport);
 
 //configure_express_session 
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            secure: false, // Quand_on_sera_en_https 
-            maxAge: 30 * 24 * 60 * 60 * 1000, // la session va durer 30 jours
-            // sameSite: 'none',
-        }
-    })
-);
+const sessionMiddleware = session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // Quand_on_sera_en_https 
+        maxAge: 30 * 24 * 60 * 60 * 1000, // la session va durer 30 jours
+        // sameSite: 'none',
+    }
+});
 
+app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -53,23 +52,50 @@ app.use('/session', authRouter);
 app.use('/admin', adminRouter);
 app.use('/pro', proRouter);
 
-const server = http.createServer(app);
+const httpServer = createServer(app);
 
-const io = new Server(server, {
+const io = new Server(httpServer, {
     cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"],
+        credentials: true,
+        origin: process.env.URL_FRONT
     },
 });
 
-io.on("connection", (socket) => {
-    console.log(`User Connected: ${socket.id}`);
+// convert a connect middleware to a Socket.IO middleware
+// const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
+
+
+
+// io.use(wrap(sessionMiddleware));
+// io.use(wrap(passport.initialize()));
+// io.use(wrap(passport.session()));
+
+
+// io.use((socket, next) => {
+//     console.log('***************************** socket.request.session.user', socket.request.session.user);
+//     console.log('***************************** socket.request.user', socket.request.user);
+//     if (socket.request.session.user) {
+//         next();
+//     } else {
+//         next(new Error('unauthorized'))
+//     }
+// });
+
+io.on('connect', (socket) => {
+    console.log(`new connection ${socket.id}`);
+
+    socket.on("join_room", (room) => {
+        console.log(socket.id + ' joined ' + room)
+        socket.join(room);
+    });
 
     socket.on("send_message", (data) => {
-        socket.to(data.room).emit("receive_message", data);
+        console.log('->', data);
+        socket.broadcast.to(data.room).emit("receive_message", data.msg);
     });
 });
 
-server.listen(process.env.PORT, () => {
+
+httpServer.listen(process.env.PORT, () => {
     console.log(`✅ App listening on port ${process.env.PORT}`)
 })

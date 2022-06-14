@@ -1,41 +1,46 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { io } from "socket.io-client";
+import io from 'socket.io-client';
 import styled from "styled-components";
-// import { allUsersRoute, host } from "../utils/APIRoutes";
 import ChatContainer from "../../components/chat/ChatContainer";
-import Contacts from "../../components/chat/Contacts";
-// import Welcome from "../../components/chat/Welcome";
+import { AuthContext } from '../../components/contexts/AuthContext';
+import { useSearchParams } from "react-router-dom";
 
 export default function Chat() {
-    const socket = useRef();
     const [contacts, setContacts] = useState([]);
-    const [currentChat, setCurrentChat] = useState(undefined);
+    const { getRole } = React.useContext(AuthContext);
+    const socket = io.connect(process.env.REACT_APP_SERVER);
+    const [searchParams] = useSearchParams();
+
+    console.log(socket);
+
+    socket.on("connect_error", (err) => {
+        console.log(`connect_error due to ${err.message}`);
+    });
 
     useEffect(() => {
-        axios({ url: 'http://localhost:3003/pro/contacts', method: 'GET', withCredentials: true })
-            .then((res) => setContacts(res.data))
-    }, []);
+        socket.emit("join_room", searchParams.get('id'));
+    }, [searchParams, socket]);
+
+    useEffect(() => {
+        if (getRole() === 'PRO') {
+            axios({ url: 'http://localhost:3003/pro/contacts', method: 'GET', withCredentials: true })
+                .then((res) => setContacts(res.data));
+        }
+        else {
+            axios({ url: 'http://localhost:3003/user/contacts', method: 'GET', withCredentials: true })
+                .then((res) => setContacts(res.data));
+        }
+    }, [getRole]);
 
     useEffect(() => {
         console.log(contacts);
     }, [contacts]);
 
-    const handleChatChange = (chat) => {
-        setCurrentChat(chat);
-    };
-
     return (
         <Container>
             <div className="container">
-                <Contacts contacts={contacts} changeChat={handleChatChange} />
-                {/* {currentChat === undefined ? (
-                        <Welcome />
-                    ) : (
-                        <ChatContainer currentChat={currentChat} socket={socket} />
-                    )} */}
-                <ChatContainer currentChat={currentChat} socket={socket} />
-
+                <ChatContainer socket={socket} room={searchParams.get('id')} />
             </div>
         </Container>
     );

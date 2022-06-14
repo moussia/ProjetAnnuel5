@@ -15,7 +15,7 @@ export const getContacts = async (req, res) => {
 }
 
 
-export const getContactsPro = async (req, res) => {
+export const getContactsParent = async (req, res) => {
     try {
         const contactsIds = await Reservation.find(
             { id_parent: req.user._id, status: 'RESERVE', choix: 'chat' }, { id_pro: 1 }

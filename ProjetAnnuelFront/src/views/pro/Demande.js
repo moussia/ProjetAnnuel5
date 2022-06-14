@@ -11,6 +11,7 @@ import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import PhoneParent from '../../components/modal/phoneParent';
+import { Link } from 'react-router-dom';
 
 
 
@@ -155,10 +156,25 @@ export const Demande = () => {
                                             : <p> Reservé </p>
                                     }
                                 </TableCell>
-                                <TableCell>
+                                {/* <TableCell>
                                     <Button type="submit" variant="contained" onClick={() => setOpen(demand._id)} sx={{ mt: 3, mb: 2 }}>
                                         En savoir plus
                                     </Button>
+                                </TableCell> */}
+
+                                <TableCell>
+                                    {
+                                        demand.choix === "tel" ?
+                                            <Button type="submit" variant="contained" onClick={() => setOpen(demand._id)} sx={{ mt: 3, mb: 2 }}>
+                                                Afficher le numéro
+                                            </Button>
+                                            :
+                                            <Link to={`/chat?id=${demand._id}`} property='' component="button" variant="contained" >
+                                                Ouvrir le chat
+                                            </Link>
+
+                                    }
+
                                 </TableCell>
                             </TableRow>
                         ))}

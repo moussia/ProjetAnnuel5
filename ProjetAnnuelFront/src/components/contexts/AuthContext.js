@@ -18,9 +18,13 @@ export default function AuthProvider({ children }) {
     else localStorage.removeItem("role");
   }, [context.role]);
 
+  const getRole = () => {
+    return localStorage.getItem("role");
+  };
+
   return (
     <AuthContext.Provider
-      value={{ context, setContext }}
+      value={{ context, setContext, getRole }}
     >
       {children}
     </AuthContext.Provider>

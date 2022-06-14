@@ -10,9 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import { Radio } from '@mui/material';
 import styles from '../../style/header.module.css';
-import { pink, green } from '@mui/material/colors';
+import { pink } from '@mui/material/colors';
 import axios from 'axios';
 import { alpha, styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
@@ -21,6 +20,7 @@ const pages = [
     { label: 'Mon compte', route: 'moncompte' },
     { label: 'Disponibilité', route: 'pro/disponible' },
     { label: 'Demande', route: 'pro/demande' },
+    { label: 'Chat', route: 'chat' },
     { label: 'Deconnexion', route: 'logout' },
 ];
 
