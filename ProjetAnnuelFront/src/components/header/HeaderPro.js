@@ -15,12 +15,11 @@ import { pink } from '@mui/material/colors';
 import axios from 'axios';
 import { alpha, styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
+import { AuthContext } from '../contexts/AuthContext';
 
 const pages = [
     { label: 'Mon compte', route: 'moncompte' },
-    { label: 'Disponibilité', route: 'pro/disponible' },
     { label: 'Demande', route: 'pro/demande' },
-    { label: 'Chat', route: 'chat' },
     { label: 'Deconnexion', route: 'logout' },
 ];
 
@@ -41,6 +40,7 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const HeaderPro = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const { setContext } = React.useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleOpenNavMenu = (event) => {
@@ -67,6 +67,7 @@ const HeaderPro = () => {
         setIsDisponible(event.target.checked);
         axios({ url: 'http://localhost:3003/pro/dispo/update', method: 'POST', data: { disponibility: event.target.checked }, withCredentials: true })
             .then((data) => {
+                setContext((prev) => ({ ...prev, isDisponible: event.target.checked }));
                 console.log("ok");
             })
             .catch((err) => {

@@ -65,7 +65,7 @@ export const App = () => {
 
 
             {/* CHAT */}
-            <Route exact path='/chat' element={<Chat />} />
+            <Route exact path='/chat' element={<PrivateRoute Component={Chat} />} />
 
 
             {/* Page PARENT */}

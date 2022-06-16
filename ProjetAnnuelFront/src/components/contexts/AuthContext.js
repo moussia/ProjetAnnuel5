@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
@@ -6,6 +7,7 @@ export default function AuthProvider({ children }) {
   const [context, setContext] = useState({
     isLoggedIn: localStorage.getItem("isLoggedIn"),
     role: localStorage.getItem("role"),
+    isDisponible: false
   });
 
   useEffect(() => {
@@ -17,6 +19,11 @@ export default function AuthProvider({ children }) {
     if (context.role !== null) localStorage.setItem("role", context.role);
     else localStorage.removeItem("role");
   }, [context.role]);
+
+  useEffect(() => {
+    axios({ url: `http://localhost:3003/pro/dispo`, method: 'GET', withCredentials: true })
+      .then((data) => setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible })))
+  }, []);
 
   const getRole = () => {
     return localStorage.getItem("role");

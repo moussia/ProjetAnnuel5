@@ -11,9 +11,8 @@ import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import PhoneParent from '../../components/modal/phoneParent';
-import { Link } from 'react-router-dom';
-
-
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../components/contexts/AuthContext';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -106,13 +105,18 @@ const useStyles = makeStyles((theme) => ({
 export const Demande = () => {
     const classes = useStyles();
     const [pros, setPros] = useState([]);
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(null);
+    const { context } = React.useContext(AuthContext);
     const handleClose = () => setOpen(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        axios({ url: `http://localhost:3003/pro/getDemandes`, method: 'GET', withCredentials: true })
-            .then((data) => setPros(data.data))
-    }, []);
+        console.log('disponibilite ', context.isDisponible);
+        if (context.isDisponible) {
+            axios({ url: `http://localhost:3003/pro/getDemandes`, method: 'GET', withCredentials: true })
+                .then((data) => setPros(data.data))
+        }
+    }, [context.isDisponible]);
 
     const prendreDisponibilite = async (id) => {
         const res = await axios({ url: `http://localhost:3003/pro/${id}/activate`, method: 'PUT', withCredentials: true });
@@ -129,62 +133,68 @@ export const Demande = () => {
         <div className={classes.root}>
 
             <main className={classes.content}>
-                <h3>Voici une liste de parent qui a demandé de l'aide</h3>
-                <Table size="small">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Choix</TableCell>
-                            <TableCell>Symptômes</TableCell>
-                            <TableCell>Téléphone</TableCell>
-                            <TableCell>Date</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {pros.map((demand) => (
+                {
+                    context.isDisponible === false ?
+                        <h2>Vous êtes indiponible. Mettez vous disponible pour voir les demandes.</h2> :
+                        <div>
+                            <h3>Voici une liste de parent qui a demandé de l'aide</h3>
 
-                            <TableRow key={demand._id} className={classes.cursorpointer}>
-                                <TableCell>{demand.choix}</TableCell>
-                                <TableCell>{demand.symptomes}</TableCell>
-                                <TableCell>Téléphone</TableCell>
-                                <TableCell>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long', timeStyle: 'medium' }).format(new Date(demand.date))}</TableCell>
-                                <TableCell>
-                                    {
-                                        demand.status === "DEMANDE" ?
-                                            <Button type="submit" variant="contained" onClick={() => prendreDisponibilite(demand._id)} sx={{ mt: 3, mb: 2 }}>
-                                                Prendre disponibilité
-                                            </Button>
-                                            : <p> Reservé </p>
-                                    }
-                                </TableCell>
-                                {/* <TableCell>
-                                    <Button type="submit" variant="contained" onClick={() => setOpen(demand._id)} sx={{ mt: 3, mb: 2 }}>
-                                        En savoir plus
-                                    </Button>
-                                </TableCell> */}
+                            <Table size="small">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Choix</TableCell>
+                                        <TableCell>Symptômes</TableCell>
+                                        <TableCell>Téléphone</TableCell>
+                                        <TableCell>Date</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {pros.map((demand) => (
 
-                                <TableCell>
-                                    {
-                                        demand.choix === "tel" ?
-                                            <Button type="submit" variant="contained" onClick={() => setOpen(demand._id)} sx={{ mt: 3, mb: 2 }}>
-                                                Afficher le numéro
-                                            </Button>
-                                            :
-                                            <Link to={`/chat?id=${demand._id}`} property='' component="button" variant="contained" >
-                                                Ouvrir le chat
-                                            </Link>
+                                        <TableRow key={demand._id} className={classes.cursorpointer}>
+                                            <TableCell>{demand.choix}</TableCell>
+                                            <TableCell>{demand.symptomes}</TableCell>
+                                            <TableCell>Téléphone</TableCell>
+                                            <TableCell>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long', timeStyle: 'medium' }).format(new Date(demand.date))}</TableCell>
+                                            <TableCell>
+                                                {
+                                                    demand.status === "DEMANDE" ?
+                                                        <Button type="submit" variant="contained" color="success" onClick={() => prendreDisponibilite(demand._id)} sx={{ mt: 3, mb: 2 }}>
+                                                            Prendre disponibilité
+                                                        </Button>
+                                                        :
+                                                        demand.status === "RESERVE" && demand.choix === "tel" ?
+                                                            <Button type="submit" color="secondary" variant="contained" onClick={() => setOpen(demand._id)} sx={{ mt: 3, mb: 2 }}>
+                                                                Afficher le numéro
+                                                            </Button>
+                                                            : demand.status === "RESERVE" && demand.choix === "chat" ?
+                                                                <Button onClick={() => navigate(`/chat?id=${demand._id}`)} variant="contained" >
+                                                                    Ouvrir le chat
+                                                                </Button>
+                                                                : <p></p>
+                                                }
+                                            </TableCell>
+                                            {/* <TableCell>
+                                        <Button type="submit" variant="contained" onClick={() => setOpen(demand._id)} sx={{ mt: 3, mb: 2 }}>
+                                            En savoir plus
+                                        </Button>
+                                    </TableCell> */}
 
-                                    }
 
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                                        </TableRow>
+                                    ))}
 
-                    </TableBody>
-                </Table>
-                <PhoneParent open={open !== null} onClose={handleClose} idDemande={open} />
-                <Stack spacing={2}>
-                    <Pagination count={10} size="large" />
-                </Stack>
+                                </TableBody>
+                            </Table>
+                            <PhoneParent open={open !== null} onClose={handleClose} idDemande={open} />
+                            <Stack spacing={2}>
+                                <Pagination count={10} size="large" />
+                            </Stack>
+                        </div>
+                }
+
+
+
             </main >
         </div >
     );
