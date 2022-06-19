@@ -20,6 +20,7 @@ import { AuthContext } from '../contexts/AuthContext';
 const pages = [
     { label: 'Mon compte', route: 'moncompte' },
     { label: 'Demande', route: 'pro/demande' },
+    { label: 'Historique', route: 'pro/historique' },
     { label: 'Deconnexion', route: 'logout' },
 ];
 

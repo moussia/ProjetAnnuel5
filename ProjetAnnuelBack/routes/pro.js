@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getContacts } from '../controller/contacts.js';
 import { createDisponibilite, getDisponibilite } from '../controller/disponibilite.js';
-import { getDemandeReservation, getPhone, takeDemandeId } from '../controller/reservation.js';
+import { getDemandeReservation, getPhone, historiqueForPro, takeDemandeId } from '../controller/reservation.js';
 import { isAuthenticated } from '../middleware/isAuthenticated.js';
 import { isPro } from '../middleware/isAuthorized.js';
 
@@ -13,6 +13,7 @@ proRouter.get('/getDemandes', isAuthenticated, isPro, getDemandeReservation);
 proRouter.put('/:demandeId/activate', isAuthenticated, isPro, takeDemandeId);
 proRouter.get("/getDemande/:demandId", isAuthenticated, isPro, getPhone);
 proRouter.get("/contacts", isAuthenticated, isPro, getContacts);
+proRouter.get("/historique", isAuthenticated, isPro, historiqueForPro);
 
 
 

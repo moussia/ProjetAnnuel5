@@ -99,3 +99,24 @@ export const getDemandesFinish = async (req, res) => {
         console.log(error);
     }
 }
+
+export const historiqueForParent = async (req, res) => {
+    try {
+        const demandes = await Reservation.find({ id_parent: req.user._id }, { id_parent: 0 });
+        console.log(demandes)
+        res.send(demandes);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// il faut recuperer les reservations ou l'id du pro corresponds a l'id de la personne connecte
+export const historiqueForPro = async (req, res) => {
+    try {
+        const demandes = await Reservation.find({ id_pro: req.user._id }, { id_parent: 0 });
+        console.log(demandes)
+        res.send(demandes);
+    } catch (error) {
+        console.log(error);
+    }
+}

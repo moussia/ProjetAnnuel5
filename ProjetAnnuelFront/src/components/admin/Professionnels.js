@@ -9,14 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router';
-import clsx from 'clsx';
-import CssBaseline from '@mui/material/CssBaseline';
-import Drawer from '@mui/material/Drawer';
-import Divider from '@mui/material/Divider';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { mainListItems } from '../../views/admin/ListItems';
 // import { MainListItems } from '../../views/admin/ListItems';
 
 const useStyles = makeStyles((theme) => ({

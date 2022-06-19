@@ -3,13 +3,13 @@ POST http://localhost:3003/user/create
 Content-Type: application/json
 
 {
-    "lastname" : "addmin",
-    "firstname" : "addmin",
-    "phone" : "0140161716",
+    "lastname" : "moussia",
+    "firstname" : "mottal",
+    "phone" : "0783185678",
     "address" : "8 rue de romainville",
     "city" : "paris",
     "country" : "france",
-    "email" : "sosparentsoff@gmail.com",
+    "email" : "moussiamottal@gmail.com",
     "password" : "Hayamottal555/",
     "zipcode" : "75019",
     "sex" : "WOMAN"
@@ -149,7 +149,7 @@ Content-Type: application/json
 
 
 
-### CONNEXION PRO
+### CONNEXION PARENT
 POST http://localhost:3003/session
 Content-Type: application/json
 
@@ -157,6 +157,13 @@ Content-Type: application/json
     "email" : "moussiamottal@gmail.com",
     "password" : "Hayamottal555/"
 }
+
+
+### get historique
+GET http://localhost:3003/user/historique
+
+
+
 
 ### CONNEXION PRO
 POST http://localhost:3003/session

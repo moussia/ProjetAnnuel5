@@ -17,7 +17,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems } from './ListItems';
+import { mainListItems } from '../../components/admin/ListItems';
 import { Professionnels } from '../../components/admin/Professionnels';
 import Deposits from '../../components/admin/Deposits';
 

@@ -37,6 +37,8 @@ import { Demande } from "./views/pro/Demande";
 import { ActivateMail } from './views/ActivateMail';
 import './App.css';
 import Chat from "./views/chat/Chat";
+import { Historique } from "./views/client/Historique";
+import { HistoriquePro } from "./views/pro/Historique";
 
 
 export const App = () => {
@@ -71,16 +73,18 @@ export const App = () => {
             {/* Page PARENT */}
             <Route exact path='/aide' element={<PrivateRoute restricted={roles.PARENT} Component={Aide} />} />
             <Route exact path='/moncompte' element={<PrivateRoute restricted={roles.PARENT} Component={Moncompte} />} />
+            <Route exact path='/historique' element={<PrivateRoute restricted={roles.PARENT} Component={Historique} />} />
 
             {/* Page PRO */}
             <Route exact path='/pro/services' element={<PrivateRoute restricted={roles.PRO} Component={ServicesPro} />} />
             <Route exact path='/pro/disponible' element={<PrivateRoute restricted={roles.PRO} Component={Disponible} />} />
             <Route exact path='/pro/demande' element={<PrivateRoute restricted={roles.PRO} Component={Demande} />} />
+            <Route exact path='/pro/historique' element={<PrivateRoute restricted={roles.PRO} Component={HistoriquePro} />} />
 
             {/* ADMIN DASHBOARD */}
             <Route exact path='/dashboard' element={<PrivateRoute restricted={roles.ADMIN} Component={Dashboard} />} />
             <Route exact path='/pro' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnels} />} />
-            <Route exact path='/parent' element={<PrivateRoute restricted={roles.ADMIN} Component={Parents} />} />
+            <Route exact path='/parents' element={<PrivateRoute restricted={roles.ADMIN} Component={Parents} />} />
             <Route exact path='/pro/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnel} />} />
             <Route exact path='/parent/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Parent} />} />
 

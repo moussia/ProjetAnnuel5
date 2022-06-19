@@ -1,4 +1,6 @@
 import { Router } from 'express';
+// import { historiqueDemandesForAdmin } from '../controller/dash.js';
+// import { proToVerify } from '../controller/dash.js';
 import { activatePro, deletePro, getPro, updatePro } from '../controller/pro.js';
 import { getDemandes, getDemandesFinish } from '../controller/reservation.js';
 import { deleteParent, getParentFromId, getParents, getProFromId } from '../controller/user.js';
@@ -8,7 +10,7 @@ import { isAdmin } from '../middleware/Validators/isAdmin.js';
 const router = Router();
 
 router.get("/pro", isAuthenticated, isAdmin, getPro);
-router.get("/parent", isAuthenticated, isAdmin, getParents);
+router.get("/parents", isAuthenticated, isAdmin, getParents);
 router.get("/parent/:parentId", isAuthenticated, isAdmin, getParentFromId);
 router.get("/pro/:proId", isAuthenticated, isAdmin, getProFromId);
 // router.post("/", createParent);
@@ -18,5 +20,8 @@ router.delete("/pro/:proId", deletePro);
 router.delete("/parent/:parentId", deleteParent);
 router.get("/demandes", isAuthenticated, isAdmin, getDemandes);
 router.get("/demandesFini", isAuthenticated, isAdmin, getDemandesFinish);
+// router.get("/historique-demande", isAuthenticated, isAdmin, historiqueDemandesForAdmin);
+// router.get("/proValidate", isAuthenticated, isAdmin, proToVerify);
+
 
 export default router;
