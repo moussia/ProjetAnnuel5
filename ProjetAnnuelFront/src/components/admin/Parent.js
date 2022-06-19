@@ -106,15 +106,9 @@ export const Parent = () => {
   // if (context?.isAdmin !== true) history.push('/');
 
   useEffect(() => {
-    console.log('test')
     axios({ url: `http://localhost:3003/admin/parent/${id}`, method: 'GET', withCredentials: true })
       .then((res) => setParent(res.data))
   }, [id])
-
-  useEffect(() => {
-    console.log(parent)
-  }, [parent])
-
 
   return (
     <div className={classes.root}>

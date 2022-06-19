@@ -13,6 +13,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import axios from 'axios';
+// import { MainListItems } from '../../views/admin/ListItems';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -112,20 +113,10 @@ export const Parents = () => {
     const navigate = useNavigate();
     const [open] = React.useState(true);
 
-
     useEffect(() => {
         axios({ url: 'http://localhost:3003/admin/parent', method: 'GET', withCredentials: true })
             .then((data) => setParent(data.data))
     }, []);
-
-    console.log(parent);
-
-    useEffect(() => {
-        console.log('parent', parent);
-    }, [parent]);
-
-
-
 
     const deleteParent = async (id) => {
         const res = await axios({ url: `http://localhost:3003/admin/parent/${id}`, method: 'DELETE', withCredentials: true }

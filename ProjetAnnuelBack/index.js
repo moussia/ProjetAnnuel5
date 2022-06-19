@@ -89,8 +89,13 @@ io.on('connect', (socket) => {
         socket.join(room);
     });
 
+    socket.on("match", (room) => {
+        console.log('match ->', room);
+        socket.broadcast.to(room).emit("receive_match", true);
+    });
+
     socket.on("send_message", (data) => {
-        console.log('->', data);
+        console.log('send_message', socket.id, '->', data);
         socket.broadcast.to(data.room).emit("receive_message", data.msg);
     });
 });

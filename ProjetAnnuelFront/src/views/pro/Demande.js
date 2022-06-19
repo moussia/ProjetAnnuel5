@@ -13,6 +13,7 @@ import Stack from '@mui/material/Stack';
 import PhoneParent from '../../components/modal/phoneParent';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../components/contexts/AuthContext';
+import { getSocket } from '../../utils/socket';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -109,9 +110,9 @@ export const Demande = () => {
     const { context } = React.useContext(AuthContext);
     const handleClose = () => setOpen(null);
     const navigate = useNavigate();
+    const socket = getSocket();
 
     useEffect(() => {
-        console.log('disponibilite ', context.isDisponible);
         if (context.isDisponible) {
             axios({ url: `http://localhost:3003/pro/getDemandes`, method: 'GET', withCredentials: true })
                 .then((data) => setPros(data.data))
@@ -126,6 +127,9 @@ export const Demande = () => {
             prev.splice(i, 1, data);
             return [...prev];
         });
+        console.log('prendreDisponibilite');
+        socket.emit("join_room", id);
+        socket.emit("match", id);
     };
 
 

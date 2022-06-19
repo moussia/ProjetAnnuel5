@@ -111,11 +111,6 @@ export const Professionnel = () => {
       .then((res) => setPro(res.data))
   }, [id])
 
-  useEffect(() => {
-    console.log(pro)
-  }, [pro])
-
-
   return (
     <div className={classes.root}>
       <main className={classes.content}>

@@ -40,7 +40,7 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const HeaderPro = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const { setContext } = React.useContext(AuthContext);
+    const { context, setContext } = React.useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleOpenNavMenu = (event) => {
@@ -55,16 +55,7 @@ const HeaderPro = () => {
         navigate(route);
     }
 
-    // pour la disponibilite à droite
-    const [isDisponible, setIsDisponible] = React.useState(false);
-
-    React.useEffect(() => {
-        console.log(isDisponible);
-    }, [isDisponible]);
-
-
     const handleChange = (event) => {
-        setIsDisponible(event.target.checked);
         axios({ url: 'http://localhost:3003/pro/dispo/update', method: 'POST', data: { disponibility: event.target.checked }, withCredentials: true })
             .then((data) => {
                 setContext((prev) => ({ ...prev, isDisponible: event.target.checked }));
@@ -137,7 +128,7 @@ const HeaderPro = () => {
                         ))}
                     </Box>
                     <p className={styles.colorblack}>Disponibilité</p>
-                    <GreenSwitch {...label} checked={isDisponible} onChange={handleChange} />
+                    <GreenSwitch {...label} checked={context.isDisponible} onChange={handleChange} />
                 </Toolbar>
             </Container>
         </AppBar>

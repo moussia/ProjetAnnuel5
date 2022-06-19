@@ -151,6 +151,38 @@ export const sendToUserForgetPassword = async (to, link) => {
 }
 
 
+
+//Envoie email a un pro lorsque qu'un parent fait une demande d'aide
+export const sendToProForDemandeAide = async (to) => {
+    let source = await readFile('template/Email-demandeAide.html', 'utf8');
+    let template = handlebars.compile(source);
+    // const data = {
+    //     link
+    // }
+    let html = template();
+
+    console.log(to);
+
+    const mailOptions = {
+        from: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`, // sender address
+        to,
+        subject: "Aidez un parent", // Subject line
+        text: "Un parent vous demande de l'aide.", // plain text body
+        html, // html body
+    }
+
+    // send mail with defined transport object
+    await transporter.sendMail(mailOptions, (error, info) => {
+        if (error) console.log('Email cannot be send: ' + error);
+        else {
+            console.log('Email sent: ' + clientInformation.response);
+            return true;
+        }
+    });
+    console.log("✅ EMAIL ENVOYE à : ", to);
+}
+
+
 // export const sendToAdminValidateComptePro = async (to, lastname, email) => {
 
 // }

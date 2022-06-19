@@ -1,9 +1,10 @@
 import { Router } from 'express';
+import { closeChat } from '../controller/chat.js';
 import { getContactsParent } from '../controller/contacts.js';
 import { activatedMail, modifPassword, resetPassword, SendEmailForForgePassword } from '../controller/login.js';
 // import { ModifPasswordForget, SendEmailForForgePassword } from '../controller/login.js';
 import { createPro } from '../controller/pro.js';
-import { createDemandeReservation } from '../controller/reservation.js';
+import { closeReservation, createDemandeReservation } from '../controller/reservation.js';
 import { createParent, currentUser, updateUser } from '../controller/user.js';
 import { isAuthenticated } from '../middleware/isAuthenticated.js';
 import { isParent } from '../middleware/isAuthorized.js';
@@ -23,6 +24,8 @@ userRouter.post('/modifPassword', isAuthenticated, modifPassword);
 userRouter.post('/resetPassword', resetPassword);
 userRouter.post('/activatedMail', activatedMail);
 userRouter.post('/sendReservation', isAuthenticated, createDemandeReservation);
+userRouter.put('/closeChat', isAuthenticated, closeChat);
+userRouter.put('/closeReservation', isAuthenticated, closeReservation);
 userRouter.get("/contacts", isAuthenticated, isParent, getContactsParent);
 
 

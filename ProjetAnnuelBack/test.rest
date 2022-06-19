@@ -3,13 +3,13 @@ POST http://localhost:3003/user/create
 Content-Type: application/json
 
 {
-    "lastname" : "admin",
-    "firstname" : "admin",
+    "lastname" : "addmin",
+    "firstname" : "addmin",
     "phone" : "0140161716",
     "address" : "8 rue de romainville",
     "city" : "paris",
     "country" : "france",
-    "email" : "kejlerj@gmail.com",
+    "email" : "sosparentsoff@gmail.com",
     "password" : "Hayamottal555/",
     "zipcode" : "75019",
     "sex" : "WOMAN"
@@ -101,6 +101,10 @@ Content-Type: application/json
 GET http://localhost:3003/admin/pro
 
 
+### 
+GET http://localhost:3003/admin/demandes
+
+
 ### GET PRO Moussiamottal@gmail.com
 GET http://localhost:3003/admin/pro/628be114daaf25d16d391487
 content-type: application/json
@@ -164,6 +168,18 @@ Content-Type: application/json
 }
 
 
+
+###  GET DEMANDE
+GET http://localhost:3003/admin/demandes
+
+
+###  GET DEMANDE
+GET http://localhost:3003/admin/demandesFini
+
+
+
 ###  GET DEMANDE
 GET http://localhost:3003/pro/getDemandes
 
+###  GET DEMANDE
+GET http://localhost:3003/pro/getProDisponible

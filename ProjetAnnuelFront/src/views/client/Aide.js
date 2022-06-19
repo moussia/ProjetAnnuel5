@@ -12,6 +12,7 @@ import { StepperChoice } from '../../components/modal/StepperChoice';
 import { StepperProblem } from '../../components/modal/StepperProblem';
 import { StepperConfirmation } from '../../components/modal/StepperConfirmation';
 import { Link } from 'react-router-dom';
+import { getSocket } from '../../utils/socket';
 
 const steps = ['Choix', 'Symptômes', 'Confirmation'];
 
@@ -32,12 +33,36 @@ const style = {
 
 export const Aide = () => {
     const [open, setOpen] = React.useState(false);
+    const [waitingTime, setWaitingTime] = React.useState(10);
+    const [reservationId, setReservationId] = React.useState(null);
+    const [match, setMatch] = React.useState(false);
     const [choix, setChoix] = React.useState('tel');
     const [symptomes, setSymptomes] = React.useState('malade');
+    const socket = getSocket();
+
+    console.log(socket);
+
+    React.useEffect(() => {
+        console.log('emit join');
+        socket.emit("join_room", reservationId);
+    }, [reservationId]);
+
+    React.useEffect(() => {
+        if (socket && setMatch) {
+            socket.on("receive_match", () => {
+                console.log('RECEIVED: ', reservationId);
+                setMatch(reservationId);
+            });
+        }
+    }, [socket, setMatch]);
 
     const handleOpen = () => {
         setOpen(true);
     };
+
+    React.useEffect(() => {
+        axios({ url: `http://localhost:3003/user/closeReservation`, method: 'PUT', withCredentials: true })
+    }, []);
 
     React.useEffect(() => {
         console.log(choix);
@@ -51,6 +76,8 @@ export const Aide = () => {
         axios({ url: `http://localhost:3003/user/sendReservation`, method: 'POST', data: { choix: choix, symptomes: symptomes }, withCredentials: true })
             .then((data) => {
                 console.log(data);
+                setWaitingTime(data.data.waitingTime);
+                setReservationId(data.data._id);
             })
             .catch((err) => {
                 console.log(err);
@@ -130,7 +157,7 @@ export const Aide = () => {
                         <React.Fragment>
                             {activeStep === 0 && <StepperChoice choix={choix} setChoix={setChoix} />}
                             {activeStep === 1 && <StepperProblem symptomes={symptomes} setSymptomes={setSymptomes} />}
-                            {activeStep === 2 && <StepperConfirmation choix={choix} setChoix={setChoix} />}
+                            {activeStep === 2 && <StepperConfirmation choix={choix} setChoix={setChoix} waitingTime={waitingTime} match={match} />}
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                 {activeStep !== steps.length - 1 && <Button
                                     color="inherit"

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { activatePro, deletePro, getPro, updatePro } from '../controller/pro.js';
+import { getDemandes, getDemandesFinish } from '../controller/reservation.js';
 import { deleteParent, getParentFromId, getParents, getProFromId } from '../controller/user.js';
 import { isAuthenticated } from '../middleware/isAuthenticated.js';
 import { isAdmin } from '../middleware/Validators/isAdmin.js';
@@ -15,5 +16,7 @@ router.put("/pro/:proId/activate", isAuthenticated, isAdmin, activatePro);
 router.put("/pro/:proId", isAuthenticated, isAdmin, updatePro);
 router.delete("/pro/:proId", deletePro);
 router.delete("/parent/:parentId", deleteParent);
+router.get("/demandes", isAuthenticated, isAdmin, getDemandes);
+router.get("/demandesFini", isAuthenticated, isAdmin, getDemandesFinish);
 
 export default router;

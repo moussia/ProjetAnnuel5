@@ -2,6 +2,8 @@ import Reservation from '../model/Reservation.js';
 import { reserv } from '../constants/Reservation.js';
 import User from '../model/User.js';
 import mongoose from 'mongoose';
+import Disponibilite from '../model/Disponibilite.js';
+import { sendToProForDemandeAide } from '../utils/mail.js';
 
 
 export const createDemandeReservation = async (req, res) => {
@@ -16,10 +18,23 @@ export const createDemandeReservation = async (req, res) => {
         });
         reservation.save();
         console.log('✅ Demande reservation enregistré');
-        res.send();
+        const pros = await Disponibilite.find({ isDisponible: true }).lean().limit(5).populate('id_pro');
+        console.table(pros);
+        pros.forEach((pro) => {
+            console.log(pro.id_pro);
+            sendToProForDemandeAide(pro.id_pro.email)
+        });
+        res.send({ _id: reservation._id, waitingTime: await getWaitingTime() });
     } catch (error) {
         console.log(error);
     }
+}
+
+const getWaitingTime = async () => {
+    const nbDispo = await Disponibilite.find({ isDisponible: true }).lean().count();
+    const nbDemande = await Reservation.find({ status: reserv.DEMANDE }).lean().count();
+    console.log(nbDispo, nbDemande, (nbDemande / nbDispo) * 15);
+    return (nbDemande / nbDispo) * 15;
 }
 
 export const getDemandeReservation = async (req, res) => {
@@ -30,6 +45,14 @@ export const getDemandeReservation = async (req, res) => {
         console.log(error);
     }
 }
+
+export const closeReservation = async (req, res) => {
+    await Reservation.findOneAndUpdate({ id_parent: req.user._id, status: reserv.DEMANDE }, { status: reserv.ANNULE }, {
+        new: true
+    });
+    res.sendStatus(200);
+}
+
 
 export const takeDemandeId = async (req, res) => {
     const demand = req.params.demandeId;
@@ -53,5 +76,26 @@ export const getPhone = async (req, res) => {
         else res.sendStatus(401);
     } catch (err) {
         console.log(err);
+    }
+}
+
+export const getDemandes = async (req, res) => {
+    try {
+        const demandes = await Reservation.find({ status: reserv.DEMANDE }, { id_parent: 0 });
+        console.log(demandes)
+        res.send(demandes);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export const getDemandesFinish = async (req, res) => {
+    try {
+        const demandes = await Reservation.find({ status: reserv.FINI }, { id_parent: 0 });
+        console.log(demandes)
+        res.send(demandes);
+    } catch (error) {
+        console.log(error);
     }
 }

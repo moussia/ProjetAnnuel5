@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
+import { Button } from "@mui/material";
+import axios from "axios";
+import { getSocket } from "../../utils/socket";
 
-export default function ChatContainer({ socket, room }) {
+export default function ChatContainer({ room }) {
+  const socket = getSocket();
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
@@ -14,6 +18,10 @@ export default function ChatContainer({ socket, room }) {
     msgs.push({ fromSelf: true, message: msg });
     setMessages(msgs);
   };
+
+  // useEffect(() => {
+  //   socket.emit("join_room", room);
+  // }, [socket, room]);
 
   useEffect(() => {
     console.log('In useeffect', socket);
@@ -29,6 +37,15 @@ export default function ChatContainer({ socket, room }) {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
 
+
+
+
+
+  const handleFinish = () => {
+    axios({ url: `http://localhost:3003/user/closeChat`, method: 'PUT', withCredentials: true })
+    console.log("tot");
+  };
+
   return (
     <Container>
       <div className="chat-header">
@@ -43,7 +60,11 @@ export default function ChatContainer({ socket, room }) {
             </div>
           </div>
         ))}
+        <Button variant="outlined" type="submit" onClick={handleFinish} color="error">
+          Finir la discution
+        </Button>
       </div>
+
       <ChatInput handleSendMsg={handleSendMsg} />
     </Container>
   );

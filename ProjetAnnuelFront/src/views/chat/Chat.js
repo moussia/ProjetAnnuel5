@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import io from 'socket.io-client';
 import styled from "styled-components";
 import ChatContainer from "../../components/chat/ChatContainer";
 import { AuthContext } from '../../components/contexts/AuthContext';
 import { useSearchParams } from "react-router-dom";
+import { getSocket } from "../../utils/socket";
 
 export default function Chat() {
+    const socket = getSocket();
     const [contacts, setContacts] = useState([]);
     const { getRole } = React.useContext(AuthContext);
-    const socket = io.connect(process.env.REACT_APP_SERVER);
     const [searchParams] = useSearchParams();
 
-    console.log(socket);
+    // console.log(socket);
 
-    socket.on("connect_error", (err) => {
-        console.log(`connect_error due to ${err.message}`);
-    });
+    // socket.on("connect_error", (err) => {
+    //     console.log(`connect_error due to ${err.message}`);
+    // });
 
     useEffect(() => {
-        socket.emit("join_room", searchParams.get('id'));
+        console.log(socket, searchParams);
+        console.log('socksock', socket);
+        if (searchParams && socket) socket.emit("join_room", searchParams.get('id'));
     }, [searchParams, socket]);
 
     useEffect(() => {
@@ -32,10 +34,6 @@ export default function Chat() {
                 .then((res) => setContacts(res.data));
         }
     }, [getRole]);
-
-    useEffect(() => {
-        console.log(contacts);
-    }, [contacts]);
 
     return (
         <Container>

@@ -5,13 +5,13 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [context, setContext] = useState({
-    isLoggedIn: localStorage.getItem("isLoggedIn"),
+    isLoggedIn: JSON.parse(localStorage.getItem("isLoggedIn")),
     role: localStorage.getItem("role"),
     isDisponible: false
   });
 
   useEffect(() => {
-    if (context.isLoggedIn !== null) localStorage.setItem("isLoggedIn", context.isLoggedIn);
+    if (context.isLoggedIn !== null) localStorage.setItem("isLoggedIn", JSON.parse(context.isLoggedIn));
     else localStorage.removeItem("isLoggedIn");
   }, [context.isLoggedIn]);
 
@@ -22,7 +22,9 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     axios({ url: `http://localhost:3003/pro/dispo`, method: 'GET', withCredentials: true })
-      .then((data) => setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible })))
+      .then((data) => {
+        setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible }))
+      })
   }, []);
 
   const getRole = () => {
