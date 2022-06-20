@@ -24,6 +24,7 @@ export const createDemandeReservation = async (req, res) => {
             console.log(pro.id_pro);
             sendToProForDemandeAide(pro.id_pro.email)
         });
+        console.log(reservation._id);
         res.send({ _id: reservation._id, waitingTime: await getWaitingTime() });
     } catch (error) {
         console.log(error);

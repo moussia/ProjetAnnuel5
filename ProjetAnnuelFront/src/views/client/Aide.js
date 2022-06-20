@@ -45,43 +45,26 @@ export const Aide = () => {
     React.useEffect(() => {
         console.log('emit join');
         socket.emit("join_room", reservationId);
+        socket.on("receive_match", () => {
+            console.log('receive_match : ', reservationId);
+            setMatch(reservationId);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [reservationId]);
 
-    React.useEffect(() => {
-        if (socket && setMatch) {
-            socket.on("receive_match", () => {
-                console.log('RECEIVED: ', reservationId);
-                setMatch(reservationId);
-            });
-        }
-    }, [socket, setMatch]);
-
-    const handleOpen = () => {
-        setOpen(true);
-    };
+    const handleOpen = () => setOpen(true);
 
     React.useEffect(() => {
         axios({ url: `http://localhost:3003/user/closeReservation`, method: 'PUT', withCredentials: true })
     }, []);
 
-    React.useEffect(() => {
-        console.log(choix);
-    }, [choix]);
-
-    React.useEffect(() => {
-        console.log(symptomes);
-    }, [symptomes]);
-
     const handleFinish = () => {
         axios({ url: `http://localhost:3003/user/sendReservation`, method: 'POST', data: { choix: choix, symptomes: symptomes }, withCredentials: true })
             .then((data) => {
-                console.log(data);
                 setWaitingTime(data.data.waitingTime);
                 setReservationId(data.data._id);
             })
-            .catch((err) => {
-                console.log(err);
-            });
+            .catch((err) => console.log(err));
         handleNext();
     };
 
@@ -91,54 +74,25 @@ export const Aide = () => {
 
     // _______________
     const [activeStep, setActiveStep] = React.useState(0);
-    const [skipped, setSkipped] = React.useState(new Set());
 
-    const isStepSkipped = (step) => {
-        return skipped.has(step);
-    };
 
-    const handleNext = () => {
-        let newSkipped = skipped;
-        if (isStepSkipped(activeStep)) {
-            newSkipped = new Set(newSkipped.values());
-            newSkipped.delete(activeStep);
-        }
+    const handleNext = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
-    };
+    const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
-    // ——————————————————————————
     return (
-        <Grid container
-            direction="column"
-            justifyContent="center"
-            alignItems="center">
+        <Grid container direction="column" justifyContent="center" alignItems="center">
             <p>Attention ! Pensé à vérifié votre numéro de téléphone <Link to="/moncompte" color="inherit">
                 dans votre compte
             </Link>, pour qu'un professionnel puisse vous contacter.</p>
             <Button size="large" variant="contained" color="success" onClick={handleOpen}>Demander de l'aide</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="parent-modal-title"
-                aria-describedby="parent-modal-description"
-            >
+            <Modal open={open} onClose={handleClose}>
                 <Box sx={{ ...style, width: 800 }}>
                     <Stepper activeStep={activeStep}>
-                        {steps.map((label, index) => {
-                            const stepProps = {};
-                            const labelProps = {};
-                            if (isStepSkipped(index)) {
-                                stepProps.completed = false;
-                            }
+                        {steps.map((label) => {
                             return (
-                                <Step key={label} {...stepProps}>
-                                    <StepLabel {...labelProps}>{label}</StepLabel>
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
                                 </Step>
                             );
                         })}

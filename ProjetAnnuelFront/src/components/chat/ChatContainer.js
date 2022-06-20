@@ -8,6 +8,7 @@ import { getSocket } from "../../utils/socket";
 
 export default function ChatContainer({ room }) {
   const socket = getSocket();
+  const [isChatOpen, setIsChatOpen] = useState(true);
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
@@ -19,36 +20,54 @@ export default function ChatContainer({ room }) {
     setMessages(msgs);
   };
 
-  // useEffect(() => {
-  //   socket.emit("join_room", room);
-  // }, [socket, room]);
-
   useEffect(() => {
     console.log('In useeffect', socket);
-    if (socket) {
+    if (socket && room) {
       socket.on("receive_message", (msg) => {
-        console.log('RECEIVED : ', msg);
+        console.log('receive_message : ', msg);
         setArrivalMessage({ fromSelf: false, message: msg });
       });
+      socket.on("closed", () => {
+        setIsChatOpen(false);
+        socket.emit("leave_room", room);
+        console.log('closed');
+      });
     }
-  }, [socket]);
+  }, [socket, room]);
 
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
 
-
-
-
-
   const handleFinish = () => {
-    axios({ url: `http://localhost:3003/user/closeChat`, method: 'PUT', withCredentials: true })
-    console.log("tot");
+    axios({ url: `http://localhost:3003/user/closeChat`, data: { reservationId: room }, method: 'PUT', withCredentials: true })
+      .then(() => {
+        socket.emit("leave_room", room);
+        setIsChatOpen(false);
+      }
+      );
+
   };
 
   return (
     <Container>
       <div className="chat-header">
+        {
+          isChatOpen ?
+            (
+              <>
+                <p className="textalign">🟢 Connecté</p>
+                <Button variant="outlined" type="submit" onClick={handleFinish} color="error">
+                  Terminé la discussion
+                </Button>
+              </>
+            )
+            :
+            <p className="textalign"> 🔴 Déconnecté</p>
+        }
+
+
+
       </div>
       <div className="chat-messages">
         {messages.map((message) => (
@@ -60,23 +79,24 @@ export default function ChatContainer({ room }) {
             </div>
           </div>
         ))}
-        <Button variant="outlined" type="submit" onClick={handleFinish} color="error">
-          Finir la discution
-        </Button>
       </div>
 
-      <ChatInput handleSendMsg={handleSendMsg} />
+      {isChatOpen && <ChatInput handleSendMsg={handleSendMsg} />}
     </Container>
   );
 }
 
 const Container = styled.div`
   display: grid;
+  width: 85vw;
   grid-template-rows: 10% 80% 10%;
   gap: 0.1rem;
   overflow: hidden;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 15% 70% 15%;
+  }
+  .textalign{
+    text-align: center;
   }
   .chat-header {
     display: flex;
@@ -106,11 +126,9 @@ const Container = styled.div`
     gap: 1rem;
     overflow: auto;
     &::-webkit-scrollbar {
-      width: 0.2rem;
       &-thumb {
         background-color: #ffffff39;
         width: 0.1rem;
-        border-radius: 1rem;
       }
     }
     .message {
@@ -119,10 +137,9 @@ const Container = styled.div`
       .content {
         max-width: 40%;
         overflow-wrap: break-word;
-        padding: 1rem;
-        font-size: 1.1rem;
-        border-radius: 1rem;
-        color: #d1d1d1;
+        padding: 0.5rem;
+        font-size: 1rem;
+        color: white;
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           max-width: 70%;
         }
@@ -131,13 +148,13 @@ const Container = styled.div`
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #4f04ff21;
+        background-color: #133833;
       }
     }
     .recieved {
       justify-content: flex-start;
       .content {
-        background-color: #9900ff20;
+        background-color: #ECECEC;
       }
     }
   }

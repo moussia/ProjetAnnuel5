@@ -1,7 +1,6 @@
 import React from 'react';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
-import axios from 'axios';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,9 +18,10 @@ export const StepperConfirmation = ({ choix, symptomes, waitingTime, match }) =>
 
             {/* si cest un chat changer de page et afficher le chat */}
             <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
-                {match !== false ?
+                {console.log(match)}
+                {match ?
                     choix === "chat" ?
-                        (<Button onClick={() => navigate(`/chat?id=${match}`)}>Rejoindre le chat</Button>)
+                        (navigate(`/chat?id=${match}`))
                         : (<Button>Veuillez patienter, un professionnel est en train de vous contacter.</Button>)
                     : (
                         <>

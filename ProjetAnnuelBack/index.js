@@ -61,26 +61,6 @@ const io = new Server(httpServer, {
     },
 });
 
-// convert a connect middleware to a Socket.IO middleware
-// const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
-
-
-
-// io.use(wrap(sessionMiddleware));
-// io.use(wrap(passport.initialize()));
-// io.use(wrap(passport.session()));
-
-
-// io.use((socket, next) => {
-//     console.log('***************************** socket.request.session.user', socket.request.session.user);
-//     console.log('***************************** socket.request.user', socket.request.user);
-//     if (socket.request.session.user) {
-//         next();
-//     } else {
-//         next(new Error('unauthorized'))
-//     }
-// });
-
 io.on('connect', (socket) => {
     console.log(`new connection ${socket.id}`);
 
@@ -89,8 +69,14 @@ io.on('connect', (socket) => {
         socket.join(room);
     });
 
+    socket.on("leave_room", (room) => {
+        console.log(socket.id + ' leaved ' + room);
+        socket.leave(room);
+        socket.in(room).emit("closed", true);
+    });
+
     socket.on("match", (room) => {
-        console.log('match ->', room);
+        console.log('match', socket.id, ' -> ', room);
         socket.broadcast.to(room).emit("receive_match", true);
     });
 
