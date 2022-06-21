@@ -65,10 +65,8 @@ export default function ChatContainer({ room }) {
             :
             <p className="textalign"> 🔴 Déconnecté</p>
         }
-
-
-
       </div>
+
       <div className="chat-messages">
         {messages.map((message) => (
           <div key={uuidv4()}>

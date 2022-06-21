@@ -15,7 +15,6 @@ import MenuItem from '@mui/material/MenuItem';
 const pages = [
     { label: 'Mon compte', route: 'moncompte' },
     { label: 'Aide', route: 'aide' },
-    { label: 'Chat', route: 'chat' },
     { label: 'Historique', route: 'historique' },
     { label: 'Deconnexion', route: 'logout' },
 ];
