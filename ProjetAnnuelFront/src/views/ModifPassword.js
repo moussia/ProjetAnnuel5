@@ -99,6 +99,7 @@ export const ModifPassword = () => {
                                         message: 'Le mot de passe doit contenir minimum 8 caractères.'
                                     },
                                     pattern: {
+                                        // eslint-disable-next-line
                                         value: '(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$',
                                         message: 'Le mot de passe doit contenir une majuscule, une minuscule, un caractère spécial ou un chiffre.'
                                     }

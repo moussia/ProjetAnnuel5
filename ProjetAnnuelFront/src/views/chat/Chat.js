@@ -25,6 +25,7 @@ export default function Chat() {
 
     useEffect(() => {
         if (authorized) socket.emit("join_room", searchParams.get('id'));
+        // eslint-disable-next-line
     }, [authorized]);
 
     return (
@@ -33,7 +34,7 @@ export default function Chat() {
                 {
                     authorized ? <ChatContainer socket={socket} room={searchParams.get('id')} />
                         :
-                        <p>ce chat n'est pas disponible.</p>
+                        <p>Ce chat n'est pas disponible.</p>
                 }
 
             </div>

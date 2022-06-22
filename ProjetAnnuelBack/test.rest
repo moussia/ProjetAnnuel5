@@ -26,7 +26,7 @@ Content-Type: application/json
     "address" : "8 rue de romainville",
     "city" : "paris",
     "country" : "france",
-    "email" : "bonjour@gmail.com",
+    "email" : "donc@gmail.com",
     "password" : "Hayamottal555/",
     "zipcode" : "75019",
     "sex" : "WOMAN",

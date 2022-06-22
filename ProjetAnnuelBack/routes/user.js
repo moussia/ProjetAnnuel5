@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { closeChat, isChatExist } from '../controller/chat.js';
 import { activatedMail, modifPassword, resetPassword, SendEmailForForgePassword } from '../controller/login.js';
+import { createPayment } from '../controller/payment.js';
 // import { ModifPasswordForget, SendEmailForForgePassword } from '../controller/login.js';
 import { createPro } from '../controller/pro.js';
 import { closeReservation, createDemandeReservation, historiqueForParent } from '../controller/reservation.js';
@@ -27,6 +28,7 @@ userRouter.put('/closeChat', isAuthenticated, closeChat);
 userRouter.get('/isChatExist/:reservationId', isAuthenticated, isChatExist);
 userRouter.put('/closeReservation', isAuthenticated, closeReservation);
 userRouter.get("/historique", isAuthenticated, isParent, historiqueForParent);
+userRouter.post("/payment", isAuthenticated, isParent, createPayment);
 
 
 export default userRouter;

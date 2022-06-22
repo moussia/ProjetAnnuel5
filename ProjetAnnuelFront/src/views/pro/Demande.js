@@ -101,13 +101,6 @@ export const Demande = () => {
                                                                 : <p></p>
                                                 }
                                             </TableCell>
-                                            {/* <TableCell>
-                                        <Button type="submit" variant="contained" onClick={() => setOpen(demand._id)} sx={{ mt: 3, mb: 2 }}>
-                                            En savoir plus
-                                        </Button>
-                                    </TableCell> */}
-
-
                                         </TableRow>
                                     ))}
 

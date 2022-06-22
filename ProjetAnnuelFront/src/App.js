@@ -39,6 +39,7 @@ import './App.css';
 import Chat from "./views/chat/Chat";
 import { Historique } from "./views/client/Historique";
 import { HistoriquePro } from "./views/pro/Historique";
+import Payment from "./components/payment/Payment";
 
 
 export const App = () => {
@@ -74,6 +75,7 @@ export const App = () => {
             <Route exact path='/aide' element={<PrivateRoute restricted={roles.PARENT} Component={Aide} />} />
             <Route exact path='/moncompte' element={<PrivateRoute restricted={roles.PARENT} Component={Moncompte} />} />
             <Route exact path='/historique' element={<PrivateRoute restricted={roles.PARENT} Component={Historique} />} />
+            <Route exact path='/payment' element={<PrivateRoute restricted={roles.PARENT} Component={Payment} />} />
 
             {/* Page PRO */}
             <Route exact path='/pro/services' element={<PrivateRoute restricted={roles.PRO} Component={ServicesPro} />} />

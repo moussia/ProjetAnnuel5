@@ -297,6 +297,7 @@ export default function Signup() {
                                                         message: 'Le mot de passe doit contenir minimum 8 caractères.'
                                                     },
                                                     pattern: {
+                                                        // eslint-disable-next-line
                                                         value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\/+=%"])[A-Za-z\d@$!%*?&\/+=%"]{8,}$/,
                                                         message: 'Le mot de passe doit contenir une majuscule, une minuscule, un caractère spécial ou un chiffre.'
                                                     }

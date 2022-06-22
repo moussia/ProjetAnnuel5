@@ -11,7 +11,7 @@ export const closeChat = async (req, res) => {
 export const isChatExist = async (req, res) => {
     // Lier avec l'id de la reservation
     const { reservationId } = req.params;
-    const reservation = await Reservation.findOne({ _id: new mongoose.Types.ObjectId(reservationId) }, { status: reserv.RESERVE }).lean();
+    const reservation = await Reservation.findOne({ _id: new mongoose.Types.ObjectId(reservationId), status: reserv.RESERVE }).lean();
     res.send(reservation !== null);
 }
 

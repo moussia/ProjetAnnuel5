@@ -13,7 +13,4 @@ proRouter.put('/:demandeId/activate', isAuthenticated, isPro, takeDemandeId);
 proRouter.get("/getDemande/:demandId", isAuthenticated, isPro, getPhone);
 proRouter.get("/historique", isAuthenticated, isPro, historiqueForPro);
 
-
-
-
 export default proRouter;

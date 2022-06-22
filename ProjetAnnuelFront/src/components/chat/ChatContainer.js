@@ -57,13 +57,14 @@ export default function ChatContainer({ room }) {
             (
               <>
                 <p className="textalign">🟢 Connecté</p>
+                <p>Nom de la personne juste ici</p>
                 <Button variant="outlined" type="submit" onClick={handleFinish} color="error">
                   Terminé la discussion
                 </Button>
               </>
             )
             :
-            <p className="textalign"> 🔴 Déconnecté</p>
+            <p className="textalign">🔴 Déconnecté</p>
         }
       </div>
 
@@ -153,6 +154,7 @@ const Container = styled.div`
       justify-content: flex-start;
       .content {
         background-color: #ECECEC;
+        color : black;
       }
     }
   }
