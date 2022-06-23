@@ -1,3 +1,19 @@
 .textalign {
   text-align: center;
 }
+
+.colorred {
+  color: red;
+}
+
+.colorgreen {
+  color: green;
+}
+
+.colororange {
+  color: orange;
+}
+
+.bagroundcolorgray {
+  background-color: #e7e7e7;
+}

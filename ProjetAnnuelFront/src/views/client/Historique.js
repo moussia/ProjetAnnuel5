@@ -10,11 +10,13 @@ import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
+import styles from '../../style/Payment.module.css';
 
 export const Historique = () => {
     const [demandes, setDemandes] = useState([]);
     const [page, setPage] = useState(1); //curent page sur laquel on est 
     const [count, setCount] = useState(1); // nombre de pages quil y a 
+    const [pros, setPros] = useState([]);
     const navigate = useNavigate();
 
 
@@ -22,6 +24,19 @@ export const Historique = () => {
         axios({ url: `http://localhost:3003/user/historique`, method: 'GET', withCredentials: true })
             .then((data) => setDemandes(data.data))
     }, []);
+
+    const finishreservation = async (reservationId) => {
+        const res = axios({ url: `http://localhost:3003/user/finishReservation/${reservationId}`, method: 'PUT', withCredentials: true })
+        console.log('reservationId ', reservationId);
+        const data = res.data;
+        setPros((prev) => {
+            const i = prev.findIndex(elem => {
+                return elem._id === data._id;
+            });
+            prev.splice(i, 1, data);
+            return [...prev];
+        });
+    };
 
     //on calcul le count des demandes dans le front, on va avoir combien il va y avoir de pages
     useEffect(() => {
@@ -31,7 +46,7 @@ export const Historique = () => {
 
     return (
         <div>
-            <h3>Voici l'historique de toutes vos demandes</h3>
+            <h3 className={styles.textalign}>Voici l'historique de toutes vos demandes</h3>
             <Table size="small">
                 <TableHead>
                     <TableRow>
@@ -39,6 +54,7 @@ export const Historique = () => {
                         <TableCell>Status</TableCell>
                         <TableCell>Choix</TableCell>
                         <TableCell>Symptome</TableCell>
+                        <TableCell>Terminé la demande</TableCell>
                         <TableCell>Don</TableCell>
                     </TableRow>
                 </TableHead>
@@ -49,7 +65,17 @@ export const Historique = () => {
                         .map((demand) => (
                             <TableRow key={demand._id}>
                                 <TableCell>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long', timeStyle: 'medium' }).format(new Date(demand.date))}</TableCell>
-                                <TableCell>{demand.status}</TableCell>
+                                <TableCell>
+
+                                    {
+                                        demand.status === "ANNULE" ?
+                                            <p className={styles.colorred}>Demande annulé</p> :
+                                            demand.status === "RESERVE" ?
+                                                <p className={styles.colororange}>Demande réservé</p> :
+                                                <p className={styles.colorgreen}>Demande fini</p>
+                                    }
+
+                                </TableCell>
                                 <TableCell>
                                     {demand.choix === "tel" ?
                                         <p>Vous voulez discuter par téléphone</p>
@@ -70,7 +96,32 @@ export const Historique = () => {
                                                 demand.symptomes === "soutien" ?
                                                     <p>Vous avez besoin de soutien</p>
                                                     :
-                                                    <p>Vous avez d'aide</p>
+                                                    <p>Vous avez besoin d'aide</p>
+                                    }
+                                </TableCell>
+                                <TableCell>
+                                    {demand.status === "EN_COURS" ?
+                                        <Button
+                                            type="submit"
+                                            color="success"
+                                            variant="contained"
+                                            sx={{ mt: 3, mb: 2 }}
+                                        >
+                                            Fermé la demande
+                                        </Button>
+                                        :
+                                        demand.status === "RESERVE" ?
+                                            <Button
+                                                type="submit"
+                                                color="warning"
+                                                variant="contained"
+                                                sx={{ mt: 3, mb: 2 }}
+                                                onClick={() => finishreservation(demand._id)}
+                                            >
+                                                Fermer la demande
+                                            </Button>
+                                            :
+                                            <p className={styles.textalign}>✓</p>
                                     }
                                 </TableCell>
                                 {/* faire une condition, si c'est terminé, on montre le button de don */}
@@ -90,7 +141,7 @@ export const Historique = () => {
                 </TableBody>
             </Table>
             {/* pagination ici */}
-            <Stack spacing={2}>
+            <Stack spacing={2} >
                 <Pagination page={page} onChange={(e, value) => setPage(value)} count={count} size="large" />
             </Stack>
 

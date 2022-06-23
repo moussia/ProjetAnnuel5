@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-// import { MainListItems } from '../../views/admin/ListItems';
+import styles from '../../style/Payment.module.css';
 
 const useStyles = makeStyles((theme) => ({
   fixedHeight: {
@@ -84,14 +84,22 @@ export const Professionnels = () => {
             .map((pro) => (
               <TableRow key={pro._id} className={classes.cursorpointer}>
 
-                <TableCell>{pro.lastname}</TableCell>
-                <TableCell>{pro.firstname}</TableCell>
-                <TableCell>{pro.email}</TableCell>
-                <TableCell>{pro.phone}</TableCell>
+                <TableCell>
+                  {pro.lastname}
+                </TableCell>
+                <TableCell>
+                  {pro.firstname}
+                </TableCell>
+                <TableCell>
+                  {pro.email}
+                </TableCell>
+                <TableCell>
+                  {pro.phone}
+                </TableCell>
                 <TableCell>
                   {
-                    !pro.activatedByAdmin ? <Button onClick={() => activate(pro._id)} variant="contained" color="primary">Activate </Button>
-                      : <div>Activated</div>
+                    !pro.activatedByAdmin ? <Button onClick={() => activate(pro._id)} variant="contained" color="success">Activer </Button>
+                      : <p className={styles.colorgreen} >✓</p>
                   }
                 </TableCell>
                 <TableCell>

@@ -40,7 +40,8 @@ const getWaitingTime = async () => {
 
 export const getDemandeReservation = async (req, res) => {
     try {
-        const pro = await Reservation.find({ $or: [{ status: "DEMANDE" }, { status: "RESERVE", id_pro: req.user._id }] });
+        const pro = await Reservation.find({ $or: [{ status: "DEMANDE" }, { status: "RESERVE", id_pro: req.user._id }] }).sort({ date: 'desc' });
+        console.log('-> ', pro);
         res.send(pro);
     } catch (error) {
         console.log(error);
@@ -53,6 +54,20 @@ export const closeReservation = async (req, res) => {
     });
     res.sendStatus(200);
 }
+
+export const finishReservation = async (req, res) => {
+    const reservationId = req.params.reservationId;
+    try {
+        const updateReservation = await Reservation.findOneAndUpdate({ _id: reservationId }, { status: reserv.FINI }, {
+            new: true
+        });
+        res.send(updateReservation);
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
 
 
 export const takeDemandeId = async (req, res) => {

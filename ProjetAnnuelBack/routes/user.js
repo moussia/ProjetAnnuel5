@@ -4,7 +4,7 @@ import { activatedMail, modifPassword, resetPassword, SendEmailForForgePassword 
 import { createPayment } from '../controller/payment.js';
 // import { ModifPasswordForget, SendEmailForForgePassword } from '../controller/login.js';
 import { createPro } from '../controller/pro.js';
-import { closeReservation, createDemandeReservation, historiqueForParent } from '../controller/reservation.js';
+import { closeReservation, createDemandeReservation, finishReservation, historiqueForParent } from '../controller/reservation.js';
 import { createParent, currentUser, updateUser } from '../controller/user.js';
 import { isAuthenticated } from '../middleware/isAuthenticated.js';
 import { isParent } from '../middleware/isAuthorized.js';
@@ -27,8 +27,8 @@ userRouter.post('/sendReservation', isAuthenticated, createDemandeReservation);
 userRouter.put('/closeChat', isAuthenticated, closeChat);
 userRouter.get('/isChatExist/:reservationId', isAuthenticated, isChatExist);
 userRouter.put('/closeReservation', isAuthenticated, closeReservation);
+userRouter.put('/finishReservation/:reservationId', isAuthenticated, finishReservation);
 userRouter.get("/historique", isAuthenticated, isParent, historiqueForParent);
 userRouter.post("/payment", isAuthenticated, isParent, createPayment);
-
 
 export default userRouter;

@@ -40,6 +40,7 @@ import Chat from "./views/chat/Chat";
 import { Historique } from "./views/client/Historique";
 import { HistoriquePro } from "./views/pro/Historique";
 import Payment from "./components/payment/Payment";
+import Deposits from "./components/admin/Deposits";
 
 
 export const App = () => {
@@ -85,6 +86,7 @@ export const App = () => {
 
             {/* ADMIN DASHBOARD */}
             <Route exact path='/dashboard' element={<PrivateRoute restricted={roles.ADMIN} Component={Dashboard} />} />
+            <Route exact path='/don' element={<PrivateRoute restricted={roles.ADMIN} Component={Deposits} />} />
             <Route exact path='/pro' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnels} />} />
             <Route exact path='/parents' element={<PrivateRoute restricted={roles.ADMIN} Component={Parents} />} />
             <Route exact path='/pro/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnel} />} />

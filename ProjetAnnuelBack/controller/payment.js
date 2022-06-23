@@ -6,7 +6,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 // Pour que l'utilisateur qui a oublié son mot de passe puisse le modifié.
 export const createPayment = async (req, res) => {
-    console.log('connard');
     const session = await stripe.checkout.sessions.create({
         line_items: [
             {
@@ -23,7 +22,15 @@ export const createPayment = async (req, res) => {
         success_url: `${process.env.URL_FRONT}/payment?success=true`,
         cancel_url: `${process.env.URL_FRONT}/payment?success=false`,
     });
-
-    console.log('debilos -> ', session.url)
     res.send(session.url);
+}
+
+
+export const getAmountStripe = async (req, res) => {
+    const balance = await stripe.balance.retrieve({
+        stripeAccount: `{${process.env.CONNECTED_STRIPE_ACCOUNT_ID}`
+    });
+    console.log(balance);
+    res.send(balance);
+
 }

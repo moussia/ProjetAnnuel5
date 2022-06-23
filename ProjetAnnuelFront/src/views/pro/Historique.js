@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-// import { MainListItems } from '../../views/admin/ListItems';
 import DoneIcon from '@mui/icons-material/Done';
 
 export const HistoriquePro = () => {
@@ -75,7 +74,6 @@ export const HistoriquePro = () => {
                                     {
                                         demand.status === "FINI" ?
                                             <div>
-                                                <p>Terminé</p>
                                                 <DoneIcon />
                                             </div>
                                             :
