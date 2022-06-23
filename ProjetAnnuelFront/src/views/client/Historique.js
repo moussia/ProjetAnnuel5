@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -20,22 +20,18 @@ export const Historique = () => {
     const navigate = useNavigate();
 
 
-    useEffect(() => {
+    const fetchData = useCallback(() => {
         axios({ url: `http://localhost:3003/user/historique`, method: 'GET', withCredentials: true })
             .then((data) => setDemandes(data.data))
     }, []);
 
-    const finishreservation = async (reservationId) => {
-        const res = axios({ url: `http://localhost:3003/user/finishReservation/${reservationId}`, method: 'PUT', withCredentials: true })
-        console.log('reservationId ', reservationId);
-        const data = res.data;
-        setPros((prev) => {
-            const i = prev.findIndex(elem => {
-                return elem._id === data._id;
-            });
-            prev.splice(i, 1, data);
-            return [...prev];
-        });
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
+
+    const finishreservation = (reservationId) => {
+        axios({ url: `http://localhost:3003/user/finishReservation/${reservationId}`, method: 'PUT', withCredentials: true })
+            .then(() => fetchData());
     };
 
     //on calcul le count des demandes dans le front, on va avoir combien il va y avoir de pages
