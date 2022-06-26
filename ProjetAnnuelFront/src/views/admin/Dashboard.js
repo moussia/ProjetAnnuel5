@@ -69,7 +69,7 @@ function DashboardContent() {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {ListItems}
+                        <ListItems />
                     </List>
                 </Drawer>
                 <Box

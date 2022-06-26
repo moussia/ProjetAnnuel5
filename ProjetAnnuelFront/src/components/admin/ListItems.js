@@ -27,19 +27,13 @@ export const ListItems = () => {
                 <ListItemIcon>
                     <EscalatorWarningIcon />
                 </ListItemIcon>
-                <ListItemText primary="Parents" onClick={() => navigate(`/parent`)} />
+                <ListItemText primary="Parents" onClick={() => navigate(`/parents`)} />
             </ListItemButton>
             <ListItemButton>
                 <ListItemIcon>
                     <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Professionnels" onClick={() => navigate(`/pro`)} />
-            </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <VerifiedUserIcon />
-                </ListItemIcon>
-                <ListItemText primary="À vérifié" />
             </ListItemButton>
             <ListItemButton>
                 <ListItemIcon>
@@ -51,7 +45,7 @@ export const ListItems = () => {
                 <ListItemIcon>
                     <PaidIcon />
                 </ListItemIcon>
-                <ListItemText primary="Don" />
+                <ListItemText primary="Don" onClick={() => navigate(`/donation`)} />
             </ListItemButton>
         </>
     );

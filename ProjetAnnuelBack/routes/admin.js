@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getAllDemandes } from '../controller/dash.js';
-import { getAmountStripe, getListAllCustomers } from '../controller/payment.js';
+import { getAmountStripe, getListAllPayment } from '../controller/payment.js';
 // import { historiqueDemandesForAdmin } from '../controller/dash.js';
 // import { proToVerify } from '../controller/dash.js';
 import { activatePro, deletePro, getPro, updatePro } from '../controller/pro.js';
@@ -24,7 +24,7 @@ router.get("/demandes", isAuthenticated, isAdmin, getDemandes);
 router.get("/demandesFini", isAuthenticated, isAdmin, getDemandesFinish);
 router.get("/amountStripe", isAuthenticated, isAdmin, getAmountStripe);
 router.get("/getAllDemandes", isAuthenticated, isAdmin, getAllDemandes);
-router.get("/getListAllCustomers", isAuthenticated, isAdmin, getListAllCustomers);
+router.get("/getListAllPayment", isAuthenticated, isAdmin, getListAllPayment);
 
 // router.get("/historique-demande", isAuthenticated, isAdmin, historiqueDemandesForAdmin);
 // router.get("/proValidate", isAuthenticated, isAdmin, proToVerify);

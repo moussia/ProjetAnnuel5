@@ -21,14 +21,14 @@ export const Dons = () => {
         axios({ url: `http://localhost:3003/admin/amountStripe`, method: 'GET', withCredentials: true })
             .then((res) => {
                 const montant = res.data.pending;
+                console.log('montant : ', montant);
                 const total = montant[0].amount / 100;
                 setTotal(total);
-                console.log(res.data);
             });
     }, []);
 
     useEffect(() => {
-        axios({ url: `http://localhost:3003/admin/getListAllCustomers`, method: 'GET', withCredentials: true })
+        axios({ url: `http://localhost:3003/admin/getListAllPayment`, method: 'GET', withCredentials: true })
             .then((data) => {
                 setDons(data.data.data)
             });

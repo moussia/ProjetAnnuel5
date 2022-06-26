@@ -37,15 +37,8 @@ export const getAmountStripe = async (req, res) => {
 }
 
 
-export const getListAllCustomers = async (req, res) => {
-    const customers = await stripe.customers.list();
-    // console.log("customers : ", customers);
-
+export const getListAllPayment = async (req, res) => {
     const paymentIntents = await stripe.paymentIntents.list({ expand: ['data.customer'] });
-    console.log("customers : ", customers);
-
-    console.log("paymentIntents : ", paymentIntents);
-
     res.send(paymentIntents);
 
 }
