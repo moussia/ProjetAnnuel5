@@ -73,7 +73,6 @@ function DashboardContent() {
                     </List>
                 </Drawer>
                 <Box
-                    component="main"
                     sx={{
                         backgroundColor: (theme) =>
                             theme.palette.mode === 'light'

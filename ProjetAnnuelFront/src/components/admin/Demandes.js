@@ -6,14 +6,9 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
-import Button from '@mui/material/Button';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import PhoneParent from '../../components/modal/phoneParent';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../components/contexts/AuthContext';
-import { getSocket } from '../../utils/socket';
 
 const useStyles = makeStyles((theme) => ({
     fixedHeight: {
@@ -28,74 +23,54 @@ const useStyles = makeStyles((theme) => ({
 
 export const Demandes = () => {
     const classes = useStyles();
-    const [pros, setPros] = useState([]);
-    const [open, setOpen] = React.useState(null);
-    const { context } = React.useContext(AuthContext);
-    const handleClose = () => setOpen(null);
-    const navigate = useNavigate();
-    const socket = getSocket();
+    const [demandes, setDemandes] = useState([]);
+    const [page, setPage] = useState(1); //curent page sur laquel on est 
+    const [count, setCount] = useState(1); // nombre de pages quil y a 
+
 
     useEffect(() => {
-        if (context.isDisponible) {
-            axios({ url: `http://localhost:3003/pro/getDemandes`, method: 'GET', withCredentials: true })
-                .then((data) => setPros(data.data))
-        }
-    }, [context.isDisponible]);
+        axios({ url: `http://localhost:3003/admin/getAllDemandes`, method: 'GET', withCredentials: true })
+            .then((data) => setDemandes(data.data))
+    }, []);
 
+    //on calcul le count des demandes dans le front, on va avoir combien il va y avoir de pages
+    useEffect(() => {
+        if (setCount && demandes)
+            setCount(Math.ceil(demandes.length / process.env.REACT_APP_NB_ITEMS_BY_PAGE));
+    }, [setCount, demandes]);
 
     return (
         <div>
             {
-                context.isDisponible === false ?
-                    <h2>Vous êtes indiponible. Mettez vous disponible pour voir les demandes.</h2> :
-                    <div>
-                        <h3>Voici une liste de parent qui a demandé de l'aide</h3>
+                <div>
+                    <h3>Voici une liste de parent qui a demandé de l'aide</h3>
 
-                        <Table size="small">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Choix</TableCell>
-                                    <TableCell>Symptômes</TableCell>
-                                    <TableCell>Téléphone</TableCell>
-                                    <TableCell>Date</TableCell>
+                    <Table size="small">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Choix</TableCell>
+                                <TableCell>Symptômes</TableCell>
+                                <TableCell>Téléphone</TableCell>
+                                <TableCell>Date</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {demandes.map((demand) => (
+
+                                <TableRow key={demand._id} className={classes.cursorpointer}>
+                                    <TableCell>{demand.choix}</TableCell>
+                                    <TableCell>{demand.symptomes}</TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long', timeStyle: 'medium' }).format(new Date(demand.date))}</TableCell>
                                 </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {pros.map((demand) => (
+                            ))}
 
-                                    <TableRow key={demand._id} className={classes.cursorpointer}>
-                                        <TableCell>{demand.choix}</TableCell>
-                                        <TableCell>{demand.symptomes}</TableCell>
-                                        <TableCell>Téléphone</TableCell>
-                                        <TableCell>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long', timeStyle: 'medium' }).format(new Date(demand.date))}</TableCell>
-                                        <TableCell>
-                                            {
-                                                demand.status === "DEMANDE" ?
-                                                    <Button type="submit" variant="contained" color="success" onClick={() => prendreDisponibilite(demand._id)} sx={{ mt: 3, mb: 2 }}>
-                                                        Prendre disponibilité
-                                                    </Button>
-                                                    :
-                                                    demand.status === "RESERVE" && demand.choix === "tel" ?
-                                                        <Button type="submit" color="secondary" variant="contained" onClick={() => setOpen(demand._id)} sx={{ mt: 3, mb: 2 }}>
-                                                            Afficher le numéro
-                                                        </Button>
-                                                        : demand.status === "RESERVE" && demand.choix === "chat" ?
-                                                            <Button onClick={() => navigate(`/chat?id=${demand._id}`)} variant="contained" >
-                                                                Ouvrir le chat
-                                                            </Button>
-                                                            : <p></p>
-                                            }
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-
-                            </TableBody>
-                        </Table>
-                        <PhoneParent open={open !== null} onClose={handleClose} idDemande={open} />
-                        <Stack spacing={2}>
-                            <Pagination count={10} size="large" />
-                        </Stack>
-                    </div>
+                        </TableBody>
+                    </Table>
+                    <Stack spacing={2}>
+                        <Pagination page={page} onChange={(e, value) => setPage(value)} count={count} size="large" />
+                    </Stack>
+                </div>
             }
         </div >
     );

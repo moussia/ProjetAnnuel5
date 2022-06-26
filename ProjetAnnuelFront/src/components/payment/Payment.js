@@ -42,6 +42,7 @@ export default function Payment() {
     }, [search]);
 
     const checkout = () => {
+        console.log('amount', typeof amount, amount);
         axios({ url: 'http://localhost:3003/user/payment', method: 'POST', data: { amount }, withCredentials: true })
             .then((data) => {
                 setMessage(data.data);
@@ -50,7 +51,7 @@ export default function Payment() {
                 console.log("data -", data);
             })
             .catch((err) => {
-                setMessage("Order canceled -- continue to shop around and checkout when you're ready.");
+                setMessage("Une erreur est survenue, veuillez ressayer ultérieurement.");
             });
     };
 
@@ -81,7 +82,7 @@ export default function Payment() {
                             label="Montant"
                             type="number"
                             value={amount}
-                            onChange={(e, value) => setAmount(value)}
+                            onChange={(e) => setAmount(e.target.value)}
                             InputLabelProps={{
                                 shrink: true,
                             }}

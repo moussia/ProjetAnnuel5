@@ -6,13 +6,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 // Pour que l'utilisateur qui a oublié son mot de passe puisse le modifié.
 export const createPayment = async (req, res) => {
+    console.log(" amount : ", req.body.amount * 100);
+    console.log(" type : ", typeof req.body.amount);
     const session = await stripe.checkout.sessions.create({
         line_items: [
             {
                 // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
                 price_data: {
                     currency: 'EUR',
-                    product: 'prod_Lv5pSKeSSEmFSg',
+                    product: 'prod_LwtltDmN3YbDcj',
                     unit_amount: req.body.amount * 100
                 },
                 quantity: 1,
@@ -28,9 +30,22 @@ export const createPayment = async (req, res) => {
 
 export const getAmountStripe = async (req, res) => {
     const balance = await stripe.balance.retrieve({
-        stripeAccount: `{${process.env.CONNECTED_STRIPE_ACCOUNT_ID}`
+        stripeAccount: `${process.env.CONNECTED_STRIPE_ACCOUNT_ID}`
     });
-    console.log(balance);
+    // console.log(balance);
     res.send(balance);
+}
+
+
+export const getListAllCustomers = async (req, res) => {
+    const customers = await stripe.customers.list();
+    // console.log("customers : ", customers);
+
+    const paymentIntents = await stripe.paymentIntents.list({ expand: ['data.customer'] });
+    console.log("customers : ", customers);
+
+    console.log("paymentIntents : ", paymentIntents);
+
+    res.send(paymentIntents);
 
 }

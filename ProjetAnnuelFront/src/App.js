@@ -29,7 +29,6 @@ import { Parents } from './components/admin/Parents';
 import { Professionnel } from './components/admin/Professionnel';
 import { Parent } from './components/admin/Parent';
 import { Disponible } from './views/pro/Disponible';
-// import { Checkout } from './views/paiement/Checkout';
 import AuthProvider from './components/contexts/AuthContext';
 import { roles } from './constants/roles';
 import { NewPassword } from './views/NewPassword';
@@ -41,6 +40,8 @@ import { Historique } from "./views/client/Historique";
 import { HistoriquePro } from "./views/pro/Historique";
 import Payment from "./components/payment/Payment";
 import Deposits from "./components/admin/Deposits";
+import { Dons } from "./components/admin/Dons";
+import { Demandes } from "./components/admin/Demandes";
 
 
 export const App = () => {
@@ -65,7 +66,6 @@ export const App = () => {
             <Route exact path='/newPassword' element={<NewPassword />} />
             <Route exact path='/qui-sommes-nous' element={<Quisommesnous />} />
             <Route exact path='/forgetpassword' element={<ForgetPassword />} />
-            {/* <Route exact path='/donation' element={<Checkout />} /> */}
 
 
             {/* CHAT */}
@@ -87,10 +87,12 @@ export const App = () => {
             {/* ADMIN DASHBOARD */}
             <Route exact path='/dashboard' element={<PrivateRoute restricted={roles.ADMIN} Component={Dashboard} />} />
             <Route exact path='/don' element={<PrivateRoute restricted={roles.ADMIN} Component={Deposits} />} />
+            <Route exact path='/demandes' element={<PrivateRoute restricted={roles.ADMIN} Component={Demandes} />} />
             <Route exact path='/pro' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnels} />} />
             <Route exact path='/parents' element={<PrivateRoute restricted={roles.ADMIN} Component={Parents} />} />
             <Route exact path='/pro/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Professionnel} />} />
             <Route exact path='/parent/:id' element={<PrivateRoute restricted={roles.ADMIN} Component={Parent} />} />
+            <Route exact path='/donation' element={<PrivateRoute restricted={roles.ADMIN} Component={Dons} />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

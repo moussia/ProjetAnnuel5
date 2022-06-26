@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { getAmountStripe } from '../controller/payment.js';
+import { getAllDemandes } from '../controller/dash.js';
+import { getAmountStripe, getListAllCustomers } from '../controller/payment.js';
 // import { historiqueDemandesForAdmin } from '../controller/dash.js';
 // import { proToVerify } from '../controller/dash.js';
 import { activatePro, deletePro, getPro, updatePro } from '../controller/pro.js';
@@ -21,7 +22,10 @@ router.delete("/pro/:proId", deletePro);
 router.delete("/parent/:parentId", deleteParent);
 router.get("/demandes", isAuthenticated, isAdmin, getDemandes);
 router.get("/demandesFini", isAuthenticated, isAdmin, getDemandesFinish);
-// router.get("/amountStripe", isAuthenticated, isAdmin, getAmountStripe);
+router.get("/amountStripe", isAuthenticated, isAdmin, getAmountStripe);
+router.get("/getAllDemandes", isAuthenticated, isAdmin, getAllDemandes);
+router.get("/getListAllCustomers", isAuthenticated, isAdmin, getListAllCustomers);
+
 // router.get("/historique-demande", isAuthenticated, isAdmin, historiqueDemandesForAdmin);
 // router.get("/proValidate", isAuthenticated, isAdmin, proToVerify);
 

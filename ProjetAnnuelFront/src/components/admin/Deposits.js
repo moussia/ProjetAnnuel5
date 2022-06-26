@@ -1,31 +1,34 @@
-import * as React from 'react';
-import Link from '@mui/material/Link';
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
 import axios from 'axios';
-
-function preventDefault(event) {
-    event.preventDefault();
-}
+import { Link } from 'react-router-dom';
 
 export default function Deposits() {
-    // useEffect(() => {
-    //     const res = axios({ url: `http://localhost:3003/admin/amountStripe`, method: 'GET', withCredentials: true });
-    //     console.log("res-> ", res);
-    // }, []);
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        axios({ url: `http://localhost:3003/admin/amountStripe`, method: 'GET', withCredentials: true })
+            .then((res) => {
+                const montant = res.data.pending;
+                const total = montant[0].amount / 100;
+                setTotal(total);
+                console.log(res.data);
+            });
+    }, []);
 
     return (
         <React.Fragment>
             <h3>Dernier solde</h3>
             <Typography component="p" variant="h4">
-                $3,024.00
+                {total} €
             </Typography>
-            <Typography color="text.secondary" sx={{ flex: 1 }}>
+            {/* <Typography color="text.secondary" sx={{ flex: 1 }}>
                 on 15 March, 2019
-            </Typography>
+            </Typography> */}
             <div>
-                <Link color="primary" href="#" onClick={preventDefault}>
-                    Voir plus
+                <Link color="primary" to="/donation">
+                    Voir plus de détail
                 </Link>
             </div>
         </React.Fragment>
