@@ -11,7 +11,7 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { useNavigate } from 'react-router';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
-
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 
 const pages = [
     { label: 'Pro', route: 'pro' },

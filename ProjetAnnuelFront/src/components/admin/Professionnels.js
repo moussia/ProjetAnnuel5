@@ -15,12 +15,6 @@ import Stack from '@mui/material/Stack';
 import styles from '../../style/Payment.module.css';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { Drawer, ListItems } from './drower/ListItems';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -39,18 +33,19 @@ const useStyles = makeStyles((theme) => ({
 export const Professionnels = () => {
   const classes = useStyles();
   const [pros, setPros] = useState([]);
+  const [dispo, setDispo] = useState([]);
   const navigate = useNavigate();
   const [page, setPage] = useState(1); //curent page sur laquel on est 
   const [count, setCount] = useState(1); // nombre de pages quil y a 
-  // const [open, setOpen] = React.useState(true);
-  // const toggleDrawer = () => {
-  //   setOpen(!open);
-  // };
-
 
   useEffect(() => {
     axios({ url: `http://localhost:3003/admin/pro`, method: 'GET', withCredentials: true })
       .then((data) => setPros(data.data))
+  }, []);
+
+  useEffect(() => {
+    axios({ url: `http://localhost:3003/admin/getDisponibilitePro`, method: 'GET', withCredentials: true })
+      .then((data) => setDispo(data.data))
   }, []);
 
   //on calcul le count des demandes dans le front, on va avoir combien il va y avoir de pages
@@ -82,24 +77,6 @@ export const Professionnels = () => {
   return (
     <div>
       <Box sx={{ display: 'flex' }}>
-        {/* <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            <ListItems />
-          </List>
-        </Drawer> */}
         <Box
           sx={{
             backgroundColor: (theme) =>
@@ -123,11 +100,6 @@ export const Professionnels = () => {
                     height: '100%',
                   }}
                 >
-
-
-
-
-
                   <h3>Professionnels</h3>
                   <Table size="small">
                     <TableHead>
@@ -137,6 +109,7 @@ export const Professionnels = () => {
                         <TableCell>Email</TableCell>
                         <TableCell>Téléphone</TableCell>
                         <TableCell>Activé</TableCell>
+                        <TableCell>Disponible</TableCell>
                         <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
@@ -161,6 +134,13 @@ export const Professionnels = () => {
                               {
                                 !pro.activatedByAdmin ? <Button onClick={() => activate(pro._id)} variant="contained" color="success">Activer </Button>
                                   : <p className={styles.colorgreen} >✓</p>
+                              }
+                            </TableCell>
+                            <TableCell>
+                              {
+                                dispo.isDisponible === 'true' ?
+                                  <p className={styles.colorgreen} >✓</p> :
+                                  <p>❌</p>
                               }
                             </TableCell>
                             <TableCell>

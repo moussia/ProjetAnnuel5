@@ -26,3 +26,4 @@ export const getDisponibilite = async (req, res) => {
         res.sendStatus(400);
     }
 }
+

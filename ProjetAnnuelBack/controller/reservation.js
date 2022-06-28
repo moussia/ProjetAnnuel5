@@ -144,7 +144,7 @@ export const historiqueForParent = async (req, res) => {
 // il faut recuperer les reservations ou l'id du pro corresponds a l'id de la personne connecte
 export const historiqueForPro = async (req, res) => {
     try {
-        const demandes = await Reservation.find({ id_pro: req.user._id }, { id_parent: 0 });
+        const demandes = await Reservation.find({ id_pro: req.user._id }, { id_parent: 0 }).sort({ date: 'desc' });
         console.log(demandes)
         res.send(demandes);
     } catch (error) {
