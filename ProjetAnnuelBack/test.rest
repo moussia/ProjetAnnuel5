@@ -3,13 +3,13 @@ POST http://localhost:3003/user/create
 Content-Type: application/json
 
 {
-    "lastname" : "moussia",
-    "firstname" : "mottal",
-    "phone" : "0783185678",
-    "address" : "8 rue de romainville",
+    "lastname" : "berk",
+    "firstname" : "blab",
+    "phone" : "0909090909",
+    "address" : "8 graance",
     "city" : "paris",
     "country" : "france",
-    "email" : "moussiamottal@gmail.com",
+    "email" : "blabla@gmail.com",
     "password" : "Hayamottal555/",
     "zipcode" : "75019",
     "sex" : "WOMAN"

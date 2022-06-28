@@ -25,7 +25,6 @@ export default function PhoneParent({ open, onClose, idDemande }) {
             axios({ url: `http://localhost:3003/pro/getDemande/${idDemande}`, method: 'GET', withCredentials: true })
                 .then((res) => {
                     setPhone(res.data.phone);
-                    console.log("data-> ", res.data.phone);
                 })
         }
     }, [idDemande]);

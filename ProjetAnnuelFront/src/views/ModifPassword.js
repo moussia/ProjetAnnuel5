@@ -46,7 +46,6 @@ export const ModifPassword = () => {
                 reset();
             })
             .catch((err) => {
-                console.log(err.message);
                 e.target.reset();
                 reset();
             });

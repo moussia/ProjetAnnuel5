@@ -32,7 +32,6 @@ export const getAmountStripe = async (req, res) => {
     const balance = await stripe.balance.retrieve({
         stripeAccount: `${process.env.CONNECTED_STRIPE_ACCOUNT_ID}`
     });
-    // console.log(balance);
     res.send(balance);
 }
 

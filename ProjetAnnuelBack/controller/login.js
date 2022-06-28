@@ -32,7 +32,6 @@ export const Logout = async (req, res) => {
 export const SendEmailForForgePassword = async (req, res) => {
     const email = req.body.email;
     const user = await User.findOne({ email });
-    console.log(user);
     if (!user)
         return res.sendStatus(400);
     const link = jwt.sign({
@@ -64,7 +63,6 @@ export const resetPassword = async (req, res) => {
 // faire la suite
 export const modifPassword = async (req, res) => {
     const newPassword = req.body.password;
-    console.log(newPassword);
     const hash = await bcrypt.hash(newPassword, 10);
     await User.findOneAndUpdate({ _id: req.user._id }, { password: hash }, {
         new: true

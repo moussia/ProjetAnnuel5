@@ -8,17 +8,14 @@ import { useNavigate } from 'react-router-dom';
 export const StepperConfirmation = ({ choix, symptomes, waitingTime, match }) => {
     const navigate = useNavigate();
 
-    console.log("*********************", choix, match);
     return (
         <div>
             <p>Merci de nous faire confiance.</p>
             {choix === "tel" && <p>Gardez votre téléphone à proximité, un professionnel va vous appelez</p>}
             {choix === "chat" && <p>Veuillez attendre qu'un professionnel soit disponible</p>}
 
-
             {/* si cest un chat changer de page et afficher le chat */}
             <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
-                {console.log(match)}
                 {match ?
                     choix === "chat" ?
                         (navigate(`/chat?id=${match}`))

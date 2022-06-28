@@ -21,16 +21,13 @@ export default function ChatContainer({ room }) {
   };
 
   useEffect(() => {
-    console.log('In useeffect', socket);
     if (socket && room) {
       socket.on("receive_message", (msg) => {
-        console.log('receive_message : ', msg);
         setArrivalMessage({ fromSelf: false, message: msg });
       });
       socket.on("closed", () => {
         setIsChatOpen(false);
         socket.emit("leave_room", room);
-        console.log('closed');
       });
     }
   }, [socket, room]);

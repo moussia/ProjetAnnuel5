@@ -62,21 +62,17 @@ const io = new Server(httpServer, {
 });
 
 io.on('connect', (socket) => {
-    console.log(`new connection ${socket.id}`);
 
     socket.on("join_room", (room) => {
-        console.log(socket.id + ' joined ' + room)
         socket.join(room);
     });
 
     socket.on("leave_room", (room) => {
-        console.log(socket.id + ' leaved ' + room);
         socket.leave(room);
         socket.in(room).emit("closed", true);
     });
 
     socket.on("match", (room) => {
-        console.log('match', socket.id, ' -> ', room);
         socket.broadcast.to(room).emit("receive_match", true);
     });
 

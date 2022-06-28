@@ -42,13 +42,10 @@ export default function Payment() {
     }, [search]);
 
     const checkout = () => {
-        console.log('amount', typeof amount, amount);
         axios({ url: 'http://localhost:3003/user/payment', method: 'POST', data: { amount }, withCredentials: true })
             .then((data) => {
                 setMessage(data.data);
                 window.location.href = data.data;
-
-                console.log("data -", data);
             })
             .catch((err) => {
                 setMessage("Une erreur est survenue, veuillez ressayer ultérieurement.");

@@ -58,7 +58,6 @@ export const Demande = () => {
             prev.splice(i, 1, data);
             return [...prev];
         });
-        console.log('prendreDisponibilite');
         socket.emit("join_room", id);
         socket.emit("match", id);
     };

@@ -40,13 +40,9 @@ export const Aide = () => {
     const [symptomes, setSymptomes] = React.useState('malade');
     const socket = getSocket();
 
-    console.log(socket);
-
     React.useEffect(() => {
-        console.log('emit join');
         socket.emit("join_room", reservationId);
         socket.on("receive_match", () => {
-            console.log('receive_match : ', reservationId);
             setMatch(reservationId);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps

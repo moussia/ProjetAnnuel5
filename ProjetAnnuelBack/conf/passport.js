@@ -10,7 +10,6 @@ export const passportInit = (passport) => {
             Login
         )
     );
-    console.log('✅ Passport loaded.');
 
     //_Specify_which_data_should_be_store_in_session 
     passport.serializeUser((user, done) =>

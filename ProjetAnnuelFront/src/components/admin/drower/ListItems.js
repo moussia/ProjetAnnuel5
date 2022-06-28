@@ -9,12 +9,48 @@ import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { useNavigate } from 'react-router';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import MuiDrawer from '@mui/material/Drawer';
+
+
+const pages = [
+    { label: 'Pro', route: 'pro' },
+    { label: 'Dons', route: 'donation' },
+    { label: 'parents', route: 'parents' },
+];
+
+const drawerWidth = 240;
+
+export const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+        '& .MuiDrawer-paper': {
+            position: 'relative',
+            whiteSpace: 'nowrap',
+            width: drawerWidth,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            boxSizing: 'border-box',
+            ...(!open && {
+                overflowX: 'hidden',
+                transition: theme.transitions.create('width', {
+                    easing: theme.transitions.easing.sharp,
+                    duration: theme.transitions.duration.leavingScreen,
+                }),
+                width: theme.spacing(7),
+                [theme.breakpoints.up('sm')]: {
+                    width: theme.spacing(9),
+                },
+            }),
+        },
+    }),
+);
 
 
 export const ListItems = () => {
 
     const navigate = useNavigate();
-
     return (
         <>
             <ListItemButton>
@@ -39,7 +75,7 @@ export const ListItems = () => {
                 <ListItemIcon>
                     <ChatBubbleOutlineIcon />
                 </ListItemIcon>
-                <ListItemText primary="Demandes" />
+                <ListItemText primary="Demandes" onClick={() => navigate(`/demandes`)} />
             </ListItemButton>
             <ListItemButton>
                 <ListItemIcon>

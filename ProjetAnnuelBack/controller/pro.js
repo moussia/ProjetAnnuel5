@@ -24,7 +24,6 @@ export const createPro = async (req, res) => {
             role: roles.PRO
         });
         user.save();
-        console.log('✅ Inscription Pro');
         const link = jwt.sign({
             data: { _id: user._id }
         }, process.env.JWT_ACTIVATE, { expiresIn: '24h' });
@@ -40,7 +39,6 @@ export const createPro = async (req, res) => {
 
 export const activatePro = async (req, res) => {
     const pro = req.params.proId;
-    console.log(pro);
     const updatePro = await User.findOneAndUpdate({ _id: pro }, { activatedByAdmin: true }, {
         new: true
     });

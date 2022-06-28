@@ -37,7 +37,6 @@ export const NewPassword = () => {
 
         axios({ url: 'http://localhost:3003/user/resetPassword', method: 'POST', data: { ...data, token } })
             .then((data) => {
-                console.log(data);
                 navigate("/login");
                 // setContext(() => ({ isLoggedIn: true, role: data.data.role }));
             })

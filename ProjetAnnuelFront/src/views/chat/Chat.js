@@ -11,13 +11,9 @@ export default function Chat() {
     const [authorized, setAuthorized] = useState(false);
 
     useEffect(() => {
-        console.log(socket, searchParams);
-        console.log('socksock', socket);
         if (searchParams && socket) {
             axios({ url: `http://localhost:3003/user/isChatExist/${searchParams.get('id')}`, method: 'GET', withCredentials: true })
                 .then((data) => {
-                    console.log('data', data);
-                    console.log('data.data', data.data);
                     setAuthorized(data.data);
                 });
         };
