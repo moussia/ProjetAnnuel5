@@ -86,10 +86,14 @@ export const ValidateProSignup = [
         .trim()
         .notEmpty()
         .escape(),
+    body('description')
+        .exists()
+        .notEmpty()
+        .escape(),
     (req, res, next) => {
         try {
             myValidationResult(req).throw();
-            const { email, password, lastname, firstname, address, city, zipcode, phone, sex, role, job } = req.body;
+            const { email, password, lastname, firstname, address, city, zipcode, phone, sex, role, job, description } = req.body;
             req.body = {
                 email,
                 password,
@@ -101,7 +105,8 @@ export const ValidateProSignup = [
                 phone,
                 sex,
                 job,
-                role
+                role,
+                description
             };
             next();
         } catch (err) {

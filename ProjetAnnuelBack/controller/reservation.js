@@ -32,10 +32,16 @@ export const createDemandeReservation = async (req, res) => {
 }
 
 const getWaitingTime = async () => {
-    const nbDispo = await Disponibilite.find({ isDisponible: true }).lean().count();
-    const nbDemande = await Reservation.find({ status: reserv.DEMANDE }).lean().count();
-    console.log(nbDispo, nbDemande, (nbDemande / nbDispo) * 15);
-    return (nbDemande / nbDispo) * 15;
+    try {
+        const nbDispo = await Disponibilite.find({ isDisponible: true }).lean().count();
+        const nbDemande = await Reservation.find({ status: reserv.DEMANDE }).lean().count();
+        console.log(nbDispo, nbDemande, (nbDemande / nbDispo) * 15);
+        return (nbDemande / nbDispo) * 15;
+    } catch (error) {
+        // res.sendStatus(400);
+        console.log(error);
+    }
+
 }
 
 export const getDemandeReservation = async (req, res) => {
@@ -44,15 +50,19 @@ export const getDemandeReservation = async (req, res) => {
         console.log('-> ', pro);
         res.send(pro);
     } catch (error) {
-        console.log(error);
+        res.sendStatus(400);
     }
 }
 
 export const closeReservation = async (req, res) => {
-    await Reservation.findOneAndUpdate({ id_parent: req.user._id, status: reserv.DEMANDE }, { status: reserv.ANNULE }, {
-        new: true
-    });
-    res.sendStatus(200);
+    try {
+        await Reservation.findOneAndUpdate({ id_parent: req.user._id, status: reserv.DEMANDE }, { status: reserv.ANNULE }, {
+            new: true
+        });
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 }
 
 export const finishReservation = async (req, res) => {
@@ -63,9 +73,8 @@ export const finishReservation = async (req, res) => {
         });
         res.send(updateReservation);
     } catch (error) {
-        console.log(error);
+        res.sendStatus(400);
     }
-
 }
 
 

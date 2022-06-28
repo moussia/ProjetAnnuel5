@@ -6,5 +6,6 @@ export const getAllDemandes = async (req, res) => {
         res.send(reservations);
     } catch (error) {
         console.log(error);
+        res.sendStatus(400);
     }
 }

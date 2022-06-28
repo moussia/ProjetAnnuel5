@@ -46,6 +46,10 @@ const schema = new Schema({
         type: String,
         required: false
     },
+    description: {
+        type: String,
+        required: false
+    },
     // birthday: {
     //     type: Date,
     //     required: true

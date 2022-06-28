@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 export const createPro = async (req, res) => {
     try {
         // create and save new user pro in DB
-        const { email, password, firstname, lastname, phone, birthday, address, city, country, zipcode, job } = req.body;
+        const { email, password, firstname, lastname, phone, birthday, address, city, country, zipcode, job, description } = req.body;
         const hash = await bcrypt.hash(password, 10);
         const user = new User({
             email,
@@ -21,6 +21,7 @@ export const createPro = async (req, res) => {
             country,
             zipcode,
             job,
+            description,
             role: roles.PRO
         });
         user.save();
@@ -38,28 +39,47 @@ export const createPro = async (req, res) => {
 }
 
 export const activatePro = async (req, res) => {
-    const pro = req.params.proId;
-    const updatePro = await User.findOneAndUpdate({ _id: pro }, { activatedByAdmin: true }, {
-        new: true
-    });
-    EnvoiMailAuProPourCompteValide(req.user.email, req.user.lastname, req.user.email);
-    res.send(updatePro);
+    try {
+        const pro = req.params.proId;
+        const updatePro = await User.findOneAndUpdate({ _id: pro }, { activatedByAdmin: true }, {
+            new: true
+        });
+        EnvoiMailAuProPourCompteValide(req.user.email, req.user.lastname, req.user.email);
+        res.send(updatePro);
+    } catch (error) {
+        res.sendStatus(400);
+    }
+
 }
 
 export const updatePro = async (req, res) => {
-    const updatePro = await User.findOneAndUpdate({ _id: req.user._id }, req.body, {
-        new: true
-    });
-    res.send(updatePro);
+    try {
+        const updatePro = await User.findOneAndUpdate({ _id: req.user._id }, req.body, {
+            new: true
+        });
+        res.send(updatePro);
+    } catch (error) {
+        res.sendStatus(400);
+    }
+
 }
 
 export const getPro = async (req, res) => {
-    const pro = await User.find({ role: roles.PRO }, { password: 0 });
-    res.send(pro);
+    try {
+        const pro = await User.find({ role: roles.PRO }, { password: 0 });
+        res.send(pro);
+    } catch (error) {
+        res.sendStatus(400);
+    }
+
 }
 
 export const deletePro = async (req, res) => {
-    User.deleteOne({ _id: req.params.proId })
-        .then((data) => res.sendStatus(data !== 0 ? 204 : 404))
-    console.log("✅ User supprimé");
+    try {
+        User.deleteOne({ _id: req.params.proId })
+            .then((data) => res.sendStatus(data !== 0 ? 204 : 404))
+        console.log("✅ User supprimé");
+    } catch (error) {
+        res.sendStatus(400);
+    }
 }

@@ -52,8 +52,9 @@ export default function SignupPro() {
             birthday: '',
             phone: '',
             job: '',
+            description: '',
             role: 'PRO',
-            sex: 'WOMAN'
+            sex: ''
         }
     });
 
@@ -322,7 +323,7 @@ export default function SignupPro() {
                                         </RadioController>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <SelectController name="job" control={control}>
+                                        <SelectController name="job" label="Parents*" control={control}>
                                             <MenuItem value="parents">Parents</MenuItem>
                                             <MenuItem value="pediatre">Pédiatre</MenuItem>
                                             <MenuItem value="educatrice">Educatrice</MenuItem>
@@ -331,8 +332,13 @@ export default function SignupPro() {
                                         </SelectController>
                                     </Grid>
                                     <Grid item xs={12} className={styles.textalign}>
-                                        <p>Votre CV</p>
-                                        <input type="file" name="cv"></input>
+                                        <TextController
+                                            control={control}
+                                            name="description"
+                                            label="CV*"
+                                            multiline
+                                            rows={5}
+                                        />
                                     </Grid>
                                     <Grid item xs={12} className={styles.textalign}>
                                         <Button
@@ -345,11 +351,6 @@ export default function SignupPro() {
                                             ENVOYER
                                         </Button>
                                         <Grid container>
-                                            <Grid item xs>
-                                                <Link href="/forgetpassword" className={styles.colorlinkpurple}>
-                                                    Mot de passe oublié
-                                                </Link>
-                                            </Grid>
                                             <Grid item xs>
                                                 <Link href="/login" className={styles.colorlinkpurple}>
                                                     {"Connexion"}

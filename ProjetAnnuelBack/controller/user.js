@@ -41,24 +41,41 @@ export const createParent = async (req, res) => {
 }
 
 export const findUser = async (req) => {
-    const { email } = req.body;
-    return await User.findOne({ email });
+    try {
+        const { email } = req.body;
+        return await User.findOne({ email });
+    } catch (error) {
+        // res.sendStatus(400);
+        console.log(error);
+    }
+
 }
 
 export const currentUser = async (req, res) => {
-    // console.log(res.user);
-    res.send(req.user);
+    try {
+        res.send(req.user);
+    } catch (error) {
+        res.sendStatus(400);
+    }
+
 }
 
 export const updateUser = async (req, res) => {
-    // console.log('body', req.body);
-    const updatedUser = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
-    res.send(updatedUser);
+    try {
+        const updatedUser = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
+        res.send(updatedUser);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 }
 
 export const getParents = async (req, res) => {
-    const parents = await User.find({ role: roles.PARENT }, { password: 0 });
-    res.send(parents);
+    try {
+        const parents = await User.find({ role: roles.PARENT }, { password: 0 });
+        res.send(parents);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 }
 
 export const getProFromId = async (req, res) => {
@@ -66,7 +83,7 @@ export const getProFromId = async (req, res) => {
         const getPro = await User.findById({ _id: req.params.proId });
         res.send(getPro);
     } catch (err) {
-        console.log(err);
+        res.sendStatus(400);
     }
 }
 
@@ -75,19 +92,26 @@ export const getParentFromId = async (req, res) => {
         const getParent = await User.findById({ _id: req.params.parentId });
         res.send(getParent);
     } catch (err) {
-        console.log(err);
+        res.sendStatus(400);
     }
 }
 
 export const deleteParent = async (req, res) => {
-    User.deleteOne({ _id: req.params.parentId })
-        .then((data) => res.sendStatus(data !== 0 ? 204 : 404))
-    console.log("✅ User supprimé");
+    try {
+        User.deleteOne({ _id: req.params.parentId })
+            .then((data) => res.sendStatus(data !== 0 ? 204 : 404))
+        console.log("✅ User supprimé");
+    } catch (error) {
+        res.sendStatus(400);
+    }
+
 }
 
-// Enregistrement du nouveau mot de passe lorsqu'on a oublié son mot de passe
 export const NewPasswordForget = async (req, res) => {
-    // console.log('body', req.body);
-    const updatedUser = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
-    res.send(updatedUser);
+    try {
+        const updatedUser = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
+        res.send(updatedUser);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 }
