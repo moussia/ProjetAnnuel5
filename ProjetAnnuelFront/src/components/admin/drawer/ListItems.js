@@ -2,57 +2,24 @@ import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import LayersIcon from '@mui/icons-material/Layers';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import { useNavigate } from 'react-router';
 import PaidIcon from '@mui/icons-material/Paid';
 import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import { useNavigate } from 'react-router';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-
-const pages = [
-    { label: 'Pro', route: 'pro' },
-    { label: 'Dons', route: 'donation' },
-    { label: 'parents', route: 'parents' },
-];
-
-const drawerWidth = 240;
-
-export const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        '& .MuiDrawer-paper': {
-            position: 'relative',
-            whiteSpace: 'nowrap',
-            width: drawerWidth,
-            transition: theme.transitions.create('width', {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            boxSizing: 'border-box',
-            ...(!open && {
-                overflowX: 'hidden',
-                transition: theme.transitions.create('width', {
-                    easing: theme.transitions.easing.sharp,
-                    duration: theme.transitions.duration.leavingScreen,
-                }),
-                width: theme.spacing(7),
-                [theme.breakpoints.up('sm')]: {
-                    width: theme.spacing(9),
-                },
-            }),
-        },
-    }),
-);
 
 
-export const ListItems = () => {
-
+export const MainListItems = () => {
     const navigate = useNavigate();
+
     return (
-        <>
+        <React.Fragment>
             <ListItemButton>
                 <ListItemIcon>
                     <DashboardIcon />
@@ -83,6 +50,6 @@ export const ListItems = () => {
                 </ListItemIcon>
                 <ListItemText primary="Don" onClick={() => navigate(`/donation`)} />
             </ListItemButton>
-        </>
+        </React.Fragment>
     );
 }

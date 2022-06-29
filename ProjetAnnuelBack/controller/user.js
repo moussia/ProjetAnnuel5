@@ -24,7 +24,6 @@ export const createParent = async (req, res) => {
             role: roles.PARENT
         });
         await user.save();
-        console.log('✅ Inscription Client');
         // sellerRegisterEmail(req.body.email, req.body.name, req.body.email);
         const link = jwt.sign({
             data: { _id: user._id }
@@ -100,7 +99,6 @@ export const deleteParent = async (req, res) => {
     try {
         User.deleteOne({ _id: req.params.parentId })
             .then((data) => res.sendStatus(data !== 0 ? 204 : 404))
-        console.log("✅ User supprimé");
     } catch (error) {
         res.sendStatus(400);
     }

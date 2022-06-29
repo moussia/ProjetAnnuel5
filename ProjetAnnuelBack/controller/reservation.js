@@ -17,14 +17,11 @@ export const createDemandeReservation = async (req, res) => {
             symptomes
         });
         reservation.save();
-        console.log('✅ Demande reservation enregistré');
         const pros = await Disponibilite.find({ isDisponible: true }).lean().limit(5).populate('id_pro');
         console.table(pros);
         pros.forEach((pro) => {
-            console.log(pro.id_pro);
             sendToProForDemandeAide(pro.id_pro.email)
         });
-        console.log(reservation._id);
         res.send({ _id: reservation._id, waitingTime: await getWaitingTime() });
     } catch (error) {
         console.log(error);
@@ -35,7 +32,6 @@ const getWaitingTime = async () => {
     try {
         const nbDispo = await Disponibilite.find({ isDisponible: true }).lean().count();
         const nbDemande = await Reservation.find({ status: reserv.DEMANDE }).lean().count();
-        console.log(nbDispo, nbDemande, (nbDemande / nbDispo) * 15);
         return (nbDemande / nbDispo) * 15;
     } catch (error) {
         // res.sendStatus(400);
@@ -47,7 +43,6 @@ const getWaitingTime = async () => {
 export const getDemandeReservation = async (req, res) => {
     try {
         const pro = await Reservation.find({ $or: [{ status: "DEMANDE" }, { status: "RESERVE", id_pro: req.user._id }] }).sort({ date: 'desc' });
-        console.log('-> ', pro);
         res.send(pro);
     } catch (error) {
         res.sendStatus(400);
@@ -93,7 +88,6 @@ export const takeDemandeId = async (req, res) => {
 export const getPhone = async (req, res) => {
     try {
         const demandId = req.params.demandId;
-        console.log("demande id -> ", demandId);
         const DemandeParent = await Reservation.findOne({
             _id: new mongoose.Types.ObjectId(demandId),
             id_pro: req.user._id,
@@ -113,7 +107,6 @@ export const getPhone = async (req, res) => {
 export const getDemandes = async (req, res) => {
     try {
         const demandes = await Reservation.find({ status: reserv.DEMANDE }, { id_parent: 0 });
-        console.log(demandes)
         res.send(demandes);
     } catch (error) {
         console.log(error);
@@ -124,7 +117,6 @@ export const getDemandes = async (req, res) => {
 export const getDemandesFinish = async (req, res) => {
     try {
         const demandes = await Reservation.find({ status: reserv.FINI }, { id_parent: 0 });
-        console.log(demandes)
         res.send(demandes);
     } catch (error) {
         console.log(error);
@@ -134,7 +126,6 @@ export const getDemandesFinish = async (req, res) => {
 export const historiqueForParent = async (req, res) => {
     try {
         const demandes = await Reservation.find({ id_parent: req.user._id }, { id_parent: 0 });
-        console.log(demandes)
         res.send(demandes);
     } catch (error) {
         console.log(error);
@@ -145,7 +136,6 @@ export const historiqueForParent = async (req, res) => {
 export const historiqueForPro = async (req, res) => {
     try {
         const demandes = await Reservation.find({ id_pro: req.user._id }, { id_parent: 0 }).sort({ date: 'desc' });
-        console.log(demandes)
         res.send(demandes);
     } catch (error) {
         console.log(error);
