@@ -42,7 +42,6 @@ import Payment from "./components/payment/Payment";
 import Deposits from "./components/admin/Deposits";
 import { Dons } from "./components/admin/Dons";
 import { Demandes } from "./components/admin/Demandes";
-// import { ListItems } from "./components/admin/drower/ListItems";
 
 
 export const App = () => {
@@ -51,7 +50,6 @@ export const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <Header />
-        {/* <ListItems /> */}
         <div className='heighpage'>
           <Routes>
             <Route exact path='/' element={<Home />} />
@@ -87,7 +85,6 @@ export const App = () => {
             <Route exact path='/pro/historique' element={<PrivateRoute restricted={roles.PRO} Component={HistoriquePro} />} />
 
             {/* ADMIN DASHBOARD */}
-            {/* <Route exact path='/dashboard' element={<PrivateRoute restricted={roles.ADMIN} Component={Dashboard} />} /> */}
             <Route exact path='/dashboard' element={<PrivateRoute restricted={roles.ADMIN} Component={Dashboard} />} />
             <Route exact path='/don' element={<PrivateRoute restricted={roles.ADMIN} Component={Deposits} />} />
             <Route exact path='/demandes' element={<PrivateRoute restricted={roles.ADMIN} Component={Demandes} />} />

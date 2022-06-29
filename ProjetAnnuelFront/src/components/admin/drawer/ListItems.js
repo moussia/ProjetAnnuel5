@@ -14,7 +14,6 @@ import PaidIcon from '@mui/icons-material/Paid';
 import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
-
 export const MainListItems = () => {
     const navigate = useNavigate();
 
