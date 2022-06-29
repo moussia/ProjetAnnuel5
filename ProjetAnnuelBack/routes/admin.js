@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllDemandes, getDisponibilitePro } from '../controller/dash.js';
+import { getAllDemandes } from '../controller/dash.js';
 import { getAmountStripe, getListAllPayment } from '../controller/payment.js';
 // import { historiqueDemandesForAdmin } from '../controller/dash.js';
 // import { proToVerify } from '../controller/dash.js';
@@ -25,6 +25,5 @@ router.get("/demandesFini", isAuthenticated, isAdmin, getDemandesFinish);
 router.get("/amountStripe", isAuthenticated, isAdmin, getAmountStripe);
 router.get("/getAllDemandes", isAuthenticated, isAdmin, getAllDemandes);
 router.get("/getListAllPayment", isAuthenticated, isAdmin, getListAllPayment);
-router.get("/getDisponibilitePro", isAuthenticated, isAdmin, getDisponibilitePro);
 
 export default router;

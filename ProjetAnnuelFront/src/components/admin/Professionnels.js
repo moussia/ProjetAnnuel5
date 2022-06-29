@@ -91,7 +91,6 @@ const useStyles = makeStyles((theme) => ({
 export const Professionnels = () => {
   const classes = useStyles();
   const [pros, setPros] = useState([]);
-  const [dispo, setDispo] = useState([]);
   const navigate = useNavigate();
   const [page, setPage] = useState(1); //curent page sur laquel on est 
   const [count, setCount] = useState(1); // nombre de pages quil y a 
@@ -101,13 +100,12 @@ export const Professionnels = () => {
   };
 
   useEffect(() => {
-    axios({ url: `http://localhost:3003/admin/pro`, method: 'GET', withCredentials: true })
-      .then((data) => setPros(data.data))
-  }, []);
+    console.log(pros);
+  }, [pros]);
 
   useEffect(() => {
-    axios({ url: `http://localhost:3003/admin/getDisponibilitePro`, method: 'GET', withCredentials: true })
-      .then((data) => setDispo(data.data))
+    axios({ url: `http://localhost:3003/admin/pro`, method: 'GET', withCredentials: true })
+      .then((data) => setPros(data.data))
   }, []);
 
   //on calcul le count des demandes dans le front, on va avoir combien il va y avoir de pages
@@ -222,7 +220,7 @@ export const Professionnels = () => {
                               </TableCell>
                               <TableCell>
                                 {
-                                  dispo.isDisponible === 'true' ?
+                                  pro.isDisponible === true ?
                                     <p className={styles.colorgreen} >✓</p> :
                                     <p>❌</p>
                                 }

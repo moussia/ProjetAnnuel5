@@ -57,9 +57,9 @@ const HeaderPro = () => {
     }
 
     const handleChange = (event) => {
-        axios({ url: 'http://localhost:3003/pro/dispo/update', method: 'POST', data: { disponibility: event.target.checked }, withCredentials: true })
+        axios({ url: 'http://localhost:3003/pro/dispo/update', method: 'POST', data: { disponibility: !context.isDisponible }, withCredentials: true })
             .then((data) => {
-                setContext((prev) => ({ ...prev, isDisponible: event.target.checked }));
+                setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible }));
                 console.log("ok");
             })
             .catch((err) => {

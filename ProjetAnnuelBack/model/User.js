@@ -74,7 +74,11 @@ const schema = new Schema({
         enum: ['MAN', 'WOMAN'],
         default: 'MAN',
         required: true
-    }
+    },
+    isDisponible: {
+        type: Boolean,
+        default: false
+    },
 });
 
 export default model('User', schema);

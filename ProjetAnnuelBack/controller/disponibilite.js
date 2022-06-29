@@ -1,16 +1,15 @@
-import Disponibilite from '../model/Disponibilite.js';
+import User from '../model/User.js';
 
 export const createDisponibilite = async (req, res) => {
     try {
         const { disponibility } = req.body;
 
-        await Disponibilite.findOneAndUpdate({ id_pro: req.user._id }, {
-            id_parent: req.user._id,
+        const user = await User.findOneAndUpdate({ _id: req.user._id }, {
             isDisponible: disponibility,
         }, { new: true, upsert: true })
 
         console.log('✅ Disponibilite enregistré');
-        res.send(200);
+        res.send(user);
     }
     catch (err) {
         console.error(err);
@@ -20,7 +19,7 @@ export const createDisponibilite = async (req, res) => {
 
 export const getDisponibilite = async (req, res) => {
     try {
-        const disponibilite = await Disponibilite.findOne({ id_pro: req.user._id });
+        const disponibilite = await User.findOne({ _id: req.user._id }, { isDisponible: 1 });
         res.send(disponibilite);
     } catch (error) {
         res.sendStatus(400);

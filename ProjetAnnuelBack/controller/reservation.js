@@ -2,7 +2,6 @@ import Reservation from '../model/Reservation.js';
 import { reserv } from '../constants/Reservation.js';
 import User from '../model/User.js';
 import mongoose from 'mongoose';
-import Disponibilite from '../model/Disponibilite.js';
 import { sendToProForDemandeAide } from '../utils/mail.js';
 
 
@@ -17,10 +16,10 @@ export const createDemandeReservation = async (req, res) => {
             symptomes
         });
         reservation.save();
-        const pros = await Disponibilite.find({ isDisponible: true }).lean().limit(5).populate('id_pro');
+        const pros = await User.find({ isDisponible: true }).lean().limit(5);
         console.table(pros);
         pros.forEach((pro) => {
-            sendToProForDemandeAide(pro.id_pro.email)
+            sendToProForDemandeAide(pro.email)
         });
         res.send({ _id: reservation._id, waitingTime: await getWaitingTime() });
     } catch (error) {
@@ -30,7 +29,7 @@ export const createDemandeReservation = async (req, res) => {
 
 const getWaitingTime = async () => {
     try {
-        const nbDispo = await Disponibilite.find({ isDisponible: true }).lean().count();
+        const nbDispo = await User.find({ isDisponible: true }).lean().count();
         const nbDemande = await Reservation.find({ status: reserv.DEMANDE }).lean().count();
         return (nbDemande / nbDispo) * 15;
     } catch (error) {
