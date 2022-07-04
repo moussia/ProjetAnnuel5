@@ -98,12 +98,15 @@ export default function Home() {
                         }}
                     >
                         <p>
-                            Proposant une prise en charge pour vos bébés, 7j/7 et 24h/24 dans toute l'Europe,
-                            SOS Parents assure le soutien à la parantalité sur votre
-                            lieu de travail ou encore en l’absence de votre médecin traitant.
+                            SOS Parents    <br></br> <br></br>
+                            Propose une prise en charge pour vos bébés, 7j/7 et 24h/24 dans toute l'Europe,
+                            SOS Parents assure le soutien à la parentalité. <br></br>
                             Dès la réception de votre demande,
                             nos équipes vous conseillent et vous accompagnent dans les meilleures
-                            conditions.
+                            conditions. <br></br>
+                            Des parents et même des professionnels de la petite enfance pourront vous aidez
+                            pour toutes vos questions. <br></br>
+                            <br></br>
                             Pour toute demande, contactez-nous.
                         </p>
                     </div>

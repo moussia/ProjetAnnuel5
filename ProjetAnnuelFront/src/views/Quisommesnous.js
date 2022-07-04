@@ -1,101 +1,161 @@
-import { Grid } from '@mui/material';
-import styles from '../style/quisommesnous.module.css';
+import { Button, Grid } from '@mui/material';
+// import styles from '../style/quisommesnous.module.css';
 import * as React from 'react';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import { NavLink } from 'react-router-dom';
+import styles from '../style/bonjour.module.css';
 
 export const Quisommesnous = () => {
 
     return (
-        <Grid container-fluid spacing={2}>
-            <Grid item xs={12} md={12} className={styles.imageaccueil}>
-                <h1>DÉCOUVREZ NOTRE ASSOCIATION SOS PARENTS
-                    à Paris (75), Île-de-France</h1>
-                <h2>Notre principe fondateur ? « Urgence, Permanence et Continuité des soins 365 jours par an ! »</h2>
-                <p>SOS Médecins est, depuis sa mise en place par le Docteur Marcel Lascar, une structure associative entièrement autofinancée.
-                    Nous intervenons pour des urgences médicales générales, hors urgences vitales,
-                    grâce à l’intervention rapide de nos médecins généralistes urgentistes dans l’ensemble du territoire français.</p>
-            </Grid>
-            <Grid container>
-                <Grid item xs={4}>
-                    coucou
-                </Grid>
-                <Grid item xs={4}>
-                    coucou
+        <Grid item xs={12} md={12}>
+            <Grid container className={styles.nopadding && styles.room}>
+                <img
+                    alt='furniture'
+                    src={require('../images/aditya-romansa-5zp0jym2w9M-unsplash.jpg')}
+                    className={styles.roomimg}
+                />
+                <Grid Grid item xs={12} className={styles.roomcontent}>
+                    <div className='row'>
+                        <h1>Association SOS PARENTS   </h1>
+                    </div>
 
+                    <div className={styles.arrowimg}>
+                        <AnchorLink href='#list_icon'>
+                            <img
+                                alt='arrow'
+                                height='16'
+                                src={require('../images/down-arrow.png')}
+                            />
+                        </AnchorLink>
+                    </div>
+                </Grid>
+            </Grid>
+            <Grid container spacing={3} id='list_icon' >
+                <Grid item xs={12} className={styles.titrequi}>
+                    <h2>Notre principe fondateur ? <br></br>« Urgence, Permanence et Soutien 365 jours par an ! »</h2>
+                </Grid>
+            </Grid>
+            <Grid container >
+                <Grid item xs={1}>
+                </Grid>
+                <Grid item xs={6}>
+                    <p className={styles.textnormal}>SOS Parents est, depuis sa mise en place par Moussia MOTTAL, une structure associative.
+                        Nous intervenons pour des urgences parentales générales, hors urgences vitales,
+                        grâce à l’intervention rapide de nos éducateurs, pédiatre, parents.. de partout dans le monde.
+                        <br></br>    Si vous avez besoin d'un conseil, d'une oreille pour vous écouter, nous sommes à votre disposition.
+                        <br></br>   Vous n'êtes pas seul !
+                    </p>
                 </Grid>
                 <Grid item xs={4}>
-                    coucou
+                    <img className={styles.imagebck} src={require('../images/qui.jpg')} alt="qui" />
+                </Grid>
+                <Grid item xs={1}>
                 </Grid>
             </Grid>
             <Grid container>
-                <Grid item xs={12}>
-                    <h2>AIDER LE PATIENT EN ÎLE-DE-FRANCE :</h2>
+                <Grid item xs={12} className={styles.titrequi}>
+                    <h2>Aider le parent :</h2>
                     <h3>Une vocation nationale et des interventions départementales</h3>
                 </Grid>
             </Grid>
             <Grid container>
-                <Grid item xs={6}>
-                    <p>IMAGE</p>
-                </Grid>
-                <Grid item xs={6}>
-                    <p>Acteur majeur de la veille sanitaire en Île-de-France, SOS Médecins Grand Paris assure la prise en charge des urgences médicales et des soins non programmés, des urgences non vitales et la permanence des soins à Paris (75), dans le Val-de-Marne (94), en Seine-Saint-Denis (93) et dans les Hauts-de-Seine (92).
-
-                        Nos médecins urgentistes travaillent également de concert avec l’Institut national de Veille Sanitaire (InVS), la Cellule interrégionale d’épidémiologie (Cire) et l’Agence Régionale de Santé (ARS) pour la surveillance des épidémies saisonnières comme les grippes, gastro-entérites, bronchiolites, rougeoles, asthmes… sur les conséquences liées à certains phénomènes climatiques et pour l’enrichissement des données de santé.
-
-                        SOS Médecins Grand Paris, c’est aussi des interventions dans les :
-
-                        Maisons de retraites
-                        EHPAD
-                        Établissements pénitenciers…
-                        Et des partenaires comme :
-
-                        L’Agence Régionale de Santé (ARS)
-                        SAMU
-                        La brigade des Sapeurs-Pompiers de Paris (BSPP)…</p>
-                </Grid>
-            </Grid>
-            <Grid container>
                 <Grid item xs={12}>
-                    <h2>LES 7 POINTS DE LA CHARTE SOS MÉDECINS FRANCE</h2>
+                    <h2 className={styles.textalign}>Les 8 points de la charte SOS Parents</h2>
                 </Grid>
             </Grid>
-            <Grid container>
-                <Grid item xs={3}>
-                    <p>IMAGE</p>
+            <Grid container spacing={3}>
+                <Grid item xs={3} className={styles.textalign}>
+                    <img
+                        alt='logo'
+                        height='auto'
+                        width='20%'
+                        src={require('../images/disponibilite.png')}
+                    />
                     <p>Disponibilité 24h/24 et 365 jours/an</p>
                 </Grid>
-                <Grid item xs={3}>
-                    <p>IMAGE</p>
-                    <p>Médecins urgentistes expérimentés et rodés à l’urgence</p>
+                <Grid item xs={3} className={styles.textalign}>
+                    <img
+                        alt='logo'
+                        height='auto'
+                        width='20%'
+                        src={require('../images/education.png')}
+                    />
+                    <p>Personnelles expérimentés</p>
                 </Grid>
-                <Grid item xs={3}>
-                    <p>IMAGE</p>
-                    <p>Moyens diagnostiques et thérapeutiques</p>
+                <Grid item xs={3} className={styles.textalign}>
+                    <img
+                        alt='logo'
+                        height='auto'
+                        width='20%'
+                        src={require('../images/question.png')}
+                    />
+                    <p>Nous répondons à vos questions</p>
                 </Grid>
-                <Grid item xs={3}>
-                    <p>IMAGE</p>
-                    <p>Médecins disponibles tout au long de leur garde</p>
+                <Grid item xs={3} className={styles.textalign}>
+                    <img
+                        alt='logo'
+                        height='auto'
+                        width='20%'
+                        src={require('../images/gens.png')}
+                    />
+                    <p>Disponible de partout</p>
                 </Grid>
             </Grid>
             <Grid container>
-                <Grid item xs={4}>
-                    <p>IMAGE</p>
-                    <p>Interventions rapides et radioguidées dans un véhicule blanc</p>
+                <Grid item xs={3} className={styles.textalign}>
+                    <img
+                        alt='logo'
+                        height='auto'
+                        width='20%'
+                        src={require('../images/sablier.png')}
+                    />
+                    <p>Interventions rapides</p>
                 </Grid>
-                <Grid item xs={4}>
-                    <p>IMAGE</p>
-                    <p>Remise d’un bilan d’intervention au médecin traitant</p>
+                <Grid item xs={3} className={styles.textalign}>
+                    <img
+                        alt='logo'
+                        height='auto'
+                        width='20%'
+                        src={require('../images/lamour (1).png')}
+                    />
+                    <p>Nous vous aidons avec amour</p>
                 </Grid>
-                <Grid item xs={4}>
-                    <p>IMAGE</p>
-                    <p>Autonomie financière totale des associations</p>
+                <Grid item xs={3} className={styles.textalign}>
+                    <img
+                        alt='logo'
+                        height='auto'
+                        width='20%'
+                        src={require('../images/conversation.png')}
+                    />
+                    <p>Tous bénévoles</p>
+                </Grid>
+                <Grid item xs={3} className={styles.textalign}>
+                    <img
+                        alt='logo'
+                        height='auto'
+                        width='20%'
+                        src={require('../images/faq.png')}
+                    />
+                    <p>Une question ? N'hésitez pas</p>
                 </Grid>
             </Grid>
-            <Grid container>
+            <hr></hr>
+            <Grid container className={styles.dernierbandeau}>
+                <Grid item xs={1}>
+                </Grid>
                 <Grid item xs={6}>
-                    <h3>Prenez rendez-vous par téléphone ou en ligne</h3>
+                    <h3>N'attendez plus rendez-vous par téléphone ou en ligne</h3>
                 </Grid>
                 <Grid item xs={4}>
-                    <button> PRENEZ RENDEZ-VOUS EN LIGNE</button>
+                    <NavLink to='/login'>
+                        <Button variant="contained" color="secondary">
+                            PRENEZ RENDEZ-VOUS EN LIGNE
+                        </Button>
+                    </NavLink>
+
+                </Grid>
+                <Grid item xs={1}>
                 </Grid>
             </Grid>
         </Grid>
