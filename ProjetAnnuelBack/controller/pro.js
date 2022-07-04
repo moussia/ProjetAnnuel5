@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 export const createPro = async (req, res) => {
     try {
         // create and save new user pro in DB
-        const { email, password, firstname, lastname, phone, birthday, address, city, country, zipcode, job, description } = req.body;
+        const { email, password, firstname, lastname, phone, sex, address, city, country, zipcode, job, description } = req.body;
         const hash = await bcrypt.hash(password, 10);
         const user = new User({
             email,
@@ -15,7 +15,7 @@ export const createPro = async (req, res) => {
             firstname,
             lastname,
             phone,
-            birthday,
+            sex,
             address,
             city,
             country,
@@ -28,7 +28,7 @@ export const createPro = async (req, res) => {
         const link = jwt.sign({
             data: { _id: user._id }
         }, process.env.JWT_ACTIVATE, { expiresIn: '24h' });
-        EnvoiMailAuProPourInscription(email, lastname, `${process.env.URL_FRONT}/activatedMail?token=${link}`); //mail pour validé l'inscription
+        EnvoiMailAuProPourInscription(email, lastname, firstname, `${process.env.URL_FRONT}/activatedMail?token=${link}`); //mail pour validé l'inscription
         sendToAdminValidateComptePro(lastname, email); // mail à l'admin pour validé le compte pro
         res.sendStatus(200);
     }
@@ -41,11 +41,12 @@ export const createPro = async (req, res) => {
 export const activatePro = async (req, res) => {
     try {
         const pro = req.params.proId;
-        const updatePro = await User.findOneAndUpdate({ _id: pro }, { activatedByAdmin: true }, {
+        console.log("pro : ", pro);
+        const updatedPro = await User.findOneAndUpdate({ _id: pro }, { activatedByAdmin: true }, {
             new: true
         });
-        EnvoiMailAuProPourCompteValide(req.user.email, req.user.lastname, req.user.email);
-        res.send(updatePro);
+        EnvoiMailAuProPourCompteValide(updatedPro.email, req.user.lastname);
+        res.send(updatedPro);
     } catch (error) {
         res.sendStatus(400);
     }
@@ -66,7 +67,7 @@ export const updatePro = async (req, res) => {
 
 export const getPro = async (req, res) => {
     try {
-        const pro = await User.find({ role: roles.PRO }, { password: 0 });
+        const pro = await User.find({ role: roles.PRO }, { password: 0 }).sort({ createdAt: 'desc' });
         res.send(pro);
     } catch (error) {
         res.sendStatus(400);

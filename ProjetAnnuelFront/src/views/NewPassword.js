@@ -35,7 +35,7 @@ export const NewPassword = () => {
 
         const token = new URLSearchParams(search).get('token');
 
-        axios({ url: 'http://localhost:3003/user/resetPassword', method: 'POST', data: { ...data, token } })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/resetPassword`, method: 'POST', data: { ...data, token } })
             .then((data) => {
                 navigate("/login");
                 // setContext(() => ({ isLoggedIn: true, role: data.data.role }));

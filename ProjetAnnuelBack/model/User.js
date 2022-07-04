@@ -42,18 +42,10 @@ const schema = new Schema({
         type: String,
         required: false
     },
-    bio: {
-        type: String,
-        required: false
-    },
     description: {
         type: String,
         required: false
     },
-    // birthday: {
-    //     type: Date,
-    //     required: true
-    // },
     address: {
         type: String,
         required: true
@@ -79,6 +71,6 @@ const schema = new Schema({
         type: Boolean,
         default: false
     },
-});
+}, { timestamps: true });
 
 export default model('User', schema);

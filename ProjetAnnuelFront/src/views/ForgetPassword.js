@@ -52,7 +52,7 @@ export const ForgetPassword = () => {
     const onSubmit = async (data, e) => {
         e.preventDefault();
 
-        axios({ url: 'http://localhost:3003/user/forgetPassword', method: 'POST', data })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/forgetPassword`, method: 'POST', data })
             .then((data) => {
                 e.target.reset();
                 setOpenSuccess(true);

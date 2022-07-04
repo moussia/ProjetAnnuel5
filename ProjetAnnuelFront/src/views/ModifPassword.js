@@ -39,7 +39,7 @@ export const ModifPassword = () => {
     const onSubmit = async (data, e) => {
         e.preventDefault();
 
-        axios({ url: 'http://localhost:3003/user/modifPassword', method: 'POST', data, withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/modifPassword`, method: 'POST', data, withCredentials: true })
             .then((data) => {
                 e.target.reset();
                 setOpen(true);

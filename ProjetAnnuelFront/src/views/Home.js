@@ -1,15 +1,20 @@
 import React from 'react';
 import Fade from 'react-reveal/Fade';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-import Button from '@mui/material/Button';
-// import { Parallax } from 'react-parallax';
-import { NavLink } from 'react-router-dom';
-// import Header from '../components/Header';
-// import Footer from '../components/Footer';
-// import ContactForm from '../components/ContactForm';
-// import Maps from '../components/Maps';
 import styles from '../style/bonjour.module.css';
 import Grid from '@mui/material/Grid';
+import Lottie from 'react-lottie';
+import * as LottieAccueil from '../images/lotties/24074-baby.json';
+
+
+const lottiebaby = {
+    loop: true,
+    autoplay: true,
+    animationData: LottieAccueil,
+    rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice'
+    }
+};
 
 export default function Home() {
     const iconsArray = [
@@ -27,49 +32,30 @@ export default function Home() {
         },
         {
             icon: 'heart.png',
-            text: 'Possibilité de faire des dons',
+            text: 'Obtenez des conseils',
         },
     ];
 
     return (
         <div className={styles.body && styles.home}>
-            {/* <div className='container-fluid nopadding room'> */}
-            <div className={styles.nopadding && styles.room}>
+            <Grid container className={styles.nopadding && styles.room}>
                 <img
                     alt='furniture'
                     src={require('../images/jonathan-borba-CgWTqYxHEkg-unsplash.jpg')}
                     className={styles.roomimg}
                 />
-                <div className={styles.roomcontent}>
+                <Grid Grid item xs={12} className={styles.roomcontent}>
                     <div className='row'>
-                        <div className='container'>
-                            <Fade left>
-                                {/* <h2 className='col-md-10 offset-md-1 col-lg-8 offset-lg-2 nopadding roomtext'> */}
-                                <h2 className={styles.nopadding && styles.roomtext}>
-                                    Ne craquez plus, appelez nous pour vous aidez...
-                                    Vous êtes fatigué ? Vous n'arrivez pas à calmer bébé ? Soufflez un peu et contactez nous !
-                                    <br></br>   SOS PARENTS  <br></br>
-                                    Téléconsultations -
-                                    message
-                                    24h/24, 7j/7
-                                </h2>
-                            </Fade>
-                            <Fade left delay={750}>
-                                <NavLink to='/login'>
-                                    <Button
-                                        name='button'
-                                        variant='contained'
-                                        value='configurator'
-                                        color='primary'
-                                        style={{ marginTop: '1em' }}
-                                        size='medium'
-                                        className='config-button'
-                                    >
-                                        Connectez-vous
-                                    </Button>
-                                </NavLink>
-                            </Fade>
-                        </div>
+                        <Fade left>
+                            <h2 className={styles.nopadding && styles.roomtext && styles.textbutton}>
+                                Ne craquez plus, appelez nous pour vous aidez... <br></br>
+                                Vous êtes fatigué ? Vous n'arrivez pas à calmer bébé ? Soufflez un peu et contactez nous !
+                                <br></br>   SOS PARENTS  <br></br>
+                                Téléconsultations -
+                                message
+                                24h/24, 7j/7
+                            </h2>
+                        </Fade>
                     </div>
                     <div className={styles.arrowimg}>
                         <AnchorLink href='#list_icon'>
@@ -80,12 +66,12 @@ export default function Home() {
                             />
                         </AnchorLink>
                     </div>
-                </div>
-            </div>
+                </Grid>
+            </Grid>
 
             <Grid container id='list_icon' spacing={1} className={styles.icon_desc}>
                 {iconsArray.map((icon, i) => (
-                    <Grid container xs={3} key={i}>
+                    <Grid item xs={3} key={i} className={styles.textalign}>
                         <Fade left delay={i * 300}>
                             <img
                                 alt='icon'
@@ -97,22 +83,33 @@ export default function Home() {
                     </Grid>
                 ))}
             </Grid>
-            <Grid container className={styles.hometextcontainer}>
-                <Fade left>
-                    <div className='row'>
-                        <h4 className='col-12'>WoodMonkey</h4>
+            <Grid container spacing={2} className={styles.margintopdeux}>
+                <Grid item xs={6}>
+                    <Lottie options={lottiebaby}
+                        height={"50%%"}
+                        width={"50%"} />
+                </Grid>
+                <Grid item xs={6}>
+                    <div
+                        style={{
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '60%'
+                        }}
+                    >
+                        <p>
+                            Proposant une prise en charge pour vos bébés, 7j/7 et 24h/24 dans toute l'Europe,
+                            SOS Parents assure le soutien à la parantalité sur votre
+                            lieu de travail ou encore en l’absence de votre médecin traitant.
+                            Dès la réception de votre demande,
+                            nos équipes vous conseillent et vous accompagnent dans les meilleures
+                            conditions.
+                            Pour toute demande, contactez-nous.
+                        </p>
                     </div>
-                    <div className='row'>
-                        <div className='col-12'>
-                            Le bois granit et fait fleurir vos envies.
-                            WoodMonkey fait de la menuiserie tout simplement,
-                            tout naturellement. La passion du bois, des parfums
-                            et des couleurs. La perfection et l’écoute sont nos
-                            atouts. Le sur-mesure et le bois sont nos qualités.
-                        </div>
-                    </div>
-                </Fade>
-            </Grid>
+
+                </Grid>
+            </Grid >
         </div >
     );
 }

@@ -15,11 +15,11 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-export const EnvoiMailAuParentPourInscription = async (to, lastname, link) => {
+export const EnvoiMailAuParentPourInscription = async (to, lastname, firstname, link) => {
     let source = await readFile('template/Email-register.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
-        lastname, link
+        lastname, firstname, link
     }
     let html = template(data);
 
@@ -41,11 +41,11 @@ export const EnvoiMailAuParentPourInscription = async (to, lastname, link) => {
     });
 }
 
-export const EnvoiMailAuProPourInscription = async (to, lastname, link) => {
+export const EnvoiMailAuProPourInscription = async (to, lastname, firstname, link) => {
     let source = await readFile('template/EmailProRegister.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
-        lastname, link
+        lastname, firstname, link
     }
     let html = template(data);
 
@@ -68,11 +68,11 @@ export const EnvoiMailAuProPourInscription = async (to, lastname, link) => {
 }
 
 
-export const EnvoiMailAuProPourCompteValide = async (to, lastname, email) => {
+export const EnvoiMailAuProPourCompteValide = async (to, lastname) => {
     let source = await readFile('template/EmailCompteValide.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
-        lastname, email
+        lastname
     }
     let html = template(data);
 
@@ -100,7 +100,7 @@ export const sendToAdminValidateComptePro = async (lastname, email) => {
     let source = await readFile('template/EmailAdminNewInscriptionPro.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
-        lastname, email
+        lastname, email, frontLink: `${process.env.FRONT_URL}/pro`
     }
     let html = template(data);
 
@@ -153,13 +153,13 @@ export const sendToUserForgetPassword = async (to, link) => {
 
 
 //Envoie email a un pro lorsque qu'un parent fait une demande d'aide
-export const sendToProForDemandeAide = async (to) => {
+export const sendToProForDemandeAide = async (to, link) => {
     let source = await readFile('template/Email-demandeAide.html', 'utf8');
     let template = handlebars.compile(source);
-    // const data = {
-    //     link
-    // }
-    let html = template();
+    const data = {
+        link
+    }
+    let html = template(data);
 
     console.log(to);
 

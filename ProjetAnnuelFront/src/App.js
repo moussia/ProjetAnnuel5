@@ -70,11 +70,10 @@ export const App = () => {
 
             {/* CHAT */}
             <Route exact path='/chat' element={<PrivateRoute Component={Chat} />} />
-
+            <Route exact path='/moncompte' element={<PrivateRoute Component={Moncompte} />} />
 
             {/* Page PARENT */}
             <Route exact path='/aide' element={<PrivateRoute restricted={roles.PARENT} Component={Aide} />} />
-            <Route exact path='/moncompte' element={<PrivateRoute restricted={roles.PARENT} Component={Moncompte} />} />
             <Route exact path='/historique' element={<PrivateRoute restricted={roles.PARENT} Component={Historique} />} />
             <Route exact path='/payment' element={<PrivateRoute restricted={roles.PARENT} Component={Payment} />} />
 

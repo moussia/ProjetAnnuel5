@@ -57,7 +57,7 @@ const HeaderPro = () => {
     }
 
     const handleChange = (event) => {
-        axios({ url: 'http://localhost:3003/pro/dispo/update', method: 'POST', data: { disponibility: !context.isDisponible }, withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/pro/dispo/update`, method: 'POST', data: { disponibility: !context.isDisponible }, withCredentials: true })
             .then((data) => {
                 setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible }));
                 console.log("ok");

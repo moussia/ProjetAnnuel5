@@ -21,10 +21,13 @@ export default function AuthProvider({ children }) {
   }, [context.role]);
 
   useEffect(() => {
-    axios({ url: `http://localhost:3003/pro/dispo`, method: 'GET', withCredentials: true })
+    axios({ url: `${process.env.REACT_APP_SERVER}/pro/dispo`, method: 'GET', withCredentials: true })
       .then((data) => {
         setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible }))
       })
+      .catch((error) => {
+        console.error("AuthContext : ", error);
+      });
   }, []);
 
   const getRole = () => {

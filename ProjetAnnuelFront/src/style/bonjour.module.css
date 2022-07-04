@@ -52,7 +52,7 @@
   max-lines: 4;
 }
 
-.text-button {
+.textbutton {
   align-content: center;
   text-align: center;
 }
@@ -127,6 +127,14 @@
 
 .form {
   margin-bottom: 20px;
+}
+
+.margintopdeux {
+  margin-top: 5%;
+}
+
+.textalign {
+  text-align: center;
 }
 
 .form-row {

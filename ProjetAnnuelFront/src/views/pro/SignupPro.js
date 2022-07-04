@@ -68,7 +68,7 @@ export default function SignupPro() {
     const onSubmit = async (data, e) => {
         e.preventDefault();
 
-        axios({ url: 'http://localhost:3003/user/pro/create', method: 'POST', data, withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/pro/create`, method: 'POST', data, withCredentials: true })
             .then((data) => {
                 setOpen(true);
             })

@@ -16,7 +16,7 @@ export const HistoriquePro = () => {
     const [count, setCount] = useState(1); // nombre de pages quil y a 
 
     useEffect(() => {
-        axios({ url: `http://localhost:3003/pro/historique`, method: 'GET', withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/pro/historique`, method: 'GET', withCredentials: true })
             .then((data) => setDemandes(data.data))
     }, []);
 

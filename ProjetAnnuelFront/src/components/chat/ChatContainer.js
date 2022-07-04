@@ -37,7 +37,7 @@ export default function ChatContainer({ room }) {
   }, [arrivalMessage]);
 
   const handleFinish = () => {
-    axios({ url: `http://localhost:3003/user/closeChat`, data: { reservationId: room }, method: 'PUT', withCredentials: true })
+    axios({ url: `${process.env.REACT_APP_SERVER}/user/closeChat`, data: { reservationId: room }, method: 'PUT', withCredentials: true })
       .then(() => {
         socket.emit("leave_room", room);
         setIsChatOpen(false);
@@ -54,7 +54,6 @@ export default function ChatContainer({ room }) {
             (
               <>
                 <p className="textalign">🟢 Connecté</p>
-                <p>Nom de la personne juste ici</p>
                 <Button variant="outlined" type="submit" onClick={handleFinish} color="error">
                   Terminé la discussion
                 </Button>

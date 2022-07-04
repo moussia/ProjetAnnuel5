@@ -19,31 +19,12 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import MuiAppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import { MainListItems } from './drawer/ListItems';
 
 
 
 const drawerWidth = 240;
-
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
-}));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
@@ -85,7 +66,7 @@ export const Dons = () => {
     };
 
     useEffect(() => {
-        axios({ url: `http://localhost:3003/admin/amountStripe`, method: 'GET', withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/admin/amountStripe`, method: 'GET', withCredentials: true })
             .then((res) => {
                 const montant = res.data.pending;
                 const total = montant[0].amount / 100;
@@ -94,7 +75,7 @@ export const Dons = () => {
     }, []);
 
     useEffect(() => {
-        axios({ url: `http://localhost:3003/admin/getListAllPayment`, method: 'GET', withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/admin/getListAllPayment`, method: 'GET', withCredentials: true })
             .then((data) => {
                 setDons(data.data.data)
             });

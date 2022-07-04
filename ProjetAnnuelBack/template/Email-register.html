@@ -626,17 +626,6 @@
                                       padding-right: 40px;
                                     "
                                   >
-                                    <h1 style="
-                                    margin: 0;
-                                    -webkit-text-size-adjust: none;
-                                    -ms-text-size-adjust: none;
-                                    mso-line-height-rule: exactly;
-                                    font-family: arial, 'helvetica neue',
-                                      helvetica, sans-serif;
-                                    line-height: 21px;
-                                    color: #02687f;
-                                    font-size: 20px;
-                                  "></h1> Bonjour {{ lastname }}, </h1>
                                     <p
                                       style="
                                         margin: 0;
@@ -650,6 +639,7 @@
                                         font-size: 14px;
                                       "
                                     >
+                                      Bonjour {{ lastname }} {{firstname}},
                                       Merci de votre inscription, nous espérons
                                       vous aider du mieux possible avec votre
                                       enfant.Pensez à confirmer votre adresse
@@ -699,7 +689,7 @@
                                         width: auto;
                                       "
                                       ><a
-                                        href={{link}}
+                                        href="{{link}}"
                                         class="es-button"
                                         target="_blank"
                                         style="

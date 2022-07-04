@@ -19,7 +19,7 @@ export const StepperConfirmation = ({ choix, symptomes, waitingTime, match }) =>
                 {match ?
                     choix === "chat" ?
                         (navigate(`/chat?id=${match}`))
-                        : (<Button>Veuillez patienter, un professionnel est en train de vous contacter.</Button>)
+                        : (<Button variant="contained" color="success">Veuillez patienter, un professionnel est en train de vous contacter.</Button>)
                     : (
                         <>
                             <CircularProgress color="secondary" />

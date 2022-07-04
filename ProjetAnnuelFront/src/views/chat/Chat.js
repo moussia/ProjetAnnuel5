@@ -12,7 +12,7 @@ export default function Chat() {
 
     useEffect(() => {
         if (searchParams && socket) {
-            axios({ url: `http://localhost:3003/user/isChatExist/${searchParams.get('id')}`, method: 'GET', withCredentials: true })
+            axios({ url: `${process.env.REACT_APP_SERVER}/user/isChatExist/${searchParams.get('id')}`, method: 'GET', withCredentials: true })
                 .then((data) => {
                     setAuthorized(data.data);
                 });

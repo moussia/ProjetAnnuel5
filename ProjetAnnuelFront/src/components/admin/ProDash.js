@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from '@mui/material/Link';
 import { makeStyles } from '@mui/styles'; // TODO replace
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,16 +7,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import styles from '../../style/Payment.module.css';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,17 +29,16 @@ export const ProDash = () => {
   const classes = useStyles();
   const [pros, setPros] = useState([]);
   const [dispo, setDispo] = useState([]);
-  const navigate = useNavigate();
   const [page, setPage] = useState(1); //curent page sur laquel on est 
   const [count, setCount] = useState(1); // nombre de pages quil y a 
 
   useEffect(() => {
-    axios({ url: `http://localhost:3003/admin/pro`, method: 'GET', withCredentials: true })
+    axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro`, method: 'GET', withCredentials: true })
       .then((data) => setPros(data.data))
   }, []);
 
   useEffect(() => {
-    axios({ url: `http://localhost:3003/admin/getDisponibilitePro`, method: 'GET', withCredentials: true })
+    axios({ url: `${process.env.REACT_APP_SERVER}/admin/getDisponibilitePro`, method: 'GET', withCredentials: true })
       .then((data) => setDispo(data.data))
   }, []);
 
@@ -55,7 +49,7 @@ export const ProDash = () => {
   }, [setCount, pros]);
 
   const activate = async (id) => {
-    const res = await axios({ url: `http://localhost:3003/admin/pro/${id}/activate`, method: 'PUT', withCredentials: true }
+    const res = await axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro/${id}/activate`, method: 'PUT', withCredentials: true }
     );
     const data = res.data;
     setPros((prev) => {
@@ -79,7 +73,7 @@ export const ProDash = () => {
               <TableRow>
                 <TableCell>Nom</TableCell>
                 <TableCell>Prénom</TableCell>
-                <TableCell>Téléphone</TableCell>
+                <TableCell>Email</TableCell>
                 <TableCell>Activé</TableCell>
               </TableRow>
             </TableHead>
@@ -95,7 +89,7 @@ export const ProDash = () => {
                       {pro.firstname}
                     </TableCell>
                     <TableCell>
-                      {pro.phone}
+                      {pro.email}
                     </TableCell>
                     <TableCell>
                       {

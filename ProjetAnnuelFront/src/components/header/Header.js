@@ -15,6 +15,7 @@ import { roles } from '../../constants/roles';
 import HeaderAdmin from './HeaderAdmin';
 import HeaderParent from './HeaderParent';
 import HeaderPro from './HeaderPro';
+import styles from '../../style/header.module.css';
 
 const pages = [
     { label: 'Qui sommes-nous ?', route: 'qui-sommes-nous' },
@@ -44,10 +45,11 @@ const Header = () => {
     if (context.role === roles.PRO) return <HeaderPro />
 
     return (
-        <AppBar position="static">
+        <AppBar sx={{ display: 'flex' }} className={styles.colorwhite} >
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
+                <Toolbar>
                     <Typography
+                        className={styles.cursor}
                         variant="h6"
                         noWrap
                         component="div"
@@ -107,7 +109,7 @@ const Header = () => {
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar >
     );
 };
 export default Header;

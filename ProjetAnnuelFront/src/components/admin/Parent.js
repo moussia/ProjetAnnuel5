@@ -1,150 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import Link from '@mui/material/Link';
 import { makeStyles } from '@mui/styles'; // TODO replace
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-// import { useNavigate } from 'react-router';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
-const drawerWidth = 240;
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
+    tailleeye: {
+        width: '25px',
+        cursor: 'pointer',
     },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
+    fixedHeight: {
+        height: 240,
+    },
 }));
 
-export const Parent = () => {
-  const classes = useStyles();
-  const [parent, setParent] = useState({});
-  const { id } = useParams();
+export const Parent = ({ parent, setParent }) => {
+    const classes = useStyles();
+    //modal
+    const [openModalParent, setOpenModalParent] = React.useState(false);
+    const handleOpen = () => setOpenModalParent(true);
+    const handleClose = () => setOpenModalParent(false);
+    //
 
-  // if (context?.token === null) history.push('/login');
-  // if (context?.isAdmin !== true) history.push('/');
+    const deleteParent = async (id) => {
+        const res = await axios({ url: `${process.env.REACT_APP_SERVER}/admin/parent/${id}`, method: 'DELETE', withCredentials: true }
+        );
+        if (res.status === 204)
+            setParent((prev) => [...prev.filter((item) => item._id !== id)]);
+    };
 
-  useEffect(() => {
-    axios({ url: `http://localhost:3003/admin/parent/${id}`, method: 'GET', withCredentials: true })
-      .then((res) => setParent(res.data))
-  }, [id])
-
-  return (
-    <div className={classes.root}>
-      <main className={classes.content}>
-        <Card className={classes.root} variant="outlined">
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-              <h1>Parent :  {parent.firstname} </h1>
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Lastname
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {parent.lastname}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Email
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {parent.email}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Téléphone
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {parent.phone}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Adresse
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {parent.address}
-            </Typography>
-          </CardContent>
-        </Card>
-      </main>
-    </div>
-  );
+    return (
+        <TableRow key={parent._id}>
+            <TableCell>
+                {parent.lastname}
+            </TableCell>
+            <TableCell>{parent.firstname}</TableCell>
+            <TableCell>{parent.email}</TableCell>
+            <TableCell>{parent.phone}</TableCell>
+            <TableCell>
+                <Link onClick={handleOpen}>
+                    <img src={require('../../images/eye.png')} alt="traitement" className={classes.tailleeye} />
+                </Link>
+            </TableCell>
+            <Modal
+                open={openModalParent}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        {parent.firstname} {parent.lastname}
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Adresse :  {parent.address} <br></br>
+                        Ville :  {parent.city} {parent.zipcode} <br></br>
+                        Email :  {parent.email} <br></br>
+                        Téléphone :  {parent.phone} <br></br>
+                    </Typography>
+                </Box>
+            </Modal>
+            <TableCell>
+                <Link onClick={() => deleteParent(parent._id)}>
+                    <img src={require('../../images/poubelle-de-recyclage.png')} alt="traitement" className={classes.tailleeye} />
+                </Link>
+            </TableCell>
+        </TableRow>
+    );
 }

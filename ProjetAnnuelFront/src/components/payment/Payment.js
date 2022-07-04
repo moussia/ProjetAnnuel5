@@ -42,7 +42,7 @@ export default function Payment() {
     }, [search]);
 
     const checkout = () => {
-        axios({ url: 'http://localhost:3003/user/payment', method: 'POST', data: { amount }, withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/payment`, method: 'POST', data: { amount }, withCredentials: true })
             .then((data) => {
                 setMessage(data.data);
                 window.location.href = data.data;

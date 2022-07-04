@@ -46,7 +46,7 @@ export const ActivateMail = () => {
             navigate("/");
         }
         else {
-            axios({ url: 'http://localhost:3003/user/activatedMail', method: 'POST', data: { token } })
+            axios({ url: `${process.env.REACT_APP_SERVER}/user/activatedMail`, method: 'POST', data: { token } })
                 .then(() => setTimeout(() => setActivation(true), 2000))
                 .catch(() => setTimeout(() => setActivation(false), 1500));
         }

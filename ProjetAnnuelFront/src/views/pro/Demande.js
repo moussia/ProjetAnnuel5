@@ -41,7 +41,7 @@ export const Demande = () => {
 
     const fetchData = useCallback(() => {
         if (context.isDisponible) {
-            axios({ url: `http://localhost:3003/pro/getDemandes`, method: 'GET', withCredentials: true })
+            axios({ url: `${process.env.REACT_APP_SERVER}/pro/getDemandes`, method: 'GET', withCredentials: true })
                 .then((data) => setPros(data.data))
         };
     }, [context.isDisponible]);
@@ -51,7 +51,7 @@ export const Demande = () => {
     }, [fetchData, context.isDisponible]);
 
     const prendreDisponibilite = async (id) => {
-        const res = await axios({ url: `http://localhost:3003/pro/${id}/activate`, method: 'PUT', withCredentials: true });
+        const res = await axios({ url: `${process.env.REACT_APP_SERVER}/pro/${id}/activate`, method: 'PUT', withCredentials: true });
         const data = res.data;
         setPros((prev) => {
             const i = prev.findIndex(elem => elem._id === data._id);
@@ -69,7 +69,7 @@ export const Demande = () => {
     }, [setCount, pros]);
 
     const finishreservation = (reservationId) => {
-        axios({ url: `http://localhost:3003/user/finishReservation/${reservationId}`, method: 'PUT', withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/finishReservation/${reservationId}`, method: 'PUT', withCredentials: true })
             .then(() => fetchData());
     };
 
@@ -104,11 +104,11 @@ export const Demande = () => {
                                         </TableCell>
                                         <TableCell>
                                             {
-                                                demand.symptomes === "SOUTIEN" ?
+                                                demand.symptomes === "soutien" ?
                                                     <p>Le parent à besoin de soutien</p> :
-                                                    demand.symptomes === "MALADE" ?
+                                                    demand.symptomes === "malade" ?
                                                         <p>L'enfant est malade</p> :
-                                                        demand.symptomes === "PLEURE" ?
+                                                        demand.symptomes === "pleure" ?
                                                             <p>L'enfant pleure beaucoup</p> :
                                                             <p>Le parent a besoin d'aide</p>
                                             }

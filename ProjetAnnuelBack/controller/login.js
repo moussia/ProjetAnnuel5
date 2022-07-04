@@ -48,7 +48,7 @@ export const SendEmailForForgePassword = async (req, res) => {
         const link = jwt.sign({
             data: { _id: user._id }
         }, process.env.JWT_RESETPASS, { expiresIn: '1h' });
-        sendToUserForgetPassword(email, `http://localhost:3000/newPassword?token=${link}`);
+        sendToUserForgetPassword(email, `${process.env.FRONT_URL}/newPassword?token=${link}`);
         res.sendStatus(200);
     } catch (error) {
         res.sendStatus(400);

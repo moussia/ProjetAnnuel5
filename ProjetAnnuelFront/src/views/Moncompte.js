@@ -34,7 +34,7 @@ export const Moncompte = () => {
     });
 
     useEffect(() => {
-        request('http://localhost:3003/user/current', 'GET')
+        request(`${process.env.REACT_APP_SERVER}/user/current`, 'GET')
             .then((data) => {
                 console.log(data.data);
                 reset(data.data);
@@ -43,7 +43,7 @@ export const Moncompte = () => {
 
     const onSubmit = async (data, e) => {
         // e?.preventDefault();
-        await request('http://localhost:3003/user/update', 'PUT', data)
+        await request(`${process.env.REACT_APP_SERVER}/user/update`, 'PUT', data)
             .then((data) => {
                 console.log(data);
             })
@@ -186,8 +186,8 @@ export const Moncompte = () => {
                                         name="sex"
                                         control={control}
                                     >
-                                        <FormControlLabel value="femme" label="Femme" control={<Radio />} />
-                                        <FormControlLabel value="homme" label="Homme" control={<Radio />} />
+                                        <FormControlLabel value="WOMAN" label="Femme" control={<Radio />} />
+                                        <FormControlLabel value="MAN" label="Homme" control={<Radio />} />
                                     </RadioController>
                                 </Grid>
                                 <Grid item xs={6}>

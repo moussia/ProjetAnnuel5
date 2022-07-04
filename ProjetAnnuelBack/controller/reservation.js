@@ -19,7 +19,7 @@ export const createDemandeReservation = async (req, res) => {
         const pros = await User.find({ isDisponible: true }).lean().limit(5);
         console.table(pros);
         pros.forEach((pro) => {
-            sendToProForDemandeAide(pro.email)
+            sendToProForDemandeAide(pro.email, `${process.env.FRONT_URL}/pro/demande`)
         });
         res.send({ _id: reservation._id, waitingTime: await getWaitingTime() });
     } catch (error) {
@@ -41,7 +41,7 @@ const getWaitingTime = async () => {
 
 export const getDemandeReservation = async (req, res) => {
     try {
-        const pro = await Reservation.find({ $or: [{ status: "DEMANDE" }, { status: "RESERVE", id_pro: req.user._id }] }).sort({ date: 'desc' });
+        const pro = await Reservation.find({ $or: [{ status: "DEMANDE" }, { status: "RESERVE", id_pro: req.user._id }] }).sort({ createdAt: 'desc' });
         res.send(pro);
     } catch (error) {
         res.sendStatus(400);
@@ -124,7 +124,7 @@ export const getDemandesFinish = async (req, res) => {
 
 export const historiqueForParent = async (req, res) => {
     try {
-        const demandes = await Reservation.find({ id_parent: req.user._id }, { id_parent: 0 });
+        const demandes = await Reservation.find({ id_parent: req.user._id }, { id_parent: 0 }).sort({ createdAt: 'desc' });
         res.send(demandes);
     } catch (error) {
         console.log(error);
@@ -134,7 +134,7 @@ export const historiqueForParent = async (req, res) => {
 // il faut recuperer les reservations ou l'id du pro corresponds a l'id de la personne connecte
 export const historiqueForPro = async (req, res) => {
     try {
-        const demandes = await Reservation.find({ id_pro: req.user._id }, { id_parent: 0 }).sort({ date: 'desc' });
+        const demandes = await Reservation.find({ id_pro: req.user._id }, { id_parent: 0 }).sort({ createdAt: 'desc' });
         res.send(demandes);
     } catch (error) {
         console.log(error);

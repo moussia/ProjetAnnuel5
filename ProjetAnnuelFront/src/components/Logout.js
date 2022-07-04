@@ -18,7 +18,9 @@ const Logout = () => {
     const { setContext } = useContext(AuthContext);
 
     useEffect(() => {
-        axios({ url: 'http://localhost:3003/session', method: 'DELETE', withCredentials: true })
+        axios({
+            url: `${process.env.REACT_APP_SERVER}/session`, method: 'DELETE', withCredentials: true
+        })
             .then(() => setContext((prev) => ({ role: null, isLoggedIn: false })))
     }, [setContext]);
 

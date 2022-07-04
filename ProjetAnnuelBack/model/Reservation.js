@@ -25,6 +25,6 @@ const schema = new Schema({
     symptomes: {
         type: String,
     }
-});
+}, { timestamps: true });
 
 export default model('Reservation', schema);

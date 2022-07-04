@@ -59,7 +59,7 @@ export const Login = () => {
     const onSubmit = async (data, e) => {
         e.preventDefault();
 
-        axios({ url: 'http://localhost:3003/session', method: 'POST', withCredentials: true, data })
+        axios({ url: `${process.env.REACT_APP_SERVER}/session`, method: 'POST', withCredentials: true, data })
             .then((data) => {
                 setContext(() => ({ isLoggedIn: true, role: data.data.role }));
             })

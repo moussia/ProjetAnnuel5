@@ -1,151 +1,124 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@mui/styles';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import React from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import styles from '../../style/Payment.module.css';
+import { makeStyles } from '@mui/styles'; // TODO replace
+import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
 
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
+    fixedHeight: {
+        height: 240,
     },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
+    tailleeye: {
+        width: '25px',
+        cursor: 'pointer',
+    },
 }));
 
-export const Professionnel = () => {
-  const classes = useStyles();
-  // const history = useNavigate();
-  const [pro, setPro] = useState({});
-  // const [open] = useState(true);
-  const { id } = useParams();
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
-  // if (context?.token === null) history.push('/login');
-  // if (context?.isAdmin !== true) history.push('/');
+export const Professionnel = ({ pro, setPros }) => {
+    const classes = useStyles();
+    // pour la modal 
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpen = () => setOpenModal(true);
+    const handleClose = () => setOpenModal(false);
+    // const [pros, setPros] = useState([]);
 
-  useEffect(() => {
-    axios({ url: `http://localhost:3003/admin/pro/${id}`, method: 'GET', withCredentials: true })
-      .then((res) => setPro(res.data))
-  }, [id])
+    const activate = async (id) => {
+        const res = await axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro/${id}/activate`, method: 'PUT', withCredentials: true }
+        );
+        const data = res.data;
+        setPros((prev) => {
+            const i = prev.findIndex(elem => {
+                return elem._id === data._id;
+            });
+            prev.splice(i, 1, data);
+            return [...prev];
+        });
+    };
 
-  return (
-    <div className={classes.root}>
-      <main className={classes.content}>
-        <Card className={classes.root} variant="outlined">
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-              <h1>Professionnel :  {pro.firstname} </h1>
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Lastname
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {pro.lastname}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Email
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {pro.email}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Téléphone
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {pro.phone}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Adresse
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {pro.address}
-            </Typography>
-          </CardContent>
-        </Card>
-      </main>
-    </div>
-  );
+    const deletePro = async (id) => {
+        const res = await axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro/${id}`, method: 'DELETE', withCredentials: true }
+        );
+        if (res.status === 204)
+            setPros((prev) => [...prev.filter((item) => item._id !== id)]);
+    };
+
+    return (
+        <TableRow key={pro._id} className={classes.cursorpointer}>
+            <TableCell>
+                {pro.lastname}
+            </TableCell>
+            <TableCell>
+                {pro.firstname}
+            </TableCell>
+            <TableCell>
+                {pro.email}
+            </TableCell>
+            <TableCell>
+                {pro.phone}
+            </TableCell>
+            <TableCell>
+                {
+                    !pro.activatedByAdmin ? <Button onClick={() => activate(pro._id)} variant="contained" color="success">Activer </Button>
+                        : <p className={styles.colorgreen} >✓</p>
+                }
+            </TableCell>
+            <TableCell>
+                {
+                    pro.isDisponible === true ?
+                        <p className={styles.colorgreen} >✓</p> :
+                        <p>❌</p>
+                }
+            </TableCell>
+            <TableCell>
+                <Link onClick={handleOpen}>
+                    <img src={require('../../images/eye.png')} alt="traitement" className={classes.tailleeye} />
+                </Link>
+                <Modal
+                    open={openModal}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            {pro.lastname}  {pro.firstname}
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Email : {pro.email} <br></br>
+                            Téléphone :  {pro.phone} <br></br>
+                            Profession : {pro.job}<br></br>
+                            Description : {pro.description}<br></br>
+                            Adresse : {pro.address} {pro.zipcode}<br></br>
+                            Ville : {pro.city}<br></br>
+                        </Typography>
+                    </Box>
+                </Modal>
+            </TableCell>
+            <TableCell>
+                <Link onClick={() => deletePro(pro._id)}>
+                    <img src={require('../../images/poubelle-de-recyclage.png')} alt="traitement" className={classes.tailleeye} />
+                </Link>
+            </TableCell>
+        </TableRow>
+
+    );
 }

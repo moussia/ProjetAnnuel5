@@ -51,11 +51,11 @@ export const Aide = () => {
     const handleOpen = () => setOpen(true);
 
     React.useEffect(() => {
-        axios({ url: `http://localhost:3003/user/closeReservation`, method: 'PUT', withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/closeReservation`, method: 'PUT', withCredentials: true })
     }, []);
 
     const handleFinish = () => {
-        axios({ url: `http://localhost:3003/user/sendReservation`, method: 'POST', data: { choix: choix, symptomes: symptomes }, withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/sendReservation`, method: 'POST', data: { choix: choix, symptomes: symptomes }, withCredentials: true })
             .then((data) => {
                 setWaitingTime(data.data.waitingTime);
                 setReservationId(data.data._id);

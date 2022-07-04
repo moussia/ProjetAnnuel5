@@ -16,12 +16,11 @@ export const Historique = () => {
     const [demandes, setDemandes] = useState([]);
     const [page, setPage] = useState(1); //curent page sur laquel on est 
     const [count, setCount] = useState(1); // nombre de pages quil y a 
-    const [pros, setPros] = useState([]);
     const navigate = useNavigate();
 
 
     const fetchData = useCallback(() => {
-        axios({ url: `http://localhost:3003/user/historique`, method: 'GET', withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/historique`, method: 'GET', withCredentials: true })
             .then((data) => setDemandes(data.data))
     }, []);
 
@@ -30,7 +29,7 @@ export const Historique = () => {
     }, [fetchData]);
 
     const finishreservation = (reservationId) => {
-        axios({ url: `http://localhost:3003/user/finishReservation/${reservationId}`, method: 'PUT', withCredentials: true })
+        axios({ url: `${process.env.REACT_APP_SERVER}/user/finishReservation/${reservationId}`, method: 'PUT', withCredentials: true })
             .then(() => fetchData());
     };
 

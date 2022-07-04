@@ -22,7 +22,7 @@ export default function PhoneParent({ open, onClose, idDemande }) {
 
     useEffect(() => {
         if (idDemande) {
-            axios({ url: `http://localhost:3003/pro/getDemande/${idDemande}`, method: 'GET', withCredentials: true })
+            axios({ url: `${process.env.REACT_APP_SERVER}/pro/getDemande/${idDemande}`, method: 'GET', withCredentials: true })
                 .then((res) => {
                     setPhone(res.data.phone);
                 })
