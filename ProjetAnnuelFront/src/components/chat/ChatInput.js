@@ -15,10 +15,6 @@ export default function ChatInput({ handleSendMsg }) {
   return (
     <Container>
       <div className="button-container">
-        {/* <div className="emoji"> */}
-        {/* <BsEmojiSmileFill onClick={handleEmojiPickerhideShow} /> */}
-        {/* {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />} */}
-        {/* </div> */}
       </div>
       <form className="input-container" onSubmit={(event) => sendChat(event)}>
         <input

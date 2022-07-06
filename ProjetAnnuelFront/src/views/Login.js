@@ -87,7 +87,10 @@ export const Login = () => {
     }
 
     return (
-        <Grid container className={styles.colorpurple}>
+        <Grid container
+            direction="row"
+            justifyContent="center"
+            alignItems="center" className={styles.colorpurple}>
             <Container maxWidth="xs" className={styles.marginhaut}>
                 <CssBaseline />
                 <Card className={styles.centerbutton}>

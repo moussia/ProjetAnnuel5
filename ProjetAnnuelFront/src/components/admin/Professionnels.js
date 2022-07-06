@@ -112,7 +112,12 @@ export const Professionnels = () => {
           >
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              <Grid container spacing={3}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
                 <Grid item xs={12} md={12} lg={12}>
                   <Paper
                     sx={{

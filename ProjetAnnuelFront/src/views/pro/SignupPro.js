@@ -92,8 +92,11 @@ export default function SignupPro() {
     return (
         // <>
         <Grid container className={styles.colorpurple}>
-            <Grid item xs={3} />
-            <Grid item xs={6}>
+
+            <Grid container
+                direction="row"
+                justifyContent="center"
+                alignItems="center">
                 <Container>
                     <Card className={styles.centerbutton}>
                         <CardContent>
@@ -392,7 +395,7 @@ export default function SignupPro() {
                     Merci pour votre inscription. Regardez votre mail pour confirmer votre compte.
                 </Alert>
             </Snackbar>
-            <Grid item xs={3} />
+
         </Grid>
         // </>
     );

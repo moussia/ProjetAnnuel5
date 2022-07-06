@@ -73,85 +73,90 @@ export const ForgetPassword = () => {
     }
 
     return (
-        <Container className="image-nature" component="main" maxWidth="xs">
-            <CssBaseline />
-            <Card className="centerbutton">
-                <CardContent>
-                    <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                        <Box
-                            sx={{
-                                marginTop: 8,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                                <LockOutlinedIcon />
-                            </Avatar>
-                            <Typography component="h1" variant="h5">
-                                Mot de passe oublié
-                            </Typography>
-                            <Box>
-                                <TextController
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    label="Email"
-                                    name="email"
-                                    autoComplete="email"
-                                    control={control}
-                                    error={errors.email ? true : false}
-                                    rules={{
-                                        required: {
-                                            value: true,
-                                            message: 'Ce champ est obligatoire.'
-                                        },
-                                        pattern: {
-                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                            message: "Adresse email invalide."
-                                        }
-                                    }}
-                                    autoFocus
-                                />
+        <Grid container
+            direction="row"
+            justifyContent="center"
+            alignItems="center">
+            <Container className="image-nature" component="main" maxWidth="xs">
+                <CssBaseline />
+                <Card className="centerbutton">
+                    <CardContent>
+                        <form noValidate onSubmit={handleSubmit(onSubmit)}>
+                            <Box
+                                sx={{
+                                    marginTop: 8,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                    <LockOutlinedIcon />
+                                </Avatar>
+                                <Typography component="h1" variant="h5">
+                                    Mot de passe oublié
+                                </Typography>
+                                <Box>
+                                    <TextController
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        label="Email"
+                                        name="email"
+                                        autoComplete="email"
+                                        control={control}
+                                        error={errors.email ? true : false}
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message: 'Ce champ est obligatoire.'
+                                            },
+                                            pattern: {
+                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                message: "Adresse email invalide."
+                                            }
+                                        }}
+                                        autoFocus
+                                    />
 
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                    disabled={!isValid || !isDirty || isSubmitting}
-                                >
-                                    Envoyer
-                                </Button>
-                                <Grid container>
-                                    <Grid item xs>
-                                        <Link href="/login" variant="body2">
-                                            Connexion
-                                        </Link>
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2 }}
+                                        disabled={!isValid || !isDirty || isSubmitting}
+                                    >
+                                        Envoyer
+                                    </Button>
+                                    <Grid container>
+                                        <Grid item xs>
+                                            <Link href="/login" variant="body2">
+                                                Connexion
+                                            </Link>
+                                        </Grid>
+                                        <Grid item>
+                                            <Link href="/signup" variant="body2">
+                                                {"Inscription"}
+                                            </Link>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item>
-                                        <Link href="/signup" variant="body2">
-                                            {"Inscription"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
+                                </Box>
                             </Box>
-                        </Box>
-                    </form>
-                </CardContent>
-            </Card>
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                    Email invalide
-                </Alert>
-            </Snackbar>
-            <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    Email envoyé
-                </Alert>
-            </Snackbar>
-        </Container >
+                        </form>
+                    </CardContent>
+                </Card>
+                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                    <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                        Email invalide
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                        Email envoyé
+                    </Alert>
+                </Snackbar>
+            </Container >
+        </Grid>
 
     );
 }

@@ -40,14 +40,14 @@ export default function Home() {
         <div className={styles.body && styles.home}>
             <Grid container className={styles.nopadding && styles.room}>
                 <img
-                    alt='furniture'
+                    alt='accueil'
                     src={require('../images/jonathan-borba-CgWTqYxHEkg-unsplash.jpg')}
                     className={styles.roomimg}
                 />
                 <Grid Grid item xs={12} className={styles.roomcontent}>
                     <div className='row'>
                         <Fade left>
-                            <h2 className={styles.nopadding && styles.roomtext && styles.textbutton}>
+                            <h2 className={styles.nopadding && styles.roomtext && styles.textbutton && styles.petit}>
                                 Ne craquez plus, appelez nous pour vous aidez... <br></br>
                                 Vous êtes fatigué ? Vous n'arrivez pas à calmer bébé ? Soufflez un peu et contactez nous !
                                 <br></br>   SOS PARENTS  <br></br>

@@ -87,8 +87,11 @@ export default function Signup() {
     return (
         <>
             <Grid container className={styles.colorpurple}>
-                <Grid item xs={3} />
-                <Grid item xs={6}>
+
+                <Grid container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center">
                     <Container>
                         <Card className={styles.centerbutton}>
                             <CardContent>
@@ -355,7 +358,7 @@ export default function Signup() {
                 </Snackbar>
 
 
-                <Grid item xs={3} />
+
             </Grid>
         </>
     );
