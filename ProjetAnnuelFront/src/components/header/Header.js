@@ -45,20 +45,19 @@ const Header = () => {
     if (context.role === roles.PRO) return <HeaderPro />
 
     return (
-        <AppBar sx={{ display: 'flex' }} className={styles.colorwhite} >
+
+
+        <AppBar sx={{ display: 'flex' }} position="static" className={styles.colorwhite} >
             <Container maxWidth="xl">
                 <Toolbar>
-                    <Typography
+                    <img
+                        alt='logo'
+                        height='auto'
+                        width='100px'
                         className={styles.cursor}
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        color="black"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                        src={require('../../images/Blanc et Noir Moderne Icônes Enseignement Hôpital Logo.png')}
                         onClick={() => handleMenuClick('/')}
-                    >
-                        SOS PARENTS
-                    </Typography>
+                    />
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton

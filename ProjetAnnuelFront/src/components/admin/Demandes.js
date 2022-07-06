@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@mui/styles'; // TODO replace
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,7 +9,6 @@ import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import { getSocket } from '../../utils/socket';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -25,18 +23,6 @@ import List from '@mui/material/List';
 import MuiDrawer from '@mui/material/Drawer';
 import { Demande } from './Demande';
 
-// modal pour le pro
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 const drawerWidth = 240;
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -71,11 +57,6 @@ export const Demandes = () => {
     const [demandes, setDemandes] = useState([]);
     const [page, setPage] = useState(1); //curent page sur laquel on est 
     const [count, setCount] = useState(1); // nombre de pages quil y a 
-    const [openmodal, setOpenModal] = React.useState(false);
-    const handleOpen = () => setOpenModal(true);
-    const handleClose = () => setOpenModal(false);
-    const [pros, setPros] = useState([]);
-    const socket = getSocket();
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);

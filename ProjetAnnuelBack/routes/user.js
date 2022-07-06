@@ -2,15 +2,13 @@ import { Router } from 'express';
 import { closeChat, isChatExist } from '../controller/chat.js';
 import { activatedMail, modifPassword, resetPassword, SendEmailForForgePassword } from '../controller/login.js';
 import { createPayment } from '../controller/payment.js';
-// import { ModifPasswordForget, SendEmailForForgePassword } from '../controller/login.js';
 import { createPro } from '../controller/pro.js';
 import { closeReservation, createDemandeReservation, finishReservation, historiqueForParent } from '../controller/reservation.js';
-import { createParent, currentUser, updateUser } from '../controller/user.js';
+import { createParent, currentUser, sendMailFromContact, updateUser } from '../controller/user.js';
 import { isAuthenticated } from '../middleware/isAuthenticated.js';
 import { isParent } from '../middleware/isAuthorized.js';
 import { ValidateParentSignup } from '../middleware/Validators/SignUp.js';
 import { ValidateProSignup } from '../middleware/Validators/SignUpPro.js';
-// import { isAdmin } from "../middlewares/isAdmin.js";
 
 const userRouter = Router();
 
@@ -30,5 +28,6 @@ userRouter.put('/closeReservation', isAuthenticated, closeReservation);
 userRouter.put('/finishReservation/:reservationId', isAuthenticated, finishReservation);
 userRouter.get("/historique", isAuthenticated, isParent, historiqueForParent);
 userRouter.post("/payment", isAuthenticated, isParent, createPayment);
+userRouter.post("/sendMailContact", sendMailFromContact);
 
 export default userRouter;

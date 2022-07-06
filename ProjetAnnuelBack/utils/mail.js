@@ -67,6 +67,54 @@ export const EnvoiMailAuProPourInscription = async (to, lastname, firstname, lin
     });
 }
 
+export const sendMailContact = async (name, email, sujet, commentaire) => {
+    let source = await readFile('template/Email-contact.html', 'utf8');
+    let template = handlebars.compile(source);
+    const data = {
+        name, email, sujet, commentaire
+    }
+    let html = template(data);
+
+    const mailOptions = {
+        from: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`, // sender address
+        to: `sosparentsoff@gmail.com`, // list of receivers
+        subject: "Fomulaire contact", // Subject line
+        text: "Formulaire contact", // plain text body
+        html, // html body
+    }
+    // send mail with defined transport object
+    await transporter.sendMail(mailOptions, (error, info) => {
+        if (error) console.log('Email cannot be send: ' + error);
+        else {
+            console.log('Email sent: ' + clientInformation.response);
+            return true;
+        }
+    });
+}
+
+
+export const sendMailDon = async (email) => {
+    let source = await readFile('template/Email-don.html', 'utf8');
+    let template = handlebars.compile(source);
+    let html = template();
+
+    const mailOptions = {
+        from: `"SOS Parents" <${process.env.EMAIL_USERNAME}>`, // sender address
+        to: email,// list of receivers
+        subject: "Merci pour votre don", // Subject line
+        text: "Don", // plain text body
+        html, // html body
+    }
+    // send mail with defined transport object
+    await transporter.sendMail(mailOptions, (error, info) => {
+        if (error) console.log('Email cannot be send: ' + error);
+        else {
+            console.log('Email sent: ' + clientInformation.response);
+            return true;
+        }
+    });
+}
+
 
 export const EnvoiMailAuProPourCompteValide = async (to, lastname) => {
     let source = await readFile('template/EmailCompteValide.html', 'utf8');

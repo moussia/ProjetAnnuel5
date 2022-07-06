@@ -37,11 +37,6 @@ export const ProDash = () => {
       .then((data) => setPros(data.data))
   }, []);
 
-  useEffect(() => {
-    axios({ url: `${process.env.REACT_APP_SERVER}/admin/getDisponibilitePro`, method: 'GET', withCredentials: true })
-      .then((data) => setDispo(data.data))
-  }, []);
-
   //on calcul le count des demandes dans le front, on va avoir combien il va y avoir de pages
   useEffect(() => {
     if (setCount && pros)

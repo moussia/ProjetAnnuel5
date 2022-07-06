@@ -64,10 +64,6 @@ export const Professionnels = () => {
   };
 
   useEffect(() => {
-    console.log(pros);
-  }, [pros]);
-
-  useEffect(() => {
     axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro`, method: 'GET', withCredentials: true })
       .then((data) => setPros(data.data))
   }, []);

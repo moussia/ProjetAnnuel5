@@ -21,14 +21,16 @@ export default function AuthProvider({ children }) {
   }, [context.role]);
 
   useEffect(() => {
-    axios({ url: `${process.env.REACT_APP_SERVER}/pro/dispo`, method: 'GET', withCredentials: true })
-      .then((data) => {
-        setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible }))
-      })
-      .catch((error) => {
-        console.error("AuthContext : ", error);
-      });
-  }, []);
+    if (context.isLoggedIn && context.role === 'PRO' && context.isDisponible === null) {
+      axios({ url: `${process.env.REACT_APP_SERVER}/pro/dispo`, method: 'GET', withCredentials: true })
+        .then((data) => {
+          setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible }))
+        })
+        .catch((error) => {
+          console.error("AuthContext : ", error);
+        });
+    }
+  }, [context]);
 
   const getRole = () => {
     return localStorage.getItem("role");

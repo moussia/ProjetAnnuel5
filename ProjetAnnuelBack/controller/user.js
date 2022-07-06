@@ -1,6 +1,6 @@
 import User from '../model/User.js';
 import bcrypt from 'bcrypt';
-import { EnvoiMailAuParentPourInscription } from '../utils/mail.js';
+import { EnvoiMailAuParentPourInscription, sendMailContact } from '../utils/mail.js';
 import { roles } from '../constants/Roles.js';
 import jwt from 'jsonwebtoken';
 
@@ -45,7 +45,7 @@ export const findUser = async (req) => {
         return await User.findOne({ email });
     } catch (error) {
         // res.sendStatus(400);
-        console.log(error);
+        console.error(error);
     }
 
 }
@@ -112,4 +112,17 @@ export const NewPasswordForget = async (req, res) => {
     } catch (error) {
         res.sendStatus(400);
     }
+}
+
+
+
+export const sendMailFromContact = async (req, res) => {
+    try {
+        const { name, email, sujet, commentaire } = req.body
+        sendMailContact(name, email, sujet, commentaire);
+    } catch (error) {
+        console.error("error : ", error);
+        res.sendStatus(400);
+    }
+
 }

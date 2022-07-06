@@ -201,31 +201,6 @@ export default function SignupPro() {
                                             helperText={errors?.address?.message}
                                         />
                                     </Grid>
-                                    <Grid item xs={6}>
-                                        <TextController
-                                            fullWidth
-                                            label='Ville'
-                                            variant='outlined'
-                                            name='city'
-                                            required
-                                            margin="normal"
-                                            autoComplete="ville"
-                                            autoFocus
-                                            rules={{
-                                                required: {
-                                                    value: true,
-                                                    message: 'Ce champ est obligatoire.'
-                                                },
-                                                minLength: {
-                                                    value: '2',
-                                                    message: 'Veuillez saisir minimum 2 caractères.'
-                                                }
-                                            }}
-                                            control={control}
-                                            error={errors.city ? true : false}
-                                            helperText={errors?.city?.message}
-                                        />
-                                    </Grid>
 
                                     <Grid item xs={6}>
                                         <TextController
@@ -255,6 +230,32 @@ export default function SignupPro() {
                                             helperText={errors?.zipcode?.message}
                                         />
                                     </Grid>
+                                    <Grid item xs={6}>
+                                        <TextController
+                                            fullWidth
+                                            label='Ville'
+                                            variant='outlined'
+                                            name='city'
+                                            required
+                                            margin="normal"
+                                            autoComplete="ville"
+                                            autoFocus
+                                            rules={{
+                                                required: {
+                                                    value: true,
+                                                    message: 'Ce champ est obligatoire.'
+                                                },
+                                                minLength: {
+                                                    value: '2',
+                                                    message: 'Veuillez saisir minimum 2 caractères.'
+                                                }
+                                            }}
+                                            control={control}
+                                            error={errors.city ? true : false}
+                                            helperText={errors?.city?.message}
+                                        />
+                                    </Grid>
+
                                     <Grid item xs={6}>
                                         <TextController
                                             fullWidth
@@ -333,11 +334,28 @@ export default function SignupPro() {
                                     </Grid>
                                     <Grid item xs={12} className={styles.textalign}>
                                         <TextController
-                                            control={control}
-                                            name="description"
-                                            label="CV*"
+                                            fullWidth
+                                            label='Description'
+                                            variant='outlined'
+                                            name='description'
+                                            required
+                                            margin="normal"
                                             multiline
                                             rows={5}
+                                            autoFocus
+                                            rules={{
+                                                required: {
+                                                    value: true,
+                                                    message: 'Ce champ est obligatoire.'
+                                                },
+                                                minLength: {
+                                                    value: '15',
+                                                    message: 'La description doit contenir minimum 15 caractères.'
+                                                }
+                                            }}
+                                            control={control}
+                                            error={errors.description ? true : false}
+                                            helperText={errors?.description?.message}
                                         />
                                     </Grid>
                                     <Grid item xs={12} className={styles.textalign}>

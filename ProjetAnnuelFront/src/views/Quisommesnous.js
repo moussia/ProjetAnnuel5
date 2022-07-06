@@ -53,8 +53,8 @@ export const Quisommesnous = () => {
                 <Grid item xs={1}>
                 </Grid>
             </Grid>
-            <Grid container>
-                <Grid item xs={12} className={styles.titrequi}>
+            <Grid container className={styles.colorblancfond}>
+                <Grid item xs={12} className={styles.titredeuxqui}>
                     <h2>Aider le parent :</h2>
                     <h3>Une vocation nationale et des interventions départementales</h3>
                 </Grid>

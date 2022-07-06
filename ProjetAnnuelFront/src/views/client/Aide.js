@@ -13,6 +13,9 @@ import { StepperProblem } from '../../components/modal/StepperProblem';
 import { StepperConfirmation } from '../../components/modal/StepperConfirmation';
 import { Link } from 'react-router-dom';
 import { getSocket } from '../../utils/socket';
+import styles from '../../style/Payment.module.css';
+import CardContent from '@mui/material/CardContent';
+import Card from '@mui/material/Card';
 
 const steps = ['Choix', 'Symptômes', 'Confirmation'];
 
@@ -77,60 +80,64 @@ export const Aide = () => {
     const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
     return (
-        <Grid container direction="column" justifyContent="center" alignItems="center">
-            <p>Attention ! Pensé à vérifié votre numéro de téléphone <Link to="/moncompte" color="inherit">
-                dans votre compte
-            </Link>, pour qu'un professionnel puisse vous contacter.</p>
-            <Button size="large" variant="contained" color="success" onClick={handleOpen}>Demander de l'aide</Button>
-            <Modal open={open} onClose={handleClose}>
-                <Box sx={{ ...style, width: 800 }}>
-                    <Stepper activeStep={activeStep}>
-                        {steps.map((label) => {
-                            return (
-                                <Step key={label}>
-                                    <StepLabel>{label}</StepLabel>
-                                </Step>
-                            );
-                        })}
-                    </Stepper>
-                    {activeStep === steps.length ? (
-                        <React.Fragment>
-                            <Typography sx={{ mt: 2, mb: 1 }}>
-                                Merci de votre confiance.
-                            </Typography>
-                            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                <Box sx={{ flex: '1 1 auto' }} />
-                                <Button>Envoyer</Button>
-                            </Box>
-                        </React.Fragment>
-                    ) : (
-                        <React.Fragment>
-                            {activeStep === 0 && <StepperChoice choix={choix} setChoix={setChoix} />}
-                            {activeStep === 1 && <StepperProblem symptomes={symptomes} setSymptomes={setSymptomes} />}
-                            {activeStep === 2 && <StepperConfirmation choix={choix} setChoix={setChoix} waitingTime={waitingTime} match={match} />}
-                            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                {activeStep !== steps.length - 1 && <Button
-                                    color="inherit"
-                                    disabled={activeStep === 0}
-                                    onClick={handleBack}
-                                    sx={{ mr: 1 }}
-                                >
-                                    Back
-                                </Button>}
-                                <Box sx={{ flex: '1 1 auto' }} />
+        <Grid container direction="column" justifyContent="center" alignItems="center" className={styles.margintop}>
+            <Card className={styles.verticalcenter}>
+                <CardContent>
+                    <p className={styles.colorred}>Attention ! Pensé à vérifier votre numéro de téléphone <Link to="/moncompte" color="inherit">
+                        dans votre compte
+                    </Link>, pour qu'un professionnel puisse vous contacter.</p>
+                    <Button size="large" className={styles.widthcent} variant="contained" color="success" onClick={handleOpen}>Demander de l'aide</Button>
+                    <Modal open={open} onClose={handleClose}>
+                        <Box sx={{ ...style, width: 800 }}>
+                            <Stepper activeStep={activeStep}>
+                                {steps.map((label) => {
+                                    return (
+                                        <Step key={label}>
+                                            <StepLabel>{label}</StepLabel>
+                                        </Step>
+                                    );
+                                })}
+                            </Stepper>
+                            {activeStep === steps.length ? (
+                                <React.Fragment>
+                                    <Typography sx={{ mt: 2, mb: 1 }}>
+                                        Merci de votre confiance.
+                                    </Typography>
+                                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                                        <Box sx={{ flex: '1 1 auto' }} />
+                                        <Button>Envoyer</Button>
+                                    </Box>
+                                </React.Fragment>
+                            ) : (
+                                <React.Fragment>
+                                    {activeStep === 0 && <StepperChoice choix={choix} setChoix={setChoix} />}
+                                    {activeStep === 1 && <StepperProblem symptomes={symptomes} setSymptomes={setSymptomes} />}
+                                    {activeStep === 2 && <StepperConfirmation choix={choix} setChoix={setChoix} waitingTime={waitingTime} match={match} />}
+                                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                                        {activeStep !== steps.length - 1 && <Button
+                                            color="inherit"
+                                            disabled={activeStep === 0}
+                                            onClick={handleBack}
+                                            sx={{ mr: 1 }}
+                                        >
+                                            Back
+                                        </Button>}
+                                        <Box sx={{ flex: '1 1 auto' }} />
 
-                                {activeStep === steps.length - 2 && <Button type="submit" onClick={handleFinish}>
-                                    FINISH
-                                </Button>}
-                                {activeStep < 1 && <Button type="submit" onClick={handleNext}>
-                                    NEXT
-                                </Button>}
+                                        {activeStep === steps.length - 2 && <Button type="submit" onClick={handleFinish}>
+                                            FINISH
+                                        </Button>}
+                                        {activeStep < 1 && <Button type="submit" onClick={handleNext}>
+                                            NEXT
+                                        </Button>}
 
-                            </Box>
-                        </React.Fragment>
-                    )}
-                </Box>
-            </Modal>
-        </Grid>
+                                    </Box>
+                                </React.Fragment>
+                            )}
+                        </Box>
+                    </Modal>
+                </CardContent>
+            </Card>
+        </Grid >
     );
 }

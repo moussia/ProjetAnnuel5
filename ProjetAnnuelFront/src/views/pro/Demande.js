@@ -110,7 +110,9 @@ export const Demande = () => {
                                                         <p>L'enfant est malade</p> :
                                                         demand.symptomes === "pleure" ?
                                                             <p>L'enfant pleure beaucoup</p> :
-                                                            <p>Le parent a besoin d'aide</p>
+                                                            demand.symptomes === "dormir" ?
+                                                                <p>L'enfant n'arrive pas à dormir</p> :
+                                                                <p>Le parent a besoin d'aide</p>
                                             }
                                         </TableCell>
                                         <TableCell>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long', timeStyle: 'medium' }).format(new Date(demand.date))}</TableCell>

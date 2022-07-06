@@ -68,7 +68,7 @@ const HeaderPro = () => {
     };
 
     return (
-        <AppBar className={styles.colorwhite} position="static">
+        <AppBar sx={{ display: 'flex' }} className={styles.colorwhite} position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography

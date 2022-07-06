@@ -103,12 +103,13 @@ export const Professionnel = ({ pro, setPros }) => {
                             {pro.lastname}  {pro.firstname}
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Email : {pro.email} <br></br>
-                            Téléphone :  {pro.phone} <br></br>
-                            Profession : {pro.job}<br></br>
-                            Description : {pro.description}<br></br>
-                            Adresse : {pro.address} {pro.zipcode}<br></br>
-                            Ville : {pro.city}<br></br>
+                            <b>Email :</b>  {pro.email} <br></br>
+                            <b>Téléphone :</b>  {pro.phone} <br></br>
+                            <b>Profession :</b> {pro.job}<br></br>
+                            <b>Description :</b> {pro.description}<br></br>
+                            <b>Adresse :</b> {pro.address} {pro.zipcode}<br></br>
+                            <b>Description :</b> {pro.description} <br></br>
+                            <b>Ville :</b> {pro.city}<br></br>
                         </Typography>
                     </Box>
                 </Modal>

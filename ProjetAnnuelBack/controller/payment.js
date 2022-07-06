@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { sendMailDon } from '../utils/mail.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: '2020-08-27',
@@ -25,6 +26,7 @@ export const createPayment = async (req, res) => {
             success_url: `${process.env.URL_FRONT}/payment?success=true`,
             cancel_url: `${process.env.URL_FRONT}/payment?success=false`,
         });
+        sendMailDon(req.user.email);
         res.send(session.url);
     } catch (error) {
         res.sendStatus(400);

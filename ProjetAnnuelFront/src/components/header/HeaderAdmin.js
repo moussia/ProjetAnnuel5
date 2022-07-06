@@ -11,9 +11,9 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 // import { AuthContext } from '../contexts/AuthContext';
+import styles from '../../style/header.module.css';
 
 const pages = [
-    // { label: 'Mon compte', route: 'moncompte' },
     { label: 'Dashboard', route: 'dashboard' },
     { label: 'Deconnexion', route: 'logout' },
 ];
@@ -36,7 +36,7 @@ const HeaderAdmin = () => {
     }
 
     return (
-        <AppBar position="static">
+        <AppBar sx={{ display: 'flex' }} position="static" className={styles.colorwhite}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
 
@@ -46,6 +46,7 @@ const HeaderAdmin = () => {
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
+                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                             onClick={handleOpenNavMenu}
                             color="inherit"
                         >

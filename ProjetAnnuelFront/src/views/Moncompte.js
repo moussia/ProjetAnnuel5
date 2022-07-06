@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { Grid } from '@mui/material';
+import { Alert, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -8,12 +8,16 @@ import { useForm } from "react-hook-form";
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 // import axios from 'axios';
+import Snackbar from '@mui/material/Snackbar';
 import { TextController } from '../components/form/textController';
 import { RadioController } from '../components/form/radioController';
 import { Link } from 'react-router-dom';
 import { request } from '../utils/request.js';
 
 export const Moncompte = () => {
+    const [open, setOpen] = React.useState(false);
+    const [openSuccess, setOpenSuccess] = React.useState(false);
+
     const {
         handleSubmit,
         formState: { errors },
@@ -22,7 +26,6 @@ export const Moncompte = () => {
     } = useForm({
         mode: 'onChange',
         defaultValues: {
-            email: '',
             firstname: '',
             lastname: '',
             zipcode: '',
@@ -45,14 +48,22 @@ export const Moncompte = () => {
         // e?.preventDefault();
         await request(`${process.env.REACT_APP_SERVER}/user/update`, 'PUT', data)
             .then((data) => {
+                setOpenSuccess(true);
                 console.log(data);
             })
             .catch((err) => {
                 console.log(err.message);
+                // mettre ici la snackbar erreur
+                setOpen(true);
                 // e?.target?.reset();
                 reset();
             });
     };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setOpen(false);
+    }
 
     return (
         <Grid container className={styles.centerbutton}>
@@ -193,27 +204,6 @@ export const Moncompte = () => {
                                 <Grid item xs={6}>
                                     <TextController
                                         fullWidth
-                                        label="Email"
-                                        name="email"
-                                        variant="standard"
-                                        rules={{
-                                            required: {
-                                                value: true,
-                                                message: 'Ce champ est obligatoire.'
-                                            },
-                                            minLength: {
-                                                value: '5',
-                                                message: 'L\'email doit contenir minimum 5 caractères.'
-                                            }
-                                        }}
-                                        control={control}
-                                        error={errors.email ? true : false}
-                                        helperText={errors?.email?.message}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <TextController
-                                        fullWidth
                                         required
                                         label="Telephone"
                                         name="phone"
@@ -261,6 +251,16 @@ export const Moncompte = () => {
                     </div>
                 </CardContent>
             </Card>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    Enregistrement impossible
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Enregistré
+                </Alert>
+            </Snackbar>
         </Grid >
     );
 }

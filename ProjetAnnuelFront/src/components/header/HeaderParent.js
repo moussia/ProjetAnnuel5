@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-// import { AuthContext } from '../contexts/AuthContext';
+import styles from '../../style/header.module.css';
 
 const pages = [
     { label: 'Mon compte', route: 'moncompte' },
@@ -37,7 +37,7 @@ const HeaderParent = () => {
     }
 
     return (
-        <AppBar position="static">
+        <AppBar sx={{ display: 'flex' }} className={styles.colorwhite} position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography

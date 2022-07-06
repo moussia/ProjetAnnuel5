@@ -24,7 +24,7 @@ export const createPro = async (req, res) => {
             description,
             role: roles.PRO
         });
-        user.save();
+        await user.save();
         const link = jwt.sign({
             data: { _id: user._id }
         }, process.env.JWT_ACTIVATE, { expiresIn: '24h' });
