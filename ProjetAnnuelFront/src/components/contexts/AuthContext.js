@@ -7,7 +7,6 @@ export default function AuthProvider({ children }) {
   const [context, setContext] = useState({
     isLoggedIn: JSON.parse(localStorage.getItem("isLoggedIn")),
     role: localStorage.getItem("role"),
-    isDisponible: false
   });
 
   useEffect(() => {
@@ -21,7 +20,12 @@ export default function AuthProvider({ children }) {
   }, [context.role]);
 
   useEffect(() => {
-    if (context.isLoggedIn && context.role === 'PRO' && context.isDisponible === null) {
+    console.log("isLoggedIn, ", context.isLoggedIn)
+    console.log("role, ", context.role)
+    console.log("context.isDisponible, ", context.isDisponible)
+    if (context.isLoggedIn && context.role === 'PRO' && context.isDisponible === undefined) {
+
+      console.log("ici");
       axios({ url: `${process.env.REACT_APP_SERVER}/pro/dispo`, method: 'GET', withCredentials: true })
         .then((data) => {
           setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible }))

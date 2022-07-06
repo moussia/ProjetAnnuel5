@@ -9,12 +9,9 @@ import Signup from './views/Signup';
 import SignupPro from './views/pro/SignupPro';
 import Home from './views/Home';
 import { ForgetPassword } from './views/ForgetPassword';
-import { Faq } from './views/Faq';
 import { Quisommesnous } from './views/Quisommesnous';
 import Footer from './components/Footer';
 import Header from './components/header/Header';
-import { Recrutement } from './views/Recrutement';
-import { ServicesPro } from './views/ServicesPro';
 import { Moncompte } from './views/Moncompte';
 import { Contact } from './views/Contact';
 import { NotFoundPage } from '../src/components/NotFoundPage';
@@ -22,7 +19,6 @@ import { Professionnels } from '../src/components/admin/Professionnels';
 import { ModifPassword } from './views/ModifPassword';
 import { PrivateRoute } from './route/PrivateRoute';
 import Logout from '../src/components/Logout';
-import { Services } from './views/Services';
 import { Aide } from './views/client/Aide';
 import Dashboard from './views/admin/Dashboard';
 import { Parents } from './components/admin/Parents';
@@ -57,9 +53,6 @@ export const App = () => {
             <Route exact path='/pro/create' element={<SignupPro />} />
             <Route exact path='/logout' element={<Logout />} />
             <Route exact path='/signup' element={<Signup />} />
-            <Route exact path='/faq' element={<Faq />} />
-            <Route exact path='/recrutement' element={<Recrutement />} />
-            <Route exact path='/services' element={<Services />} />
             <Route exact path='/contact' element={<Contact />} />
             <Route exact path='/modifPassword' element={<ModifPassword />} />
             <Route exact path='/activatedMail' element={<ActivateMail />} />
@@ -78,7 +71,6 @@ export const App = () => {
             <Route exact path='/payment' element={<PrivateRoute restricted={roles.PARENT} Component={Payment} />} />
 
             {/* Page PRO */}
-            <Route exact path='/pro/services' element={<PrivateRoute restricted={roles.PRO} Component={ServicesPro} />} />
             <Route exact path='/pro/disponible' element={<PrivateRoute restricted={roles.PRO} Component={Disponible} />} />
             <Route exact path='/pro/demande' element={<PrivateRoute restricted={roles.PRO} Component={Demande} />} />
             <Route exact path='/pro/historique' element={<PrivateRoute restricted={roles.PRO} Component={HistoriquePro} />} />

@@ -86,3 +86,8 @@ io.on('connect', (socket) => {
 httpServer.listen(process.env.PORT, () => {
     console.log(`✅ App listening on port ${process.env.PORT}`)
 })
+
+
+export default {
+    app,
+};

@@ -87,7 +87,6 @@ export default function Signup() {
     return (
         <>
             <Grid container className={styles.colorpurple}>
-
                 <Grid container
                     direction="row"
                     justifyContent="center"
