@@ -3,10 +3,10 @@ import Link from '@mui/material/Link';
 import { makeStyles } from '@mui/styles'; // TODO replace
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import axios from 'axios';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import request from '../../utils/request';
 
 const style = {
     position: 'absolute',
@@ -39,8 +39,7 @@ export const Parent = ({ parent, setParent }) => {
     //
 
     const deleteParent = async (id) => {
-        const res = await axios({ url: `${process.env.REACT_APP_SERVER}/admin/parent/${id}`, method: 'DELETE', withCredentials: true }
-        );
+        const res = await request.delete(`/admin/parent/${id}`);
         if (res.status === 204)
             setParent((prev) => [...prev.filter((item) => item._id !== id)]);
     };

@@ -3,6 +3,8 @@ import { Login } from '../controller/login.js';
 import User from '../model/User.js';
 
 export const passportInit = (passport) => {
+    console.log("passportInit, -> dans les routes");
+
     //_Define_strategy_to_apply 
     passport.use(
         new LocalStrategy(

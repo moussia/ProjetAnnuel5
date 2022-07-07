@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import axios from 'axios';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -16,6 +15,7 @@ import { getSocket } from '../../utils/socket';
 import styles from '../../style/Payment.module.css';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
+import request from '../../utils/request';
 
 const steps = ['Choix', 'Symptômes', 'Confirmation'];
 
@@ -54,11 +54,11 @@ export const Aide = () => {
     const handleOpen = () => setOpen(true);
 
     React.useEffect(() => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/closeReservation`, method: 'PUT', withCredentials: true })
+        request.put(`/user/closeReservation`)
     }, []);
 
     const handleFinish = () => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/sendReservation`, method: 'POST', data: { choix: choix, symptomes: symptomes }, withCredentials: true })
+        request.post(`/user/sendReservation`, { choix: choix, symptomes: symptomes })
             .then((data) => {
                 setWaitingTime(data.data.waitingTime);
                 setReservationId(data.data._id);

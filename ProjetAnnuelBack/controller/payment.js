@@ -5,8 +5,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: '2020-08-27',
 });
 
-// Pour que l'utilisateur qui a oublié son mot de passe puisse le modifié.
 export const createPayment = async (req, res) => {
+    console.log("createPayment, route: /payment");
+
     try {
         console.log(" amount : ", req.body.amount * 100);
         console.log(" type : ", typeof req.body.amount);
@@ -36,6 +37,8 @@ export const createPayment = async (req, res) => {
 
 
 export const getAmountStripe = async (req, res) => {
+    console.log("getAmountStripe, route: /amountStripe");
+
     try {
         const balance = await stripe.balance.retrieve({
             stripeAccount: `${process.env.CONNECTED_STRIPE_ACCOUNT_ID}`
@@ -49,6 +52,8 @@ export const getAmountStripe = async (req, res) => {
 
 
 export const getListAllPayment = async (req, res) => {
+    console.log("getListAllPayment, route: /getListAllPayment");
+
     try {
         const paymentIntents = await stripe.paymentIntents.list({ expand: ['data.customer'] });
         res.send(paymentIntents);

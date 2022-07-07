@@ -10,9 +10,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { TextController } from '../components/form/textController';
 import MuiAlert from '@mui/material/Alert';
-import axios from 'axios';
 import { useForm } from "react-hook-form";
 import Snackbar from '@mui/material/Snackbar';
+import request from '../utils/request';
 
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -39,7 +39,7 @@ export const ModifPassword = () => {
     const onSubmit = async (data, e) => {
         e.preventDefault();
 
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/modifPassword`, method: 'POST', data, withCredentials: true })
+        request.post(`/user/modifPassword`, data)
             .then((data) => {
                 e.target.reset();
                 setOpen(true);

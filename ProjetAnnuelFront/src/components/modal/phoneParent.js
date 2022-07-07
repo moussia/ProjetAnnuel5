@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useEffect } from 'react';
-import axios from 'axios';
+import request from '../../utils/request';
 
 const style = {
     position: 'absolute',
@@ -22,7 +22,7 @@ export default function PhoneParent({ open, onClose, idDemande }) {
 
     useEffect(() => {
         if (idDemande) {
-            axios({ url: `${process.env.REACT_APP_SERVER}/pro/getDemande/${idDemande}`, method: 'GET', withCredentials: true })
+            request.get(`/pro/getDemande/${idDemande}`)
                 .then((res) => {
                     setPhone(res.data.phone);
                 })

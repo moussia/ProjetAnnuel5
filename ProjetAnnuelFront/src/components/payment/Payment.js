@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import Button from '@mui/material/Button';
 import Lottie from 'react-lottie';
@@ -10,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import { Grid } from "@mui/material";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import request from "../../utils/request";
 
 const success = {
     loop: true,
@@ -42,7 +42,7 @@ export default function Payment() {
     }, [search]);
 
     const checkout = () => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/payment`, method: 'POST', data: { amount }, withCredentials: true })
+        request.post(`/user/payment`, { amount })
             .then((data) => {
                 setMessage(data.data);
                 window.location.href = data.data;

@@ -10,7 +10,6 @@ import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from 'axios';
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { RadioController } from '../../components/form/radioController';
@@ -22,6 +21,7 @@ import { AuthContext } from '../../components/contexts/AuthContext';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { PasswordController } from '../../components/form/passwordController';
+import request from '../../utils/request';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -68,7 +68,7 @@ export default function SignupPro() {
     const onSubmit = async (data, e) => {
         e.preventDefault();
 
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/pro/create`, method: 'POST', data, withCredentials: true })
+        request.post(`/user/pro/create`, data)
             .then((data) => {
                 setOpen(true);
             })

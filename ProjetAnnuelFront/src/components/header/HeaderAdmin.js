@@ -48,7 +48,7 @@ const HeaderAdmin = () => {
                             aria-haspopup="true"
                             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                             onClick={handleOpenNavMenu}
-                            color="inherit"
+                            color="primary"
                         >
                             <MenuIcon />
                         </IconButton>

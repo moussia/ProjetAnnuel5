@@ -14,9 +14,9 @@ import Container from '@mui/material/Container';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../components/contexts/AuthContext';
 import { useForm } from "react-hook-form";
-import axios from 'axios';
 import { TextController } from '../components/form/textController';
 import MuiAlert from '@mui/material/Alert';
+import request from '../utils/request';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -52,7 +52,7 @@ export const ForgetPassword = () => {
     const onSubmit = async (data, e) => {
         e.preventDefault();
 
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/forgetPassword`, method: 'POST', data })
+        request.post(`/user/forgetPassword`, data)
             .then((data) => {
                 e.target.reset();
                 setOpenSuccess(true);

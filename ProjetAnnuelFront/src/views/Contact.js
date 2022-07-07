@@ -7,9 +7,9 @@ import { styled } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-import axios from 'axios';
 import { TextController } from '../components/form/textController';
 import Snackbar from '@mui/material/Snackbar';
+import request from '../utils/request';
 
 export const Contact = () => {
     const [openErreur, setOpenErreur] = React.useState(false);
@@ -40,7 +40,7 @@ export const Contact = () => {
 
     const onSubmit = async (data, e) => {
         e.preventDefault();
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/sendMailContact`, method: 'POST', withCredentials: true, data })
+        request.post(`/user/sendMailContact`, data)
             .then((data) => {
                 setOpen(true);
             })

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import request from '../../utils/request';
 
 export default function Deposits() {
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/admin/amountStripe`, method: 'GET', withCredentials: true })
+        request.get(`/admin/amountStripe`)
             .then((res) => {
                 const montant = res.data.pending;
                 const total = montant[0].amount / 100;

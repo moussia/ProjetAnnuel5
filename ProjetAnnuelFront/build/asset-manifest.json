@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.4ce7df42.css",
-    "main.js": "/static/js/main.862dcc57.js",
+    "main.css": "/static/css/main.14631577.css",
+    "main.js": "/static/js/main.d0238e13.js",
     "static/media/jonathan-borba-CgWTqYxHEkg-unsplash.jpg": "/static/media/jonathan-borba-CgWTqYxHEkg-unsplash.fcb608d371d48b89d7b3.jpg",
     "static/media/garrett-jackson-oOnJWBMlb5A-unsplash.jpg": "/static/media/garrett-jackson-oOnJWBMlb5A-unsplash.ab127cd09a46d62ecaf9.jpg",
     "static/media/accueil.jpg": "/static/media/accueil.aa9fad099d8d79c4639f.jpg",
     "static/media/aditya-romansa-5zp0jym2w9M-unsplash.jpg": "/static/media/aditya-romansa-5zp0jym2w9M-unsplash.54e6978c235d054b4fff.jpg",
     "static/media/doctor.jpg": "/static/media/doctor.d3381e11f6e3b2efca4b.jpg",
     "static/media/contact.jpg": "/static/media/contact.20bdd6dcb84a6ff08c12.jpg",
-    "static/media/nature.jpg": "/static/media/nature.0d9131b89376be09b094.jpg",
     "static/media/qui.jpg": "/static/media/qui.9b0785dc2534cb57b75a.jpg",
+    "static/media/nature.jpg": "/static/media/nature.261a61f5582fef81ccee.jpg",
     "static/media/bermix-studio-b8mwvvFs8Ak-unsplash.jpg": "/static/media/bermix-studio-b8mwvvFs8Ak-unsplash.25a36348613c7a1c2842.jpg",
     "static/media/15.png": "/static/media/15.2392c1425446d6aac1cf.png",
     "static/media/logo.png": "/static/media/logo.a3e431eb1cca541f3217.png",
@@ -35,11 +35,11 @@
     "static/media/eye.png": "/static/media/eye.3d2e4c8ac2d32ce0220e.png",
     "static/media/traitement.png": "/static/media/traitement.2d1fbec847c45bef6cf1.png",
     "index.html": "/index.html",
-    "main.4ce7df42.css.map": "/static/css/main.4ce7df42.css.map",
-    "main.862dcc57.js.map": "/static/js/main.862dcc57.js.map"
+    "main.14631577.css.map": "/static/css/main.14631577.css.map",
+    "main.d0238e13.js.map": "/static/js/main.d0238e13.js.map"
   },
   "entrypoints": [
-    "static/css/main.4ce7df42.css",
-    "static/js/main.862dcc57.js"
+    "static/css/main.14631577.css",
+    "static/js/main.d0238e13.js"
   ]
 }

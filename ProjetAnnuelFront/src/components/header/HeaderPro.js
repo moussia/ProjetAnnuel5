@@ -12,10 +12,10 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import styles from '../../style/header.module.css';
 import { pink } from '@mui/material/colors';
-import axios from 'axios';
 import { alpha, styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { AuthContext } from '../contexts/AuthContext';
+import request from '../../utils/request';
 
 const pages = [
     { label: 'Mon compte', route: 'moncompte' },
@@ -57,7 +57,7 @@ const HeaderPro = () => {
     }
 
     const handleChange = (event) => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/pro/dispo/update`, method: 'POST', data: { disponibility: !context.isDisponible }, withCredentials: true })
+        request.post(`${process.env.REACT_APP_SERVER}/pro/dispo/update`, { disponibility: !context.isDisponible })
             .then((data) => {
                 setContext((prev) => ({ ...prev, isDisponible: data.data.isDisponible }));
                 console.log("ok");
@@ -88,7 +88,7 @@ const HeaderPro = () => {
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
-                            color="inherit"
+                            color="primary"
                         >
                             <MenuIcon />
                         </IconButton>

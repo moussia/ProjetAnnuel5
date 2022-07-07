@@ -16,6 +16,8 @@ var transporter = nodemailer.createTransport({
 });
 
 export const EnvoiMailAuParentPourInscription = async (to, lastname, firstname, link) => {
+    console.log("EnvoiMailAuParentPourInscription");
+
     let source = await readFile('template/Email-register.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
@@ -42,6 +44,8 @@ export const EnvoiMailAuParentPourInscription = async (to, lastname, firstname, 
 }
 
 export const EnvoiMailAuProPourInscription = async (to, lastname, firstname, link) => {
+    console.log("EnvoiMailAuProPourInscription");
+
     let source = await readFile('template/EmailProRegister.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
@@ -68,6 +72,8 @@ export const EnvoiMailAuProPourInscription = async (to, lastname, firstname, lin
 }
 
 export const sendMailContact = async (name, email, sujet, commentaire) => {
+    console.log("sendMailContact");
+
     let source = await readFile('template/Email-contact.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
@@ -94,6 +100,8 @@ export const sendMailContact = async (name, email, sujet, commentaire) => {
 
 
 export const sendMailDon = async (email) => {
+    console.log("sendMailDon");
+
     let source = await readFile('template/Email-don.html', 'utf8');
     let template = handlebars.compile(source);
     let html = template();
@@ -117,6 +125,8 @@ export const sendMailDon = async (email) => {
 
 
 export const EnvoiMailAuProPourCompteValide = async (to, lastname) => {
+    console.log("EnvoiMailAuProPourCompteValide");
+
     let source = await readFile('template/EmailCompteValide.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
@@ -145,6 +155,8 @@ export const EnvoiMailAuProPourCompteValide = async (to, lastname) => {
 
 
 export const sendToAdminValidateComptePro = async (lastname, email) => {
+    console.log("sendToAdminValidateComptePro");
+
     let source = await readFile('template/EmailAdminNewInscriptionPro.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
@@ -172,6 +184,8 @@ export const sendToAdminValidateComptePro = async (lastname, email) => {
 
 //Envoie email lorsque l'utilisateur oublie son mot de passe
 export const sendToUserForgetPassword = async (to, link) => {
+    console.log("sendToUserForgetPassword");
+
     let source = await readFile('template/EmailForgetPassword.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
@@ -202,6 +216,8 @@ export const sendToUserForgetPassword = async (to, link) => {
 
 //Envoie email a un pro lorsque qu'un parent fait une demande d'aide
 export const sendToProForDemandeAide = async (to, link) => {
+    console.log("sendToProForDemandeAide");
+
     let source = await readFile('template/Email-demandeAide.html', 'utf8');
     let template = handlebars.compile(source);
     const data = {
@@ -229,8 +245,3 @@ export const sendToProForDemandeAide = async (to, link) => {
     });
     console.log("✅ EMAIL ENVOYE à : ", to);
 }
-
-
-// export const sendToAdminValidateComptePro = async (to, lastname, email) => {
-
-// }

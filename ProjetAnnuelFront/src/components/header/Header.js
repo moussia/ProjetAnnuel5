@@ -45,8 +45,6 @@ const Header = () => {
     if (context.role === roles.PRO) return <HeaderPro />
 
     return (
-
-
         <AppBar sx={{ display: 'flex' }} position="static" className={styles.colorwhite} >
             <Container maxWidth="xl">
                 <Toolbar>
@@ -62,11 +60,8 @@ const Header = () => {
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
                             onClick={handleOpenNavMenu}
-                            color="inherit"
+                            color="primary"
                         >
                             <MenuIcon />
                         </IconButton>

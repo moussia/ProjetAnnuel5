@@ -7,12 +7,11 @@ import styles from '../style/moncompte.module.css';
 import { useForm } from "react-hook-form";
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
-// import axios from 'axios';
 import Snackbar from '@mui/material/Snackbar';
 import { TextController } from '../components/form/textController';
 import { RadioController } from '../components/form/radioController';
 import { Link } from 'react-router-dom';
-import { request } from '../utils/request.js';
+import request from '../utils/request.js';
 
 export const Moncompte = () => {
     const [open, setOpen] = React.useState(false);
@@ -37,7 +36,7 @@ export const Moncompte = () => {
     });
 
     useEffect(() => {
-        request(`${process.env.REACT_APP_SERVER}/user/current`, 'GET')
+        request.get(`/user/current`)
             .then((data) => {
                 console.log(data.data);
                 reset(data.data);
@@ -46,7 +45,7 @@ export const Moncompte = () => {
 
     const onSubmit = async (data, e) => {
         // e?.preventDefault();
-        await request(`${process.env.REACT_APP_SERVER}/user/update`, 'PUT', data)
+        await request.put(`/user/update`, data)
             .then((data) => {
                 setOpenSuccess(true);
                 console.log(data);

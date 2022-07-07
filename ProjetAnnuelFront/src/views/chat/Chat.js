@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ChatContainer from "../../components/chat/ChatContainer";
 import { useSearchParams } from "react-router-dom";
 import { getSocket } from "../../utils/socket";
-import axios from "axios";
+import request from "../../utils/request";
 
 export default function Chat() {
     const socket = getSocket();
@@ -12,7 +12,7 @@ export default function Chat() {
 
     useEffect(() => {
         if (searchParams && socket) {
-            axios({ url: `${process.env.REACT_APP_SERVER}/user/isChatExist/${searchParams.get('id')}`, method: 'GET', withCredentials: true })
+            request.get(`/user/isChatExist/${searchParams.get('id')}`)
                 .then((data) => {
                     setAuthorized(data.data);
                 });

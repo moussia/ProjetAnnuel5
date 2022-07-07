@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
-import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -22,6 +21,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { MainListItems } from '../../components/admin/drawer/ListItems';
 import List from '@mui/material/List';
 import { Parent } from './Parent';
+import request from '../../utils/request';
 
 const drawerWidth = 240;
 
@@ -64,7 +64,7 @@ export const Parents = () => {
     };
 
     useEffect(() => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/admin/parents`, method: 'GET', withCredentials: true })
+        request.get(`/admin/parents`)
             .then((data) => setParent(data.data))
     }, []);
 

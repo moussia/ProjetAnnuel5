@@ -3,7 +3,8 @@ import { makeStyles } from '@mui/styles'; // TODO replace
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
-import axios from 'axios';
+import request from '../../utils/request';
+
 import styles from '../../style/Payment.module.css';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -42,7 +43,7 @@ export const Demande = ({ demand, setDemandes }) => {
 
 
     useEffect(() => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/admin/getAllDemandes`, method: 'GET', withCredentials: true })
+        request.get(`/admin/getAllDemandes`)
             .then((data) => {
                 setDemandes(data.data);
             })

@@ -1,6 +1,8 @@
 import User from '../model/User.js';
 
 export const createDisponibilite = async (req, res) => {
+    console.log("createDisponibilite, route: /dispo/update");
+
     try {
         const { disponibility } = req.body;
 
@@ -18,6 +20,8 @@ export const createDisponibilite = async (req, res) => {
 }
 
 export const getDisponibilite = async (req, res) => {
+    console.log("getDisponibilite, route: /dispo");
+
     try {
         const disponibilite = await User.findOne({ _id: req.user._id }, { isDisponible: 1 });
         res.send(disponibilite);

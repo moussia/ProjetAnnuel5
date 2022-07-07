@@ -5,6 +5,8 @@ import { sendToUserForgetPassword } from '../utils/mail.js';
 
 
 export const Login = async (email, password, done) => {
+    console.log("Login, route: /session");
+
     try {
         const user = await User.findOne({ email });
         if (!user) {
@@ -30,6 +32,8 @@ export const Login = async (email, password, done) => {
 }
 
 export const Logout = async (req, res) => {
+    console.log("Logout, route: /session");
+
     try {
         if (req.user) req.logOut();
         res.send(200);
@@ -40,6 +44,8 @@ export const Logout = async (req, res) => {
 
 // Pour que l'utilisateur qui a oublié son mot de passe puisse le modifié.
 export const SendEmailForForgePassword = async (req, res) => {
+    console.log("SendEmailForForgePassword, route: /forgetPassword");
+
     try {
         const email = req.body.email;
         const user = await User.findOne({ email });
@@ -58,6 +64,7 @@ export const SendEmailForForgePassword = async (req, res) => {
 
 // Pour que l'utilisateur qui a oublié son mot de passe puisse le modifié.
 export const resetPassword = async (req, res) => {
+    console.log("resetPassword, route: /resetPassword");
     try {
         const confirmation_password = req.body.confirmation_password;
         const token = req.body.token;
@@ -75,6 +82,8 @@ export const resetPassword = async (req, res) => {
 }
 
 export const modifPassword = async (req, res) => {
+    console.log("modifPassword, route: /modifPassword");
+
     try {
         const newPassword = req.body.password;
         const hash = await bcrypt.hash(newPassword, 10);
@@ -89,6 +98,8 @@ export const modifPassword = async (req, res) => {
 }
 
 export const activatedMail = async (req, res) => {
+    console.log("activatedMail, route: /activatedMail");
+
     try {
         const token = req.body.token;
         const decodedjwt = jwt.verify(token, process.env.JWT_RESETPASS);

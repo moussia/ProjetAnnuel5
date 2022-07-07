@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -9,6 +8,7 @@ import styles from '../../style/Payment.module.css';
 import { makeStyles } from '@mui/styles'; // TODO replace
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import request from '../../utils/request';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,8 +42,7 @@ export const Professionnel = ({ pro, setPros }) => {
     // const [pros, setPros] = useState([]);
 
     const activate = async (id) => {
-        const res = await axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro/${id}/activate`, method: 'PUT', withCredentials: true }
-        );
+        const res = await request.put(`/admin/pro/${id}/activate`);
         const data = res.data;
         setPros((prev) => {
             const i = prev.findIndex(elem => {
@@ -55,8 +54,7 @@ export const Professionnel = ({ pro, setPros }) => {
     };
 
     const deletePro = async (id) => {
-        const res = await axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro/${id}`, method: 'DELETE', withCredentials: true }
-        );
+        const res = await request.delete(`/admin/pro/${id}`);
         if (res.status === 204)
             setPros((prev) => [...prev.filter((item) => item._id !== id)]);
     };
@@ -106,10 +104,9 @@ export const Professionnel = ({ pro, setPros }) => {
                             <b>Email :</b>  {pro.email} <br></br>
                             <b>Téléphone :</b>  {pro.phone} <br></br>
                             <b>Profession :</b> {pro.job}<br></br>
-                            <b>Description :</b> {pro.description}<br></br>
                             <b>Adresse :</b> {pro.address} {pro.zipcode}<br></br>
-                            <b>Description :</b> {pro.description} <br></br>
                             <b>Ville :</b> {pro.city}<br></br>
+                            <b>Description :</b> {pro.description} <br></br>
                         </Typography>
                     </Box>
                 </Modal>

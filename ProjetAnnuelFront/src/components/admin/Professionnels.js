@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
-import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -21,6 +20,7 @@ import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
+import request from '../../utils/request';
 
 import { Professionnel } from './Professionnel';
 
@@ -64,7 +64,7 @@ export const Professionnels = () => {
   };
 
   useEffect(() => {
-    axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro`, method: 'GET', withCredentials: true })
+    request.get(`/admin/pro`)
       .then((data) => setPros(data.data))
   }, []);
 

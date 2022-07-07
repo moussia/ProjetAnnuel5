@@ -2,10 +2,10 @@ import React from 'react';
 import * as animationData from '../images/lotties/activateemail.json';
 import * as notActivateImage from '../images/lotties/notactivateemail.json';
 import * as loader from '../images/lotties/loader.json';
-import axios from 'axios';
 import Lottie from 'react-lottie';
 import { Link } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
+import request from '../utils/request';
 
 const defaultOptions = {
     loop: true,
@@ -46,7 +46,7 @@ export const ActivateMail = () => {
             navigate("/");
         }
         else {
-            axios({ url: `${process.env.REACT_APP_SERVER}/user/activatedMail`, method: 'POST', data: { token } })
+            request.post(`/user/activatedMail`, { token })
                 .then(() => setTimeout(() => setActivation(true), 2000))
                 .catch(() => setTimeout(() => setActivation(false), 1500));
         }

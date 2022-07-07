@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import axios from 'axios';
+
 import { AuthContext } from './contexts/AuthContext';
 import Lottie from 'react-lottie';
 import * as animationData from '../images/lotties/good-by.json';
 import { Link } from 'react-router-dom';
+import request from '../utils/request';
 
 const defaultOptions = {
     loop: true,
@@ -18,9 +19,7 @@ const Logout = () => {
     const { setContext } = useContext(AuthContext);
 
     useEffect(() => {
-        axios({
-            url: `${process.env.REACT_APP_SERVER}/session`, method: 'DELETE', withCredentials: true
-        })
+        request.delete(`/session`)
             .then(() => setContext((prev) => ({ role: null, isLoggedIn: false })))
     }, [setContext]);
 

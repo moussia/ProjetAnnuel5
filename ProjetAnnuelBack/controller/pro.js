@@ -5,6 +5,7 @@ import { roles } from '../constants/Roles.js';
 import jwt from 'jsonwebtoken';
 
 export const createPro = async (req, res) => {
+    console.log("createPro, route: /pro/create");
     try {
         // create and save new user pro in DB
         const { email, password, firstname, lastname, phone, sex, address, city, country, zipcode, job, description } = req.body;
@@ -39,6 +40,8 @@ export const createPro = async (req, res) => {
 }
 
 export const activatePro = async (req, res) => {
+    console.log("activatePro, route: /pro/:proId/activate");
+
     try {
         const pro = req.params.proId;
         console.log("pro : ", pro);
@@ -54,6 +57,8 @@ export const activatePro = async (req, res) => {
 }
 
 export const updatePro = async (req, res) => {
+    console.log("updatePro, route: /pro/:proId");
+
     try {
         const updatePro = await User.findOneAndUpdate({ _id: req.user._id }, req.body, {
             new: true
@@ -66,6 +71,8 @@ export const updatePro = async (req, res) => {
 }
 
 export const getPro = async (req, res) => {
+    console.log("getPro, route: /pro");
+
     try {
         const pro = await User.find({ role: roles.PRO }, { password: 0 }).sort({ createdAt: 'desc' });
         res.send(pro);
@@ -76,6 +83,8 @@ export const getPro = async (req, res) => {
 }
 
 export const deletePro = async (req, res) => {
+    console.log("deletePro, route: /pro/dispo/update");
+
     try {
         User.deleteOne({ _id: req.params.proId })
             .then((data) => res.sendStatus(data !== 0 ? 204 : 404))

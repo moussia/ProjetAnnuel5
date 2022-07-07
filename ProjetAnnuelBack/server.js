@@ -25,9 +25,12 @@ app.use(
 app.use(
     cors({
         credentials: true,
-        origin: ['http://localhost:3000', process.env.URL_FRONT]
+        // origin: ['http://localhost:3000', process.env.URL_FRONT]
+        origin: [process.env.URL_FRONT]
     })
 );
+
+app.set('trust proxy', 1);
 
 passportInit(passport);
 
@@ -37,9 +40,10 @@ const sessionMiddleware = session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: false, // Quand_on_sera_en_https 
+        secure: false,
         maxAge: 30 * 24 * 60 * 60 * 1000, // la session va durer 30 jours
-        // sameSite: 'none',
+        sameSite: 'lax',
+        httpOnly: true
     }
 });
 
@@ -57,7 +61,8 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
         credentials: true,
-        origin: process.env.URL_FRONT
+        // origin: process.env.URL_FRONT,
+        origin: ["http://localhost:3000", process.env.URL_FRONT]
     },
 });
 

@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
-import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import MuiDrawer from '@mui/material/Drawer';
@@ -21,6 +20,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
 import { MainListItems } from './drawer/ListItems';
+import request from '../../utils/request';
 
 
 
@@ -66,7 +66,7 @@ export const Dons = () => {
     };
 
     useEffect(() => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/admin/amountStripe`, method: 'GET', withCredentials: true })
+        request.get(`/admin/amountStripe`)
             .then((res) => {
                 const montant = res.data.pending;
                 const total = montant[0].amount / 100;
@@ -75,7 +75,7 @@ export const Dons = () => {
     }, []);
 
     useEffect(() => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/admin/getListAllPayment`, method: 'GET', withCredentials: true })
+        request.get(`/admin/getListAllPayment`)
             .then((data) => {
                 setDons(data.data.data)
             });

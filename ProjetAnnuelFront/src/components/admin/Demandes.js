@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
-import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -22,6 +21,7 @@ import { MainListItems } from '../../components/admin/drawer/ListItems';
 import List from '@mui/material/List';
 import MuiDrawer from '@mui/material/Drawer';
 import { Demande } from './Demande';
+import request from '../../utils/request';
 
 const drawerWidth = 240;
 
@@ -63,7 +63,7 @@ export const Demandes = () => {
     };
 
     useEffect(() => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/admin/getAllDemandes`, method: 'GET', withCredentials: true })
+        request.get(`/admin/getAllDemandes`)
             .then((data) => {
                 setDemandes(data.data);
             })

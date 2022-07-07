@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -8,10 +9,16 @@ export default function AuthProvider({ children }) {
     isLoggedIn: JSON.parse(localStorage.getItem("isLoggedIn")),
     role: localStorage.getItem("role"),
   });
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     if (context.isLoggedIn !== null) localStorage.setItem("isLoggedIn", JSON.parse(context.isLoggedIn));
-    else localStorage.removeItem("isLoggedIn");
+    else {
+      localStorage.removeItem("isLoggedIn");
+      navigate('/login');
+    }
+
   }, [context.isLoggedIn]);
 
   useEffect(() => {

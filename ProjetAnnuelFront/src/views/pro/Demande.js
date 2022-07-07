@@ -7,7 +7,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
-import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import PhoneParent from '../../components/modal/phoneParent';
@@ -15,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../components/contexts/AuthContext';
 import { getSocket } from '../../utils/socket';
 import styles from '../../style/Payment.module.css';
+import request from '../../utils/request';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +41,7 @@ export const Demande = () => {
 
     const fetchData = useCallback(() => {
         if (context.isDisponible) {
-            axios({ url: `${process.env.REACT_APP_SERVER}/pro/getDemandes`, method: 'GET', withCredentials: true })
+            request.get(`/pro/getDemandes`)
                 .then((data) => setPros(data.data))
         };
     }, [context.isDisponible]);
@@ -51,7 +51,7 @@ export const Demande = () => {
     }, [fetchData, context.isDisponible]);
 
     const prendreDisponibilite = async (id) => {
-        const res = await axios({ url: `${process.env.REACT_APP_SERVER}/pro/${id}/activate`, method: 'PUT', withCredentials: true });
+        const res = await request.put(`/pro/${id}/activate`);
         const data = res.data;
         setPros((prev) => {
             const i = prev.findIndex(elem => elem._id === data._id);
@@ -69,7 +69,7 @@ export const Demande = () => {
     }, [setCount, pros]);
 
     const finishreservation = (reservationId) => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/finishReservation/${reservationId}`, method: 'PUT', withCredentials: true })
+        request.put(`/user/finishReservation/${reservationId}`)
             .then(() => fetchData());
     };
 

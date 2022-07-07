@@ -5,6 +5,7 @@ import { roles } from '../constants/Roles.js';
 import jwt from 'jsonwebtoken';
 
 export const createParent = async (req, res) => {
+    console.log("createparent, route: /create");
     try {
         // create and save new player in DB
         const { email, password, firstname, lastname, phone, address, city, country, zipcode, sex } = req.body;
@@ -40,6 +41,8 @@ export const createParent = async (req, res) => {
 }
 
 export const findUser = async (req) => {
+    console.log("findUser");
+
     try {
         const { email } = req.body;
         return await User.findOne({ email });
@@ -51,6 +54,8 @@ export const findUser = async (req) => {
 }
 
 export const currentUser = async (req, res) => {
+    console.log("currentUser, route: /current");
+
     try {
         res.send(req.user);
     } catch (error) {
@@ -60,6 +65,8 @@ export const currentUser = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
+    console.log("updateUser, route: /update");
+
     try {
         const updatedUser = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
         res.send(updatedUser);
@@ -69,6 +76,8 @@ export const updateUser = async (req, res) => {
 }
 
 export const getParents = async (req, res) => {
+    console.log("getParents, route: /parents");
+
     try {
         const parents = await User.find({ role: roles.PARENT }, { password: 0 });
         res.send(parents);
@@ -78,6 +87,8 @@ export const getParents = async (req, res) => {
 }
 
 export const getProFromId = async (req, res) => {
+    console.log("getProFromId, route: /pro/:proId");
+
     try {
         const getPro = await User.findById({ _id: req.params.proId });
         res.send(getPro);
@@ -87,6 +98,8 @@ export const getProFromId = async (req, res) => {
 }
 
 export const getParentFromId = async (req, res) => {
+    console.log("getParentFromId, route: /parent/:parentId");
+
     try {
         const getParent = await User.findById({ _id: req.params.parentId });
         res.send(getParent);
@@ -96,6 +109,8 @@ export const getParentFromId = async (req, res) => {
 }
 
 export const deleteParent = async (req, res) => {
+    console.log("deleteParent, route: /parent/:parentId");
+
     try {
         User.deleteOne({ _id: req.params.parentId })
             .then((data) => res.sendStatus(data !== 0 ? 204 : 404))
@@ -106,6 +121,8 @@ export const deleteParent = async (req, res) => {
 }
 
 export const NewPasswordForget = async (req, res) => {
+    console.log("NewPasswordForget");
+
     try {
         const updatedUser = await User.findOneAndUpdate({ _id: req.user._id }, req.body);
         res.send(updatedUser);
@@ -117,6 +134,8 @@ export const NewPasswordForget = async (req, res) => {
 
 
 export const sendMailFromContact = async (req, res) => {
+    console.log("sendMailFromContact, route: /sendMailContact");
+
     try {
         const { name, email, sujet, commentaire } = req.body
         sendMailContact(name, email, sujet, commentaire);

@@ -6,6 +6,8 @@ import { sendToProForDemandeAide } from '../utils/mail.js';
 
 
 export const createDemandeReservation = async (req, res) => {
+    console.log("createDemandeReservation, route: /sendReservation");
+
     try {
         const { choix, symptomes } = req.body;
         const reservation = new Reservation({
@@ -28,6 +30,8 @@ export const createDemandeReservation = async (req, res) => {
 }
 
 const getWaitingTime = async () => {
+    console.log("getWaitingTime");
+
     try {
         const nbDispo = await User.find({ isDisponible: true }).lean().count();
         const nbDemande = await Reservation.find({ status: reserv.DEMANDE }).lean().count();
@@ -40,6 +44,8 @@ const getWaitingTime = async () => {
 }
 
 export const getDemandeReservation = async (req, res) => {
+    console.log("getDemandeReservation, route: /getDemandes");
+
     try {
         const pro = await Reservation.find({ $or: [{ status: "DEMANDE" }, { status: "RESERVE", id_pro: req.user._id }] }).sort({ createdAt: 'desc' });
         res.send(pro);
@@ -49,6 +55,8 @@ export const getDemandeReservation = async (req, res) => {
 }
 
 export const closeReservation = async (req, res) => {
+    console.log("closeReservation, route: /closeReservation");
+
     try {
         await Reservation.findOneAndUpdate({ id_parent: req.user._id, status: reserv.DEMANDE }, { status: reserv.ANNULE }, {
             new: true
@@ -60,6 +68,8 @@ export const closeReservation = async (req, res) => {
 }
 
 export const finishReservation = async (req, res) => {
+    console.log("finishReservation, route: /finishReservation/:reservationId");
+
     const reservationId = req.params.reservationId;
     try {
         const updateReservation = await Reservation.findOneAndUpdate({ _id: reservationId }, { status: reserv.FINI }, {
@@ -74,6 +84,8 @@ export const finishReservation = async (req, res) => {
 
 
 export const takeDemandeId = async (req, res) => {
+    console.log("takeDemandeId, route: /demandeId/activate");
+
     const demand = req.params.demandeId;
     const updateDemand = await Reservation.findOneAndUpdate(
         { _id: new mongoose.Types.ObjectId(demand) },
@@ -85,6 +97,8 @@ export const takeDemandeId = async (req, res) => {
 }
 
 export const getPhone = async (req, res) => {
+    console.log("getPhone, route: /getDemande/:demandId");
+
     try {
         const demandId = req.params.demandId;
         const DemandeParent = await Reservation.findOne({
@@ -104,6 +118,8 @@ export const getPhone = async (req, res) => {
 }
 
 export const getDemandes = async (req, res) => {
+    console.log("getDemandes, route: /getDemandes");
+
     try {
         const demandes = await Reservation.find({ status: reserv.DEMANDE }, { id_parent: 0 });
         res.send(demandes);
@@ -114,6 +130,8 @@ export const getDemandes = async (req, res) => {
 
 
 export const getDemandesFinish = async (req, res) => {
+    console.log("getDemandesFinish, route: /demandesFini");
+
     try {
         const demandes = await Reservation.find({ status: reserv.FINI }, { id_parent: 0 });
         res.send(demandes);
@@ -123,6 +141,8 @@ export const getDemandesFinish = async (req, res) => {
 }
 
 export const historiqueForParent = async (req, res) => {
+    console.log("historiqueForParent, route: /historique");
+
     try {
         const demandes = await Reservation.find({ id_parent: req.user._id }, { id_parent: 0 }).sort({ createdAt: 'desc' });
         res.send(demandes);
@@ -133,6 +153,8 @@ export const historiqueForParent = async (req, res) => {
 
 // il faut recuperer les reservations ou l'id du pro corresponds a l'id de la personne connecte
 export const historiqueForPro = async (req, res) => {
+    console.log("historiqueForPro, route: /historique");
+
     try {
         const demandes = await Reservation.find({ id_pro: req.user._id }, { id_parent: 0 }).sort({ createdAt: 'desc' });
         res.send(demandes);

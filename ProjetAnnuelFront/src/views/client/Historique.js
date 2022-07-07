@@ -6,11 +6,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
-import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../style/Payment.module.css';
+import request from '../../utils/request';
 
 export const Historique = () => {
     const [demandes, setDemandes] = useState([]);
@@ -20,7 +20,7 @@ export const Historique = () => {
 
 
     const fetchData = useCallback(() => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/historique`, method: 'GET', withCredentials: true })
+        request.get(`/user/historique`)
             .then((data) => setDemandes(data.data))
     }, []);
 
@@ -29,7 +29,7 @@ export const Historique = () => {
     }, [fetchData]);
 
     const finishreservation = (reservationId) => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/finishReservation/${reservationId}`, method: 'PUT', withCredentials: true })
+        request.put(`/user/finishReservation/${reservationId}`)
             .then(() => fetchData());
     };
 

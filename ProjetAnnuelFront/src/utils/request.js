@@ -1,17 +1,20 @@
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
-export const request = async (url, method, data) => {
-    const navigate = useNavigate;
-    try {
-        return await axios({ url, method, data, withCredentials: true });
-    }
-    catch (err) {
-        console.log(err.response.status);
-        if (err.response.status === 401) {
+const baseURL = process.env.REACT_APP_SERVER;
+const request = axios.create({
+    baseURL,
+    withCredentials: true
+})
+
+request.interceptors.response.use(
+    response => (response),
+    error => {
+        if (error.response.status === 401) {
             localStorage.removeItem("isLoggedIn");
             localStorage.removeItem("role");
-            navigate('/');
         }
+        return (Promise.reject(error.response.data.err))
     }
-};
+)
+
+export default request;

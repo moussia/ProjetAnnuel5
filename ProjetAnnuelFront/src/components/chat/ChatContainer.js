@@ -3,8 +3,8 @@ import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@mui/material";
-import axios from "axios";
 import { getSocket } from "../../utils/socket";
+import request from '../../utils/request';
 
 export default function ChatContainer({ room }) {
   const socket = getSocket();
@@ -37,7 +37,7 @@ export default function ChatContainer({ room }) {
   }, [arrivalMessage]);
 
   const handleFinish = () => {
-    axios({ url: `${process.env.REACT_APP_SERVER}/user/closeChat`, data: { reservationId: room }, method: 'PUT', withCredentials: true })
+    request.put(`/user/closeChat`, { reservationId: room })
       .then(() => {
         socket.emit("leave_room", room);
         setIsChatOpen(false);

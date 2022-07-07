@@ -10,8 +10,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { TextController } from '../components/form/textController';
 import { useForm } from "react-hook-form";
-import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import request from '../utils/request';
 
 export const NewPassword = () => {
     const { search } = useLocation();
@@ -35,7 +35,7 @@ export const NewPassword = () => {
 
         const token = new URLSearchParams(search).get('token');
 
-        axios({ url: `${process.env.REACT_APP_SERVER}/user/resetPassword`, method: 'POST', data: { ...data, token } })
+        request.post(`/user/resetPassword`, { ...data, token })
             .then((data) => {
                 navigate("/login");
                 // setContext(() => ({ isLoggedIn: true, role: data.data.role }));

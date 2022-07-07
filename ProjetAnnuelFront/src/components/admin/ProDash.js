@@ -7,12 +7,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
-import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import styles from '../../style/Payment.module.css';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import request from '../../utils/request';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +33,7 @@ export const ProDash = () => {
   const [count, setCount] = useState(1); // nombre de pages quil y a 
 
   useEffect(() => {
-    axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro`, method: 'GET', withCredentials: true })
+    request.get(`/admin/pro`)
       .then((data) => setPros(data.data))
   }, []);
 
@@ -44,8 +44,7 @@ export const ProDash = () => {
   }, [setCount, pros]);
 
   const activate = async (id) => {
-    const res = await axios({ url: `${process.env.REACT_APP_SERVER}/admin/pro/${id}/activate`, method: 'PUT', withCredentials: true }
-    );
+    const res = await request.put(`/admin/pro/${id}/activate`);
     const data = res.data;
     setPros((prev) => {
       const i = prev.findIndex(elem => {

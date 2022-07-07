@@ -5,10 +5,10 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
-import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import DoneIcon from '@mui/icons-material/Done';
+import request from '../../utils/request';
 
 export const HistoriquePro = () => {
     const [demandes, setDemandes] = useState([]);
@@ -16,7 +16,7 @@ export const HistoriquePro = () => {
     const [count, setCount] = useState(1); // nombre de pages quil y a 
 
     useEffect(() => {
-        axios({ url: `${process.env.REACT_APP_SERVER}/pro/historique`, method: 'GET', withCredentials: true })
+        request.get(`/pro/historique`)
             .then((data) => setDemandes(data.data))
     }, []);
 
